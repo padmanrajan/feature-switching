@@ -1,0 +1,372 @@
+\documentclass{article}
+\usepackage[dvips]{graphicx, epsfig}
+\usepackage{subfigure}
+\usepackage{amssymb,amsmath}
+
+\title{Feature-switching}
+\begin{document}
+
+\section{Introduction}
+Feature extraction is a crucial step in pattern recognition systems. For
+speech signals, feature extraction is a transformation from the acoustic space
+to a feature space. In text-independent speaker verification, the objective is
+to determine if two utterances (the train utterance and the test utterance) are
+both spoken by a particular speaker. We expect that the transformation into the
+feature space effectively discriminates the utterances spoken by the speaker
+under consideration with those spoken by other speakers. Most speaker
+verification systems, however, apply the same transformation, no matter which
+speaker is being considered. In this paper, we explore a new paradigm, which
+exploits the \emph{diversity of information} present in different feature spaces
+for speaker verification. The underlying assumption is that different speakers
+may be better discrimated by different features. Hence, performance can
+be improved by selecting the ``well-suited'' feature transformation for
+each speaker. We term this technique \emph{feature-switching}. 
+%Building of such
+%a system involves determining the better-suited feature for every speaker.
+
+Traditionally, the diversity of different feature transformations have been
+utilised by combining them. These include the so-called \emph{early fusion},
+which is a combination at the feature level, and \emph{late fusion}, which is at
+the classifier (or decision) level. Combining the information from multiple
+feature tranformations usually results in improved performance, though
+with an increase in system complexity. Feature-switching aims to utilise
+information from multiple feature representations, although in a non-traditional
+manner. Early fusion systems typically work by concatenating feature vectors;
+hence the resulting feature space is of higher dimensons. This in turn requires
+more training data to effectively train statistical models. Late fusion requires
+individual systems to be trained and fused; in platforms with limited memory or
+storage space, this could be undesirable. The feature-switching technique
+attempts to get the benefit of multiple feature representations, at the same
+time, reduce the system complexity and storage requirements.
+
+Most feature representations transform the speech signal into its spectral
+representation. The short-term Fourier transform is a complex quantity, with
+information present in both magnitude and phase spectra. It is known from linear
+system theory, that non minimum-phase signals have different information in
+magnitude and phase spectra \cite{oppenheim}. Several studies \cite{ph1, ph2}
+have shown the complementarity of magnitude and phase, and how combining feature
+vectors derived from each of them improves performance in various tasks. In this
+paper, we study the effectiveness of feature-switching for speaker verification
+using feature representations from magnitude-based and phase-based features. We
+perform feature-switching using the standard Mel-frequency cepstra (MFCC)
+\cite{mfcc}, which
+is derived from short-term magnitude, and the modified group delay feature
+(MODGDF) \cite{hegdeModgdf}, which is derived from short-term phase. For each speaker, the
+better-suited of these two representations is determined beforehand. Then,
+feature-switching is applied for speaker verification by verifying some speakers
+using MFCC features, and others using MODGDF features.
+
+We study feature-switching for speaker verification in the context of the
+classical GMM-UBM system \cite{reynoldsAdaptedGMM}, and also the more
+sophisticated i-vector based representation \cite{dehak_ivector}. In both cases,
+our studies show that feature-switching improves verification accuracy, when compared to
+conventional baseline systems, as well as fusion systems. Experiments are performed on the
+NIST 2010 speaker recognition evaluation (SRE) \cite{nist2010SRE} data.
+
+Earlier papers interspeech, asha
+
+\section{Separability analysis in different feature spaces}
+The underlying hypothesis for feature-switching is that speakers are separated
+differently in different feature spaces. To study this in more detail, we
+perform separability studies in MFCC space and MODGDF space.
+
+In the classical GMM-UBM framework \cite{reynoldsAdaptedGMM}, a speaker is
+represented by a Gaussian mixture model (GMM). Given feature vectors extracted
+from a speech utterance, the likelihood ratio of the speaker GMM and that of the
+universal background model (UBM) is computed. Better separation between the GMM
+and the UBM implies improved accuracy in verification.
+
+Figures \ref{fig:gmm_mgd_opt} and \ref{fig:gmm_mfc_opt} illustrate the
+separability obtained in MFCC and MODGDF feature spaces for two different
+speakers. The mean vectors of a 32-mixture GMM and UBM are plotted in
+two-dimensional space. In these figures, the 39-dimensional MFCC and MODGDF
+feature vectors are reduced to two dimensions using the Sammon mapping technique
+\cite{sammon}. It can be seen that in Figure \ref{fig:gmm_mgd_opt}, there is
+better separation between the GMM and the UBM in the MODGDF space, when compared
+to the MFCC space. Thus, it is likely that this speaker is better discriminated
+against the UBM in the MODGDF space. Similarly, for a different speaker, 
+Figure \ref{fig:gmm_mfc_opt} shows better separation in the MFCC space. Thus,
+for this speaker, performing verification in the MFCC space gives better
+discrimination between the UBM and the GMM. 
+
+Similar anaysis is performed in ivector space.
+
+
+\begin{figure}[!h]
+\centering
+\subfigure[Speaker and UBM centriods in 2 dimensions in MFCC space. 
+There is high overlap and hence higher confusablity in this space.]{
+\includegraphics[scale=0.30]{figures/partA_highOverlap.eps}
+\label{fig:subfig1}
+}
+\subfigure[Speaker and UBM centriods in MODGDF space. There is a distinct 
+clustering of centriods which is shown by the SVM boundary.]{
+\includegraphics[scale=0.30]{figures/partC_lessOverlap.eps}
+\label{fig:subfig2}
+}
+\caption[]{Subfigures \subref{fig:subfig1} and \subref{fig:subfig2} 
+show the same speaker and background model centriods in MFCC and 
+MODGDF spaces. This speaker and the UBM are better separable in 
+MODGDF space.}
+\label{fig:gmm_mgd_opt}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\subfigure[Speaker and UBM centriods in 2 dimensions in MODGDF space. There 
+is high overlap and hence higher confusablity in this space.]{
+\includegraphics[scale=0.30]{figures/partB_highOverlap.eps}
+\label{fig:subfig3}
+}
+\subfigure[Speaker and UBM centriods in MFCC space. There is a distinct 
+clustering of centriods which is shown by the SVM boundary.]{
+\includegraphics[scale=0.30]{figures/partD_lessOverlap1.eps}
+\label{fig:subfig4}
+}
+\caption[]{Subfigures \subref{fig:subfig3} and \subref{fig:subfig4} show the 
+same speaker and background model centriods in MFCC and MODGDF spaces. This 
+speaker and the UBM are better separable in MFCC space.}
+\label{fig:gmm_mfc_opt}
+\end{figure}
+
+
+
+
+
+\section{Optimal feature selection and feature-switching}
+
+Speaker verification is a two-class problem. A verification trial consists of a
+test utterance from an unknown speaker, and a speaker claim. Feature-swtching
+can be naturally applied to the verification scenario by performing
+verification in the well-suited feature space of the claimed speaker. This
+well-suited feature representation is henceforth termed as the \emph{optimal
+feature}. The overall architecture of the feature-switching system is shown in
+Figure \ref{fig:systemArch}. The optimal feature is determined for every speaker
+during enrollment, and stored into a lookup-table. During testing, the optimal
+feature of the claimed speaker is looked-up, and verification is performed in
+the optimal feature space.
+
+\begin{figure}[th]
+\centering
+\includegraphics[width=0.5\textwidth]{figures/blank.eps}
+\caption{System architecture for feature-switching.}
+\label{fig:systemArch}
+\end{figure}
+
+
+
+\subsection{Determining the optimal feature for the GMM-UBM framework}
+
+For the GMM-UBM framework, the method of determining the optimal feature for a
+particular speaker, given a set of candidate feature representations, is
+described in \cite{padmanInterspeech2010}. The optimal feature is determined by
+evaluating the representation ability and discrimination ability
+of each candidate feature representation. Given an enrollment utterance, the mutual information
+between extracted feature vectors and the complex Fourier transform (CFT) is used as an
+estimate of information captured by the feature vectors. Thus, the
+representation ability of the feature representation is given as
+\begin{equation}
+\textrm{mi}(\textrm{CFT},X),
+\end{equation}
+where $\textrm{mi}$ represents the mutual information, CFT is the complex
+Fourier transform, and $X$ is a set of feature vectors, which are computed from
+the utterance.
+
+
+
+
+The discrimination ability
+is determined by estimating the Kullback-Leibler divergence (KL-divergence)
+between the UBM and the speaker GMM adapted from it. Because of the one-to-one
+correspondence between the mixture components of the background model and the
+speaker model, the KL-divergence can be expressed in closed-form. 
+For two unimodal Gaussian distributions $\hat{f}$ and $\hat{g}$, the KL-divergence has the closed form
+expression
+\begin{equation}
+\begin{split}
+\textrm{kld}(\hat{f},\hat{g}) = \frac{1}{2}\left[ \log \frac{|\Sigma_g|}{|\Sigma_f|} +
+	\textrm{Tr}|\Sigma^{-1}_g\Sigma_f| - d + \right. \\ 
+\left. (\mu_f-\mu_g)^T\Sigma_g^{-1}(\mu_f-\mu_g) \frac{}{} \right], 
+\end{split}
+\label{eq:kldGaussians}
+\end{equation}
+
+where $\hat{f} = \mathcal{N}(\mu_f,\Sigma_f)$ and $\hat{g} = \mathcal{N}(\mu_g,\Sigma_g)$.
+
+For speaker models whose means are adapted from the UBM (the 
+covariances and mixture weights are same as that of the UBM), the KL-divergence
+reduces to 
+\begin{equation}
+\textrm{kld}(\lambda_{\textrm{spk}},\lambda_{\textrm{UBM}}) = 
+	\Sigma_i\, \pi_i\, \textrm{kld}(f_i,g_i),
+\label{eq:gmmAdaptedKLD}
+\end{equation}
+
+%where $\lambda_{\textrm{spk}} = \Sigma_i \, \pi_i \, \mathcal{N}(\mu_i^{\textrm{spk}},\Sigma)$ 
+
+where $\lambda_{\textrm{spk}} = \Sigma_i \, \pi_i \, f_i$, and
+$\lambda_{\textrm{UBM}} = \Sigma_i \, \pi_i \, g_i$, and
+$f = \mathcal{N}(\mu_{\textrm{spk}},\Sigma)$, and
+$g = \mathcal{N}(\mu_{\textrm{UBM}},\Sigma)$ and
+$\pi$ are the mixture weights.
+
+
+The optimal feature for a particular speaker is determined from the combined
+representative and discriminative measures of each of the $P$ candidate
+features. For the $p$th feature representation, we determine
+
+\begin{eqnarray*}
+&& \theta_p = \textrm{mi}(\textrm{CFT},X_{p}) \\ && \gamma_p =
+\textrm{kld}(\lambda_{\textrm{spk},p},\lambda_{\textrm{UBM},p}) \\
+\end{eqnarray*} 
+where $X_p$ are feature vectors, the speaker model $\lambda_{\textrm{spk}}$ and 
+UBM $\lambda_{\textrm{UBM}}$ are in the $p$th feature space, and $p$ ranges from 1 to $P$.
+
+
+%\in
+%\{\textrm{MFCC},\textrm{LPCC},\textrm{MODGDF},\textrm{fSlope}\}$,  $\mathcal{X}$
+%represents the complex Fourier spectrum, $\mathcal{Y}_i$ represents the $i$ th feature
+%representation, $\lambda_{\textrm{spk},i}$ is the speaker model and $\lambda_{\textrm{UBM},i}$
+%is the background model,
+%using the $i$ th feature representation.
+
+
+A linear combination of these two measures are used to determine the optimal
+feature
+
+\begin{equation}
+\phi_p = \alpha \theta_p  + (1-\alpha) \gamma_p
+\end{equation}
+
+where $\alpha$ is a weighting parameter determined experimentally. The optimal
+feature $\hat{p}$ is selected as 
+
+\begin{equation}
+\hat{p} = \arg\max_p \{\phi_p\}
+\label{eq:optFeat}
+\end{equation}
+
+\subsection{Determining the optimal feature in the i-vector framework}
+
+The i-vector representation \cite{dehak_ivector} is a a fixed-length
+representation of speech utterances, which usually have a variable number of
+traditional feature vectors.  Given an $FM \times 1$ supervector of means $\mu$
+derived from a UBM, a speaker and recording specific supervector $s$ is assumed to of
+the form
+
+\begin{equation}
+s = \mu + T w.
+\end{equation}
+
+Here, acoustic feature vector is $F$-dimensional, the UBM has $M$ components,
+$T$ is an $FM \times D$ low-rank matrix, and $w$ is a $D \times 1$ latent
+vector, with a standard normal distribution $w \sim \mathcal{N}(0,I)$. The
+i-vector is estimated as the mean of the posterior distribution of $w$, given
+the utterance. Procedures to estimate the hyperparameters $(\mu, T)$ and 
+estimate i-vectors from an utterance can be found in \cite{dehak_ivector}.
+
+The i-vector representing an utterance encodes information about the message,
+the speaker, and the channel. To compensate for unwanted channel effects,
+several preprocessing steps like length normalization \cite{garcia_lengthNorm},
+and within-class covariance normalization (WCCN) \cite{wccn} is performed. A
+popular method to measure similarity between two i-vectors is cosine 
+distance \cite{dehak_ivector}.
+
+For a given utterance, i-vectors can be estimated from different acoustic
+feature vectors and their associated hyperparameters. Hence, the
+better-suited ivector representation for a particular speaker can be estimated
+from amongst i-vectors extracted from different acoustic features. One way of
+doing this is by determining the i-vector representation which has the maximum
+distance between the given speaker and the other enrollment speakers. If there
+are $N$ speakers, the optimal i-vector representation $\Hat{\Hat{p}}$ 
+for the $i$th speaker can be determined as
+
+\begin{equation}
+\Hat{\Hat{p}} = \arg\max_p \{s_p\}
+\end{equation}
+
+where 
+
+\begin{equation}
+s_p = \frac{\displaystyle \sum_{j=1, \; i \neq j}^N d(w_{p,i},w_{p,j})}{N}
+\end{equation}
+
+Here, $w_{p,j}$ represents the enrollment i-vector for the $j$th speaker
+extracted using the $p$th feature representation. $d$ is a distance measure (for
+example, cosine distance) between i-vectors. For the $i$th speaker, the average
+distance with the other enrollment speakers is used to determine the optimal
+i-vector representation.
+
+\section{Feature extraction}
+
+\section{Experimental evaluation}
+
+We perform an experimental evaluation of the proposed feature-switching
+mechanism, in the context of both the GMM-UBM framework, and the i-vector
+framework.
+
+\subsection{Baseline verification systems}
+\textbf{GMM-UBM system.} Give details here. UBM size, top C, etc.
+The baseline systems are denoted as follows.
+\begin{enumerate}
+\item UBM-MFC-male and UBM-MFC-female
+\item UBM-MGD-male and UBM-MGD-female
+\end{enumerate}
+
+\textbf{i-vector system.} Give details here. T matrix size, feature dimension,
+WCCN details etc. 
+\begin{enumerate}
+\item ivec-MFC-male and ivec-MFC-female
+\item ivec-MGD-male and ivec-MGD-female
+\end{enumerate}
+
+\subsection{Datasets used}
+The evaluation is performed using the telephone conditions of the NIST 2010
+speaker recognition evaluation (SRE.) These are the following NIST SRE 2010
+conditions: C5, C6, C7, C8, C9 \cite{nist2010SRE}.
+\textit{Put a table here.}
+
+Give details of what data you used for extracting hyperparameters: UBM, Tmatrix
+etc.
+
+
+\subsection{Feature-switching framework}
+In the proposed feature-switching framework, different speaker claims are
+verified using different feature representations. The following
+feature-switching systems are evaluated.
+\begin{enumerate}
+\item FS-UBM-male and FS-UBM-female
+\item FS-ivec-male and FS-ivec-female
+\end{enumerate}
+
+\textit{Give details about the FS systems here}
+
+When a test utterance and a speaker claim is input, the feature-switching system
+obtains the optimal feature from the lookup table. Then the corresponding
+baseline system (which is optimal for the claimed speaker) is used to perform the verification.
+
+\textbf{GMM-UBM feature-switching system.}
+How did you determne the $\alpha$ values?
+How many speakers got MFCC and how many got MGD?
+
+\textbf{i-vector feature-switching system.}
+How many speakers got MFCC and how many got MGD?
+
+Are the optimal features different for UBM-GMM and i-vector systems?
+
+
+
+
+
+
+
+
+\bibliography{refs}
+\bibliographystyle{IEEEtran}
+
+
+
+
+%Speaker identification is an $N$-class problem, whereas speaker verification
+
+\end{document}
