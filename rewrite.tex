@@ -180,7 +180,7 @@ the optimal feature space.
 
 \begin{figure}[th]
 \centering
-\includegraphics[scale=0.35]{figures/FS_Architect.eps}
+\includegraphics[scale=0.25]{figures/FS_Architect.eps}
 \caption{System architecture with Training and Testing phase for feature-switching.}
 \label{fig:systemArch}
 \end{figure}
@@ -303,24 +303,26 @@ better-suited i-vector representation for a particular speaker can be estimated
 from amongst i-vectors extracted from different acoustic features. One way of
 doing this is by determining the i-vector representation which has the maximum
 distance between the given speaker and the other enrolment speakers. If there
-are $N$ speakers, the optimal i-vector representation $\Hat{\Hat{p}}$ 
+are $N$ speakers, the optimal i-vector representation $\Hat{p}$ 
 for the $i$th speaker can be determined as
 
 \begin{equation}
-\Hat{\Hat{p}} = \arg\max_p \{s_p\}
+\Hat{p} = \arg\max_p \{s_p\}
+\label{eq:p_hat}
 \end{equation}
 
 where 
 
 \begin{equation}
 s_p = \frac{\displaystyle \sum_{j=1, \; i \neq j}^N d(w_{p,i},w_{p,j})}{N}
+\label{eq:sp}
 \end{equation}
 
 Here, $w_{p,j}$ represents the enrolment i-vector for the $j^{th}$ speaker
 extracted using the $p^{th}$ feature representation. $d$ is a distance measure (for
 example, cosine distance) between i-vectors. For the $i^{th}$ speaker, the average
 distance with the other enrolment speakers is used to determine the optimal
-i-vector representation.
+i-vector representation. 
 
 \section{Feature extraction}
 \label{sec:featExt}
@@ -331,7 +333,7 @@ In this paper, the threshold for VAD is computed as percentage of average energy
 
 The acoustics of the speech waveform contains information about the speaker, language and sound unit. MFCCs are the most commonly used features, which discard phase information and retains the magnitude spectrum of Short-Time-Fourier-Transform. The process of extracting MFCC from the speech signal is detailed in \cite{mel}.
 
-Initially it was believed that human ears are insensitive to phase, but researchers have  proved that phase information is also important in perception of sound \cite{shi}.  Short-time phase characteristics of speech signal are efficiently represented using group-delay \cite{group_delay}. Due to the periodic nature of pitch, the conventional group delay function does not capture the dynamic range of the speech spectrum. The modified group delay function restores this dynamic range \cite{hema_gds}.
+Initially it was believed that human ears are insensitive to phase, but researchers have  proved that phase information is also important in perception of sound \cite{shi}.  Short-time phase characteristics of speech signal are efficiently represented using group-delay \cite{group_delay}. Due to the periodic nature of pitch, the conventional group delay function does not capture the dynamic range of the speech spectrum, whereas the modified group delay function restores this dynamic range \cite{hema_gds}.
 
 Phase based MGD features accurately captures the information contained in the formants.  As explained in  \cite{mgd_complement}, the MFCC and MGD features are complement to each other. MGD feature performs well where MFCC fails and vice-versa. Thus MFCC and MGD are chosen in this study to experiment the effect of feature switching in speaker verification system.
 
@@ -363,17 +365,31 @@ Here for the objective of comparative study of two different frameworks, the dev
 
 \section{Experimental evaluation}
 \label{sec:ExpSetup}
-We perform an experimental evaluation of the proposed feature-switching
-mechanism, in the context of both the GMM-UBM framework, and the i-vector
+An experimental evaluation of the proposed feature-switching
+mechanism, is performed in the context of both the GMM-UBM framework, and the i-vector
 framework. Equal error rate (EER) is used as the evaluation metric.
 
-The MFCC and MGD features are extracted from both development and evaluation data, for both genders as mentioned in Section \ref{sec:featExt} with a frame size of 25 ms and frame shift of 10 ms.
+In this paper, the experiments are conducted for both male and female genders. The MFCC and MGD features are extracted from both development and evaluation data, for both genders as mentioned in Section \ref{sec:featExt} with a frame size of 25 ms and frame shift of 10 ms.
 
-In UBM-GMM framework speaker dependent models are built for training data, by adapting the means of the UBM. In test phase, the test utterance comes with a claim. The features are extracted for given test utterances. With the help of UBM, these features are compared against the trained speaker-dependent models and log-likelihood scores are obtained. This score is then normalized using T-Norm. Based on the ground truth given in database, the scores of test utterances are classified as true scores or impostor scores. EER is computed with these scores to evaluate the performance of the developed system.
+In UBM-GMM framework Universal Background Model (UBM) is built for both genders in each feature domain. Speaker dependent models are built for training data, by adapting the means of the feature-based, gender-dependent UBM. Optimal feature for every train speaker in evaluation data is identified and a look-up table is generated as detailed in the Section \ref{subsec:ubm_optFeat}. The complete procedure of selecting optimal feature is shown in the Figure \ref{fig:fs_ubmgmm}.
 
-In i-vector framework, after building UBM, first order statistics are calculated for the development data, from which super vectors are formed. A randomly  initialized T-matrix is used along with super vectors to get the i-vectors for every trial in development data. Now, T-matrix and i-vectors are re-estimated iteratively. The re-estimation is stopped with after few iterations, because the values of i-vectors obtained from next iteration do not differ much. The T-matrix obtained from last iteration is considered as final T-matrix.
+\begin{figure}[h!tb]
+\includegraphics[scale=0.25]{figures/opt_feat.eps}
+\caption{Optimal Feature Selection Procedure in UBMGMM Framework}
+\label{fig:fs_ubmgmm}
+\end{figure}
 
-The estimated i-vectors are subjected to whitening transformation, followed by Linear Discriminant Analysis (LDA) and With-in Class Covariance Matrix (WCCN), to get completely decorrelated i-vectors. The i-vectors for evaluation data set is generated using final T-matrix. Now either cosine similarity measure or Euclidean distance measure can be used to calculate the amount of similarity/difference between a test utterance and its claim model. T-normalization is used to normalize these scores \cite{tnorm}, and true and imposter scores are calculated based on ground truth. Performance of the system is determined by EER.
+In test phase, the test utterance comes with a claim. The optimal feature for the claim is identified from the look-up table and that optimal feature is extracted for given test utterances. With the help of UBM, these features are compared against the trained speaker-dependent models and log-likelihood scores are obtained. This score is then normalized using T-Norm. Based on the ground truth given in database, the scores of test utterances are classified as true scores or impostor scores. EER is computed with these scores to evaluate the performance of the developed system. 
+
+In i-vector framework, after building UBM, first order statistics are calculated for the development data, from which super vectors are formed. A randomly  initialized T-matrix is used along with super vectors to get the i-vectors for every trial in development data. Now, T-matrix and i-vectors are re-estimated iteratively. The re-estimation is stopped with after few iterations, because the values of i-vectors obtained from next iteration do not differ much. The T-matrix obtained from last iteration is considered as final T-matrix. The estimated i-vectors are subjected to whitening transformation, followed by Linear Discriminant Analysis (LDA) and With-in Class Covariance Matrix (WCCN), to get completely decorrelated i-vectors. The i-vectors for evaluation data set is generated using final T-matrix. Optimal features for training speakers are identified and a look up table is generated as in the Section \ref{subsec:ivec_optFeat}. The sketch of optimal feature selection procedure in i-vector framework is shown in the Figure \ref{fig:fs_ivec}. In the figure, Equations \ref{eq:sp} and \ref{eq:p_hat} is represented as $\Sigma/N$ and Max\{S\_mfcc,S\_mgd\} respectively.
+
+\begin{figure}[h!tb]
+\includegraphics[scale=0.25]{figures/fs_ivec.eps}
+\caption{Skeleton of Optimal Feature Selection Procedure in i-vector Framework}
+\label{fig:fs_ivec}
+\end{figure}
+
+For a  test utterance, i-vector is derived using T-matrix in claim's optimal feature domain.  Either cosine similarity measure or Euclidean distance measure can be used to calculate the amount of similarity/difference between the i-vectors of test utterance and the trials of claimed speaker. T-normalization is used to normalize these scores \cite{tnorm}, and true and imposter scores are calculated based on ground truth. Performance of the system is determined by EER.
 
 \subsection{Baseline verification systems}
 \textbf{GMM-UBM system.} 
