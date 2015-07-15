@@ -9,9 +9,16 @@
 \usepackage{flushend}
 \usepackage{subfigure}
 
+\DeclareMathSizes{10}{10}{10}{10}
+
 \title{Feature-switching paper draft today modified again from Mandi}
 
 \begin{document}
+
+\section{Abstract}
+\label{sec:abstract}
+In the speaker verification task, the test utterance has to be verified against the claim, which comes along with it. Feature fusion, score fusion and feature switching are different archetypes employed in the task of performing speaker verification. Feature fusion combines different features in order to use the complementary information present in it. This leads to very large dimension of features. An alternate approach is score fusion, also known as late fusion, where fusion is carried out at score-level and the contribution of feature types are determined by set of weights. The other significant way to attain the advantage of different feature space is feature switching, where the best discriminating feature is identified and used for every speaker. A comparative study of feature switching in speaker verification task is elaborated in this paper on the standard NIST SRE 2010 database for both male and female genders using Mel-Frequency Cepstral Coefficients  (MFCC) and Modified Group Delay features  (MGD) in two different frameworks namely, state-of-the-art i-vector framework and conventional UBM-GMM framework.
+
 
 \section{Introduction}
 \label{sec:intro}
@@ -100,7 +107,7 @@ and the UBM implies improved accuracy in verification.
 %	\begin{figure}
     \includegraphics[scale=0.20]{figures/partC_lessOverlap.eps}
 	\caption*{(b)}
-	\label{fig:GmMfcOpt}
+	\label{fig:GmmMfcOpt}
 %	\end{figure}
 \end{minipage}
 \caption{Sub-figures (a) and (b) show the same speaker and background model centroids in MFCC and MODGDF spaces. This speaker and the UBM are better separable in 
@@ -111,19 +118,19 @@ MODGDF space.}
 \begin{figure}[h]
 \centering 
 \begin{minipage}[c]{0.5\textwidth}
-\centering \hspace{-6cm}
+\centering \hspace{-4cm}
 %	\begin{figure}
-    \includegraphics[scale=0.20]{figures/partA_highOverlap.eps}
+    \includegraphics[scale=0.48]{figures/tecer_mgd.eps}
 	\caption*{(a)}
 	\label{fig:GmmMgdOpt}
 %	\end{figure}
 \end{minipage}%
-\begin{minipage}[c]{0.35\textwidth}
-\centering  \hspace{-4.5cm}
+\begin{minipage}[c]{0.5\textwidth}
+\centering  
 %	\begin{figure}
-    \includegraphics[scale=0.20]{figures/partC_lessOverlap.eps}
+    \includegraphics[scale=0.23]{figures/tecer_mfcc.eps}
 	\caption*{(b)}
-	\label{fig:GmMfcOpt}
+	\label{fig:GmmMfcOpt}
 %	\end{figure}
 \end{minipage}
 \caption{Sub-figures (a) and (b) show the same speaker and background model centroids in MFCC and MODGDF spaces. This speaker and the UBM are better separable in 
@@ -133,14 +140,14 @@ MFCC space.}
 
 Figures \ref{fig:ubm_sep1} and \ref{fig:ubm_sep2} illustrate the
 separability obtained in MFCC and MODGDF feature spaces for two different
-speakers. The mean vectors of a 64-mixture GMM and UBM are plotted in
+speakers. The mean vectors of a 32-mixture GMM and UBM are plotted in
 two-dimensional space. In these figures, the 39-dimensional MFCC and MODGDF
 feature vectors are reduced to two dimensions using the Sammon mapping technique
 \cite{sammon}. It can be seen that in Figure \ref{fig:GmmMgdOpt}, there is
 better separation between the GMM and the UBM in the MODGDF space, when compared
 to the MFCC space. Thus, it is likely that this speaker is better discriminated
 against the UBM in the MODGDF space. Similarly, for a different speaker, 
-Figure \ref{fig:GmMfcOpt} shows better separation in the MFCC space. Thus,
+Figure \ref{fig:GmmMfcOpt} shows better separation in the MFCC space. Thus,
 for this speaker, performing verification in the MFCC space gives better
 discrimination between the UBM and the GMM. 
 
@@ -204,7 +211,7 @@ Fourier transform, and $X$ is a set of feature vectors, which are computed from
 the utterance.
 
 
-The discrimination ability is determined by estimating the Kullback-Leibler divergence (KL-divergence) between the UBM and the speaker GMM adapted from it. Because of the one-to-one
+The discrimination ability is determined by estimating the Kullback-Leibler divergence (KL-divergence) between the UBM ($\lambda_{ubm}$) and the speaker GMM adapted ($\lambda_{spk}$) from it. Because of the one-to-one
 correspondence between the mixture components of the background model and the speaker model, the KL-divergence can be expressed in closed-form. For two uni-modal Gaussian distributions $\hat{f}$ and $\hat{g}$, the KL-divergence has the closed form expression
 \begin{equation}
 \begin{split}
@@ -217,9 +224,7 @@ correspondence between the mixture components of the background model and the sp
 
 where $\hat{f} = \mathcal{N}(\mu_f,\Sigma_f)$ and $\hat{g} = \mathcal{N}(\mu_g,\Sigma_g)$.
 
-For speaker models whose means are adapted from the UBM (the 
-covariances and mixture weights are same as that of the UBM), the KL-divergence
-reduces to 
+For speaker models ($\lambda_{spk}$) whose means are adapted from the UBM model $\lambda_{ubm}$ (the covariances and mixture weights are same as that of the UBM), the KL-divergence reduces to 
 \begin{equation}
 \textrm{kld}(\lambda_{\textrm{spk}},\lambda_{\textrm{UBM}}) = 
 	\Sigma_i\, \pi_i\, \textrm{kld}(f_i,g_i),
@@ -237,7 +242,7 @@ $\pi$ are the mixture weights.
 
 The optimal feature for a particular speaker is determined from the combined
 representative and discriminative measures of each of the $P$ candidate
-features. For the $p$th feature representation, we determine
+features. For the $p^{th}$ feature representation, we determine
 
 \begin{eqnarray*}
 && \theta_p = \textrm{mi}(\textrm{CFT},X_{p}) \\ && \gamma_p =
@@ -347,11 +352,11 @@ SRE99, SRE03 and SRE04 have telephone conversations while SRE05 has both telepho
 \vspace{0.25cm}
 Out of four training  conditions mentioned in  \cite{sre2010}, only the core set of data is chosen for training   and testing. This set of training   data comprises of telephone and microphone data. Telephone data is a two-channel conversation telephone data each of approximately 5 minutes in duration, and target is designated with the channel name.  Microphone data is the data recorded over microphone each of 3 to 15 minutes and this is a conversation recording between the interviewer (channel B) and the person who attends the interview (channel A).  Similarly, out of 4 test segment conditions, the core-set data prepared in same way as of training   data set is chosen for testing.
 
-\vspace{0.25cm}
-This database has separate training  and test sets for male and female genders. 9 different evaluation conditions are proposed in  \cite{sre2010}. Performance results on these evaluation trial subsets are treated as official evaluation outcomes. Of these 10 evaluation conditions, conditions from 1 to 4  (say C1 to C4), involves interview data, C5, C6, C8 involves telephone data, and C7,C9 involves interview data over microphone.
 
 \subsection{ \small \bf Test Conditions from SRE10 Evaluation Plan}
 \label{subsec:test_conditions}
+NIST SRE 2010 database has separate training  and test sets for male and female genders. 9 different evaluation conditions are proposed in  \cite{sre2010}. Performance results on these evaluation trial subsets are treated as official evaluation outcomes. Of these nine evaluation conditions, conditions from 1 to 4  (say C1 to C4), involves interview data, C5, C6, C8 involves telephone data, and C7,C9 involves interview data over microphone.
+
 
 Here for the objective of comparative study of two different frameworks, the development data used to estimate UBM and T-matrix includes only telephone and microphone data. So the evaluation conditions from C5 to C9, detailed below had been evaluated.
 
@@ -369,7 +374,7 @@ An experimental evaluation of the proposed feature-switching
 mechanism, is performed in the context of both the GMM-UBM framework, and the i-vector
 framework. Equal error rate (EER) is used as the evaluation metric.
 
-In this paper, the experiments are conducted for both male and female genders. The MFCC and MGD features are extracted from both development and evaluation data, for both genders as mentioned in Section \ref{sec:featExt} with a frame size of 25 ms and frame shift of 10 ms.
+In this paper, the experiments are conducted for both male and female genders. The MFCC and MGD features are extracted from both development and evaluation data, for both genders as mentioned in Section \ref{sec:featExt}.
 
 In UBM-GMM framework Universal Background Model (UBM) is built for both genders in each feature domain. Speaker dependent models are built for training data, by adapting the means of the feature-based, gender-dependent UBM. Optimal feature for every train speaker in evaluation data is identified and a look-up table is generated as detailed in the Section \ref{subsec:ubm_optFeat}. The complete procedure of selecting optimal feature is shown in the Figure \ref{fig:fs_ubmgmm}.
 
@@ -379,9 +384,9 @@ In UBM-GMM framework Universal Background Model (UBM) is built for both genders 
 \label{fig:fs_ubmgmm}
 \end{figure}
 
-In test phase, the test utterance comes with a claim. The optimal feature for the claim is identified from the look-up table and that optimal feature is extracted for given test utterances. With the help of UBM, these features are compared against the trained speaker-dependent models and log-likelihood scores are obtained. This score is then normalized using T-Norm. Based on the ground truth given in database, the scores of test utterances are classified as true scores or impostor scores. EER is computed with these scores to evaluate the performance of the developed system. 
+In test phase, the test utterance comes with a claim. The optimal feature for the claim is identified from the look-up table and that optimal feature is extracted for given test utterances. With the help of UBM, these features are compared against the trained speaker-dependent models and log-likelihood scores are obtained. This scores are then subjected to T-Normalisation. Based on the ground truth given in database, the scores of test utterances are classified as true scores or impostor scores. EER is computed with these scores to evaluate the performance of the developed system. 
 
-In i-vector framework, after building UBM, first order statistics are calculated for the development data, from which super vectors are formed. A randomly  initialized T-matrix is used along with super vectors to get the i-vectors for every trial in development data. Now, T-matrix and i-vectors are re-estimated iteratively. The re-estimation is stopped with after few iterations, because the values of i-vectors obtained from next iteration do not differ much. The T-matrix obtained from last iteration is considered as final T-matrix. The estimated i-vectors are subjected to whitening transformation, followed by Linear Discriminant Analysis (LDA) and With-in Class Covariance Matrix (WCCN), to get completely decorrelated i-vectors. The i-vectors for evaluation data set is generated using final T-matrix. Optimal features for training speakers are identified and a look up table is generated as in the Section \ref{subsec:ivec_optFeat}. The sketch of optimal feature selection procedure in i-vector framework is shown in the Figure \ref{fig:fs_ivec}. In the figure, Equations \ref{eq:sp} and \ref{eq:p_hat} is represented as $\Sigma/N$ and Max\{S\_mfcc,S\_mgd\} respectively.
+In i-vector framework, after building UBM, first order statistics are calculated for the development data, from which super vectors are formed. A randomly  initialized T-matrix is used along with super vectors to get the i-vectors for every trial in development data. After random initialization, T-matrix and i-vectors are re-estimated iteratively. The re-estimation is stopped with after few iterations, because the values of i-vectors obtained from next iteration do not differ much. The i-vectors of training data set are subjected to whitening transformation, followed by Linear Discriminant Analysis (LDA) and With-in Class Covariance Matrix (WCCN), to get completely decorrelated i-vectors. Then i-vectors for evaluation data set is generated using the T-matrix. Optimal features for training speakers are identified and a look up table is generated as in the Section \ref{subsec:ivec_optFeat}. The sketch of optimal feature selection procedure in i-vector framework is shown in the Figure \ref{fig:fs_ivec}. In the figure, Equations \ref{eq:sp} and \ref{eq:p_hat} is represented as $\Sigma/N$ and Max\{S\_mfcc,S\_mgd\} respectively.
 
 \begin{figure}[h!tb]
 \includegraphics[scale=0.25]{figures/fs_ivec.eps}
@@ -389,26 +394,53 @@ In i-vector framework, after building UBM, first order statistics are calculated
 \label{fig:fs_ivec}
 \end{figure}
 
-For a  test utterance, i-vector is derived using T-matrix in claim's optimal feature domain.  Either cosine similarity measure or Euclidean distance measure can be used to calculate the amount of similarity/difference between the i-vectors of test utterance and the trials of claimed speaker. T-normalization is used to normalize these scores \cite{tnorm}, and true and imposter scores are calculated based on ground truth. Performance of the system is determined by EER.
+For a given test utterance, i-vector is extracted in the claimed speaker's optimal feature domain. Either cosine similarity or Euclidean distance measures can be computed between the i-vectors of test utterance and the i-vectors of all the training utterances of claimed speaker. Scores are subjected to T-normalization, and the EER is computed for given threshold. True and imposter scores are identified based on ground truth. 
 
 \subsection{Baseline verification systems}
-\textbf{GMM-UBM system.} 
-Four individual systems are built as baseline systems in both frameworks.  Once features are extracted, gender dependent 1024 mixture UBMs are built for each feature type by pooling corresponding features of the development data. 
-Give details here. UBM size, top C, etc.
+MFCC and MODGDF based systems are built for male and female separately as baseline systems in both UBM-GMM and i-vector frameworks.  
+
+\vspace*{0.25cm}
+
+\textbf{GMM-UBM system:} 38-dimensional feature vectors are extracted in each feature domain. Gender dependent 1024 mixture UBMs are built for each feature type by pooling corresponding features of the development data. Speaker dependent models are generated for the training data by adapting the means of top 10 maximum contributing mixture components of UBM. In the testing phase, features of the test utterance are extracted. Similarity scores are computed by calculating the ratios of the log-likelihood of extracted feature with $\lambda_{spk}$, and  the log-likelihood of $\lambda_{ubm}$. 
+
 The baseline systems are denoted as follows.
 \begin{enumerate}
-\item UBM-MFC-male and UBM-MFC-female
-\item UBM-MGD-male and UBM-MGD-female
+\item UBM-MFC-male : Male speaker verification system with MFCC feature
+\item UBM-MFC-female : Female speaker verification system with MFCC feature
+\item UBM-MGD-male : Male speaker verification system with MODGD feature
+\item UBM-MGD-female : Female speaker verification system with MODGD feature
 \end{enumerate}
 
-\textbf{i-vector system.} Give details here. T matrix size, feature dimension,
-WCCN details etc. 
+\textbf{i-vector system.} 
+Similar to UBM-GMM systems, 38 dimensional feature vectors are extracted and feature-based 1024 mixture UBMs are built for each gender. i-vectors of reduced dimension $R$ are obtained from the T-matrix of size $(38\times1024)$-by-$R$. Whitening transformation and WCCN are applied to the i-vectors of development data using a transformation matrices of dimension $R$-$by$-$R$.
+
+The four different baseline systems developed in this framework are referred as 
 \begin{enumerate}
-\item ivec-MFC-male and ivec-MFC-female
-\item ivec-MGD-male and ivec-MGD-female
+\item ivec-MFC-male 
+\item ivec-MFC-female
+\item ivec-MGD-male
+\item ivec-MGD-female
 \end{enumerate}
 
-\subsection{Feature-switching framework}
+Performance of the baseline systems are evaluated by calculating EER between the impostor scores and true scores of each system and the results are listed in the Table \ref{tab:eer}.
+
+\subsection{Score-Fusion Systems}
+\label{subsec:scoreFusion}
+	It is shown in literature that instead of using a single feature based speaker verification system, more than one feature can be used to improve the effectiveness of the system. This is possible with different strategies like early fusion, score fusion etc. {\it Feature fusion}, also often referred as {\it early fusion} is the process of concatenating the individual feature vectors of different feature types \cite{padmanInterspeech2010}. The detriment of this method is the increased dimension of the new concatenated feature vectors. 
+	
+	Score fusion is the another method, where the goal is to improve the performance by combining the scores of individual feature-specific systems. The contribution of individual systems are determined by a weight parameter \cite{scoreFusion}. Though this procedure do not have the detriment of early fusion system, two individual feature-specific systems are needed to be developed to get the score fusion systems. 
+	In this paper, score fusion systems are built in i-vector and UBM-GMM frameworks for comparing the performance of feature switching systems. The four score fusion system are
+	\begin{enumerate}
+	\item SF-UBM-male
+	\item SF-UBM-female
+	\item SF-ivec-male
+	\item SF-ivec-female	
+	\end{enumerate}
+	The EER's of these systems are listed in table \ref{tab:eer}.
+
+\subsection{Feature-switching Systems}
+\label{subsec:featSwitch}
+
 In the proposed feature-switching framework, different speaker claims are
 verified using different feature representations. The following
 feature-switching systems are evaluated.
@@ -433,15 +465,60 @@ How many speakers got MFCC and how many got MGD?
 Are the optimal features different for UBM-GMM and i-vector systems?
 
 
+\section{Performance Evaluation}
+\label{sec:perfEval}
 
+\begin{table}[t]
+	\centering
+	\caption{EERs in \% for baseline systems, score fusion (SF) systems and feature switching (FS) systems in UBM-GMM and i-vector frameworks}
+	\begin{tabular}{|c|c|c|c|c|c|} \hline
+ {\bf System} & {\bf C5 } &  {\bf C6} & {\bf C7} & {\bf C8}  & {\bf C9  }\\ \hline \hline
 
+UBM-MFC-Male & 17.27 & 18.09 & 18.06 & 11.82 & 4.55 \\ \hline
 
+UBM-MGD-Male & 19.54 & 19.89 & 11.65 & 13.99 & 5.19 \\ \hline
 
+SF-UBM-Male & 16.71 & 16.38 & 11.04 & 9.79 & 4.43 \\ 
+(weights:MDG+MFC) & (0.4+0.6) & (0.5+0.5) & (0.8+0.2) & (0.1+0.9) & (0.3+0.7) \\ \hline
+
+{FS-UBM-Male} & {\bf 10.48} & {\bf 12.32} & {\bf 9.06} & {\bf 9.4} & {\bf 3.21} \\  \hline
+
+{UBM-MFC-Female} & 18.07 & 22.19 & 27.74 & 11.01 & 4.76 \\ \hline
+
+{UBM-MGD-Female} & 22.64 & 22.15 & 18.07 & 15.14 & 7.14 \\ \hline
+
+SF-UBM-Female & 17.80 & 20.27 & 17.26 & 10.40 & 3.24 \\ 
+(weights:MDG+MFC) & (0.3+0.7) & (0.5+0.5) & (0.9+0.1) & (0.2+0.8) & (0.4+0.6) \\ \hline
+
+{FS-UBM-Female} & {\bf 15.12 } & {\bf 18.39} & {\bf 14.14} & {\bf 9.89} & {\bf 4.27} \\ \hline
+
+{ivec-MFC-Male} & 5.10 & 6.20 & 7.44 & 2.17 & 3.13 \\ \hline
+
+{ivec-MGD-Male} &  6.26 & 8.02 & 7.06 & 3.02 & 3.31  \\ \hline
+
+SF-ivec-Male & 4.48 & 5.39 & 6.74 & 1.99 & 3.09 \\ 
+(weights:MDG+MFC) & (0.3+0.7) & (0.3+0.7) & (0.7+0.3) & (0.2+0.8) & (0.3+0.7) \\ \hline
+
+{FS-ivec-Male} & {\bf 3.56} & {\bf 4.86} & {\bf 5.57} & {\bf 1.36} & {\bf 2.48} \\ \hline
+
+{ivec-MFC-Female} & 6.25 & 9.32 & 16.55 & 4.60 & 3.65 \\ \hline
+
+{ivec-MGD-Female} & 7.02 & 9.89 & {\bf 11.64} & 3.98 & 3.73 \\ \hline 
+
+SF-ivec-Female & 5.52 & 7.53 & 13.33 & 3,83 & 3.44 \\ 
+(weights:MDG+MFC) & (0.2+0.8) & (0.5+0.5) & (0.9+0.1) & (0.3+0.7) & (0.4+0.6) \\ \hline
+
+{FS-ivec-Female} & {\bf 5.62} & {\bf 8.58} & 11.86 & {\bf 3.61} & {\bf 3.52} \\ \hline
+
+	\end{tabular}
+	\label{tab:eer}
+	\end{table}
+
+\clearpage
 
 
 \bibliographystyle{IEEEtranS}
 \bibliography{refs}
-
 
 
 
