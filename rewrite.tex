@@ -22,7 +22,7 @@ Feature extraction is a crucial step in pattern recognition systems. For
 speech signals, feature extraction is a transformation from the acoustic space
 to a feature space. In text-independent speaker verification, the objective is
 to determine if two utterances (the train utterance and the test utterance) are
-both spoken by a particular speaker. We expect that the transformation into the
+both spoken by a particular speaker. We expect that, the transformation into the
 feature space effectively discriminates the utterances spoken by the speaker
 under consideration with those spoken by other speakers. Most speaker
 verification systems, however, apply the same transformation, no matter which
@@ -73,7 +73,8 @@ our studies show that feature-switching improves verification accuracy, when com
 conventional baseline systems, as well as fusion systems. Experiments are performed on the
 NIST 2010 speaker recognition evaluation (SRE) \cite{nist2010SRE} data.
 
-Feature switching in the context of UBM-GMM and i-vector systems are discussed in  \cite{padmanInterspeech2010} and \cite{asha} respectively. The similarity and/or distance measure between every target and corresponding non-target speakers in each feature domain is calculated. For every speaker, the feature with minimum similarity score or maximum distance score is identified as the best discriminating optimal feature. 
+% not needed here
+%Feature switching in the context of UBM-GMM and i-vector systems are discussed in  \cite{padmanInterspeech2010} and \cite{asha} respectively. The similarity and/or distance measure between every target and corresponding non-target speakers in each feature domain is calculated. For every speaker, the feature with minimum similarity score or maximum distance score is identified as the best discriminating optimal feature. 
 
 
 \section{Separability analysis in different feature spaces}
@@ -84,7 +85,7 @@ perform separability studies in MFCC space and MODGDF space.
 
 In the classical GMM-UBM framework \cite{reynoldsAdaptedGMM}, a speaker is
 represented by a Gaussian mixture model (GMM). Given feature vectors extracted
-from a speech utterance, the likelihood ratio of the speaker GMM and that of the
+from a speech utterance, the likelihood ratio of the speaker GMM and the
 universal background model (UBM) is computed. Better separation between the GMM
 and the UBM implies improved accuracy in verification.
 
@@ -139,7 +140,9 @@ separability obtained in MFCC and MODGDF feature spaces for two different
 speakers. The mean vectors of a 32-mixture GMM and UBM are plotted in
 two-dimensional space. In these figures, the 39-dimensional MFCC and MODGDF
 feature vectors are reduced to two dimensions using the Sammon mapping technique
-\cite{sammon}. It can be seen that in Figure \ref{fig:ubm_sep1}(b), there is
+\cite{sammon}. Sammon mapping is a procedure used to (see the original paper for
+a proper one line definition.)
+It can be seen that in Figure \ref{fig:ubm_sep1}(b), there is
 better separation between the GMM and the UBM in the MODGDF space, when compared
 to the MFCC space. Thus, it is likely that this speaker is better discriminated
 against the UBM in the MODGDF space. Similarly, for a different speaker, 
@@ -161,11 +164,22 @@ discrimination between the UBM and the GMM.
 \caption*{(b)}
 \label{fig:subfig4}
 \end{minipage}
-\caption{Sub-figures (a) and (b) show the i-vectors of target and impostor trials in MFCC and MODGDF spaces. This target and impostor i-vectors are better separable in MFCC space for the speaker in (a) and in MODGDF space for the speaker  in (b).}
+\caption{Sub-figures (a) and (b) show the i-vectors of target and impostor
+trials in MFCC and MODGDF spaces. This target and impostor i-vectors are better
+separable in MFCC space for the speaker in (a) and in MODGDF space for the
+speaker  in (b).}
 \label{fig:ivec_separation}
 \end{figure}
 
-Similar analysis is performed in i-vector space by considering the i-vectors of target and non-target utterances of a speaker. The better separation of target and non-target i-vectors in optimal feature domain can be apparently seen in the Figure \ref{fig:ivec_separation}. In this figure i-vectors corresponding to different utterances of a speaker (target speaker) are identified as the \emph{target trials}. Non-target i-vector set is formed by a collection of i-vectors that belong to different non-target speakers. These non-target trials are considered as \emph{impostor trials}. 
+Similar analysis is performed in i-vector space by considering the i-vectors of
+target and non-target utterances of a speaker. The better separation of target
+and non-target i-vectors in optimal feature domain can be readily seen in 
+Figure \ref{fig:ivec_separation}. For a given speaker, target trials are those
+spoken by the speaker himelf or herself, and are also called true-speaker
+trials. Non-target trials are spoken by other speakers, and are also called
+imposter trials. In this figure, XX dimension ivectors are reduced to two dimensions using
+Sammon mapping.
+
 
 \section{Optimal feature selection and feature-switching}
 \label{sec:optFeat}
@@ -197,8 +211,11 @@ For the GMM-UBM framework, the method of determining the optimal feature for a
 particular speaker, given a set of candidate feature representations, is
 described in \cite{padmanInterspeech2010}. The optimal feature is determined by
 evaluating the representation ability and discrimination ability
-of each candidate feature representation. Given an enrolment utterance, the mutual information between extracted feature vectors and the complex Fourier transform (CFT) is used as an estimate of information captured by the feature vectors. Thus, the
-representation ability of the feature representation is given as 
+of each candidate feature representation. Given an enrolment utterance, the
+mutual information between extracted feature vectors and the complex Fourier
+transform (CFT) is used as an estimate of information captured by the feature
+vectors. Thus, the representation ability of the feature representation is given
+as 
 \begin{equation}
 \textrm{mi}(\textrm{CFT},X),
 \end{equation}
@@ -207,8 +224,12 @@ Fourier transform, and $X$ is a set of feature vectors, which are computed from
 the utterance.
 
 
-The discrimination ability is determined by estimating the Kullback-Leibler divergence (KL-divergence) between the UBM ($\lambda_{ubm}$) and the speaker GMM adapted ($\lambda_{spk}$) from it. Because of the one-to-one
-correspondence between the mixture components of the background model and the speaker model, the KL-divergence can be expressed in closed-form. For two uni-modal Gaussian distributions $\hat{f}$ and $\hat{g}$, the KL-divergence has the closed form expression
+The discrimination ability is determined by estimating the Kullback-Leibler divergence
+(KL-divergence) between the UBM ($\lambda_{ubm}$) and the speaker GMM adapted 
+($\lambda_{spk}$) from it. Because of the one-to-one
+correspondence between the mixture components of the background model and the speaker model, 
+the KL-divergence can be expressed in closed-form. For two uni-modal Gaussian distributions
+$\hat{f}$ and $\hat{g}$, the KL-divergence has the closed form expression
 \begin{equation}
 \begin{split}
 \textrm{kld}(\hat{f},\hat{g}) = \frac{1}{2}\left[ \log \frac{|\Sigma_g|}{|\Sigma_f|} +
@@ -220,7 +241,9 @@ correspondence between the mixture components of the background model and the sp
 
 where $\hat{f} = \mathcal{N}(\mu_f,\Sigma_f)$ and $\hat{g} = \mathcal{N}(\mu_g,\Sigma_g)$.
 
-For speaker models ($\lambda_{spk}$) whose means are adapted from the UBM model $\lambda_{ubm}$ (the covariances and mixture weights are same as that of the UBM), the KL-divergence reduces to 
+For a speaker models $\lambda_{spk}$, whose means are adapted from the UBM model
+$\lambda_{ubm}$ (the covariances and mixture weights are same as that of the UBM), 
+the KL-divergence reduces to 
 \begin{equation}
 \textrm{kld}(\lambda_{\textrm{spk}},\lambda_{\textrm{UBM}}) = 
 	\Sigma_i\, \pi_i\, \textrm{kld}(f_i,g_i),
@@ -238,14 +261,15 @@ $\pi$ are the mixture weights.
 
 The optimal feature for a particular speaker is determined from the combined
 representative and discriminative measures of each of the $P$ candidate
-features. For the p-th feature representation, we determine
+features. For the $p$th feature representation, we determine
 
 \begin{eqnarray*}
-&& \theta_p = \textrm{mi}(\textrm{CFT},X_{p}) \\ && \gamma_p =
-\textrm{kld}(\lambda_{\textrm{spk},p},\lambda_{\textrm{UBM},p}) \\
+&& \theta_p = \textrm{mi}(\textrm{CFT},X_{p}), \\
+&& \gamma_p =
+\textrm{kld}(\lambda_{\textrm{spk},p},\lambda_{\textrm{UBM},p}), \\
 \end{eqnarray*} 
 where $X_p$ are feature vectors, the speaker model $\lambda_{\textrm{spk}}$ and 
-UBM $\lambda_{\textrm{UBM}}$ are in the p-th feature space, and $p$ ranges from 1 to $P$.
+UBM $\lambda_{\textrm{UBM}}$ are in the $p$th feature space, and $p$ ranges from 1 to $P$.
 
 
 %\in
@@ -260,15 +284,15 @@ A linear combination of these two measures are used to determine the optimal
 feature
 
 \begin{equation}
-\phi_p = \alpha \theta_p  + (1-\alpha) \gamma_p
+\phi_p = \alpha \theta_p  + (1-\alpha) \gamma_p,
 \label{eq:phiFunc}
 \end{equation}
 
 where $\alpha$ is a weighting parameter determined experimentally. The optimal
-feature $\hat{p}$ is selected as 
+feature $\hat{p}$ for a given speaker is determined as 
 
 \begin{equation}
-\hat{p} = \arg\max_p \{\phi_p\}
+\hat{p} = \arg\max_p \{\phi_p\}.
 \label{eq:ubm_optFeat}
 \end{equation}
 
@@ -289,15 +313,15 @@ Here, acoustic feature vector is $F$-dimensional, the UBM has $M$ components,
 $T$ is an $FM \times D$ low-rank matrix, and $w$ is a $D \times 1$ latent
 vector, with a standard normal distribution $w \sim \mathcal{N}(0,I)$. The
 i-vector is estimated as the mean of the posterior distribution of $w$, given
-the utterance. Procedures to estimate the hyper-parameters $(\mu, T)$ and 
-estimate i-vectors from an utterance can be found in \cite{dehak_ivector}.
+the utterance. Procedures to estimate the hyper-parameters $\mu$ and $T$, and 
+estimate i-vectors from an utterance, can be found in \cite{dehak_ivector}.
 
 The i-vector representing an utterance encodes information about the message,
 the speaker, and the channel. To compensate for unwanted channel effects,
 several preprocessing steps like length normalization \cite{garcia_lengthNorm},
 and within-class covariance normalization (WCCN) \cite{wccn} is performed. A
-popular method to measure similarity between two i-vectors is cosine 
-distance \cite{dehak_ivector}.
+popular method to measure similarity between two i-vectors is by computing the
+cosine distance \cite{dehak_ivector}.
 
 For a given utterance, i-vectors can be estimated from different acoustic
 feature vectors and their associated hyper-parameters. Hence, the
@@ -309,47 +333,61 @@ are $N$ speakers, the optimal i-vector representation $\Hat{p}$
 for the $i$th speaker can be determined as
 
 \begin{equation}
-\Hat{p} = \arg\max_p \{s_p\}
+\Hat{p} = \arg\max_p \{s_p\},
 \label{eq:p_hat}
 \end{equation}
 
 where 
 
 \begin{equation}
-s_p = \frac{\displaystyle \sum_{j=1, \; i \neq j}^N d(w_{p,i},w_{p,j})}{N}
+s_p = \frac{\displaystyle \sum_{j=1, \; i \neq j}^N d(w_{p,i},w_{p,j})}{N}.
 \label{eq:sp}
 \end{equation}
 
-Here, $w_{p,j}$ represents the enrolment i-vector for the $j^{th}$ speaker
-extracted using the p-th feature representation. $d$ is a distance measure (for
-example, cosine distance) between i-vectors. For the $i^{th}$ speaker, the average
+Here, $w_{p,j}$ represents the enrolment i-vector for the $j$th speaker
+extracted using the $p$th feature representation. $d$ is a distance measure (for
+example, cosine distance) between i-vectors. For the $i$th speaker, the average
 distance with the other enrolment speakers is used to determine the optimal
 i-vector representation. 
 
-\section{Feature extraction}
+\section{Features from magnitude and phase spectra}
 \label{sec:featExt}
-Before extracting feature, Voice Activity Detection is applied either simply by using energy \cite{vadenergy, vadhari} and zero-crossing \cite{vadzc} rate or by following any one of the methods discussed in literature like periodicity measures \cite{vadtucker}. In this paper, the threshold for VAD is computed as percentage of average energy. This VAD discards, 20-25\% of speech signal. Cepstral features and its delta coefficients are extracted with a window size of 25 millisecond and a frame shift of 10 millisecond is considered, and desired features are extracted from each frame. 
 
-\vspace{0.25cm}
-MFCCs are the most commonly used features, which discard phase information and retains the magnitude spectrum of Short-Time-Fourier-Transform. The process of extracting MFCC from the speech signal is detailed in \cite{mel}. Initially it was believed that human ears are insensitive to phase, but researchers have  proved that phase information is also important in perception of sound \cite{shi}.  Short-time phase characteristics of speech signal are efficiently represented using group-delay \cite{group_delay}. Due to the periodic nature of pitch, the conventional group delay function does not capture the dynamic range of the speech spectrum, whereas the modified group delay function restores this dynamic range \cite{hema_gds}.
+The underlying assumption in feature-switching is that information in different
+feature representations can be utilised dynamically. Earlier studies \cite{1},
+\cite{2}, \cite{3} have demonstrated complementary information in magnitude and
+phase spectra. Mel frequency cepstra (MFCC) are derived from the magnitude
+spectrum. A popular method for utilising information from the phase spectrum is
+via group delay functions \cite{4}. The modified group delay feature (MODGDF)
+\cite{5}, which is derived from the modified group delay function \cite{6}, have
+been explored as complementary features to MFCCs. The procedure for extracting
+MODGDF features are briefly described below. More details regarding the theory
+of MODGF can be found in \cite{5} and \cite{6}.
 
-\vspace{0.25cm}
-Phase based MGD features accurately captures the information contained in the formants.  As explained in  \cite{mgd_complement}, the MFCC and MODGDF features are complement to each other. MODGDF performs well where MFCC fails and vice-versa. Thus MFCC and MODGDF are chosen in this study to experiment the effect of feature switching in speaker verification system.
+Give the algorithm for extrating MODGDF.
 
-\section{Dataset Description}
+
+
+
+
+
+
+
+\section{Experimental evaluation}
+\label{sec:expts}
+This section details the experimental evaluation of speaker verification in the
+feature-switching framework. We give details about the datasets used, the
+development of the feature-switching system, and comparisons with baseline and
+fusion systems.
+
+\subsection{Dataset description}
 \label{sec:dB}
-NIST Speaker Recognition Evaluation (SRE) 2010 database is used to test the speaker verification process in both UBM-GMM and i-vector framework. In both frameworks, telephone and microphone utterances from two different channels are used to training  the system. NIST SRE databases, namely  SRE99, SRE03, SRE04, SRE05, SRE06, SRE08, and SRE08-extended are used as {\it { development data}} to build the UBM and T-matrix. NIST SRE 2010 is used to evaluate the built speaker verification systems. Both male and female data are used from the above mentioned databases to develop gender-dependent speaker verification system.
-
-\vspace{0.25cm}
-SRE99, SRE03 and SRE04 have telephone conversations while SRE05 has both telephone and cellular conversation recordings. SRE06 contains both telephone and microphone data. Out of different training  and test segments in SRE08, short2 type is used for training and short 3 is used for testing  \cite{sre2008}. Short2 involves 2 channel telephone conversational data, and a single channel microphone data from interviewer is used. Short3 test segment are collected from two channel telephone conversation data and a single microphone recorded interview data. 
-
-\vspace{0.25cm}
-Out of four training  conditions in  \cite{sre2010}, only the core set of data is chosen for training and testing. This set of training data comprises of telephone and microphone data. Telephone data is a two-channel conversation telephone data each of approximately 5 minutes in duration.  Microphone data is the data recorded over microphone each of 3 to 15 minutes and this is a conversation recording between the interviewer (channel B) and the person who attends the interview (channel A).  
-
-
-\subsection{ \small \bf Test Conditions from SRE10 Evaluation Plan}
-\label{subsec:test_conditions}
-NIST SRE 2010 database has separate training  and test sets for male and female genders. 9 different evaluation conditions are proposed in  \cite{sre2010}. For the objective of comparative study of two different frameworks, the development data used to estimate UBM and T-matrix includes only telephone and microphone data. So the test conditions from C5 to C9, detailed in the Table \ref{tab:testCond} had been evaluated.
+Speaker verification experiments are performed on a subset of the NIST 2010 SRE
+dataset.  Telephone and microphone utterances under varying vocal effort,
+as detailed in \cite{sre_eval_plan} are used for enrollment and evaluation. These are
+summarised in Table \ref{tab:datasetConditions}. Hyperparameters for the speaker
+recognition systems are developed using data from SRE99, SRE03, SRE04, SRE05,
+SRE06, SRE08, and SRE08-extended data.
 
 \begin{table}[h!tb]
 \centering
@@ -364,27 +402,35 @@ C7 & Microphone & Normal & High \\ \hline
 C8 & Telephone & Normal & Low \\ \hline
 C9 & Microphone & Normal & Low \\ \hline
 \end{tabular}
-\label{tab:testCond}
+\label{tab:datasetConditions}
 \end{table}
 
-\section{Experimental evaluation}
-\label{sec:ExpSetup}
-An experimental evaluation of the proposed feature-switching
-mechanism, is performed in the context of both the GMM-UBM framework, and the i-vector
-framework. Equal error rate (EER) is used as an evaluation metric.
 
-\vspace*{0.25cm}
-In this paper, the experiments are conducted for both male and female genders. The MFCC and MODGDF features are extracted from both development and evaluation data, for both genders as mentioned in Section \ref{sec:featExt}. Different baseline and score fusion based speaker verification systems are built. The performance of these systems are compared with speaker verification system built using feature-switching paradigm. Each of these systems are discussed in detail in the following sub-sections. 
 
 \subsection{Baseline verification systems}
 \label{subsec:baseline}
-MFCC and MODGDF based systems are built for male and female separately as baseline systems in both UBM-GMM and i-vector frameworks.  
 
-\vspace*{0.25cm}
+Feature-switching is performed on two 
+speaker verification frameworks: the GMM-UBM system \cite{gmmUbm}, and the
+i-vector system \cite{ivector}. The evaluation metric used is
+the equal error rate (EER), and is evaluated separately for male and female
+genders.
 
-\textbf{GMM-UBM system:} 38-dimensional feature vectors are extracted in each feature domain. Gender dependent 1024 mixture UBMs are built for each feature type by pooling corresponding features of the development data. Speaker dependent models are generated for the training data by adapting the means of top 10 maximum contributing mixture components of UBM. In the testing phase, features of the test utterance are extracted. Similarity scores are computed by computing the ratio of the log-likelihood of extracted feature with $\lambda_{spk}$ and  the log-likelihood of $\lambda_{ubm}$. 
+\textbf{Voice activity detection (VAD)}: VAD is a crucial component in all
+speech processing systems. In our systems, speech frames of 25 ms size, with
+a frame shift of 10 ms are utilised. Since the utterances are fairly clean, a simple
+VAD using thresholding on average short-term energy is utilised. This typically
+discards about 20-25\% of the input frames.
 
-\vspace*{0.25cm}
+\textbf{GMM-UBM system:} GMM-UBM systems are developed separately for MFCC and
+ MODGDF feature representations. 38-dimensional feature vectors are
+extracted in each feature domain. Gender-dependent 1024-mixture UBMs are built
+from development data.  Speaker-dependent GMM models are generated for the
+enrollment data by adapting the means of top 10 maximum contributing mixture
+components of the UBM. For each test utterance, similarity scores are computed
+as the ratio of the log-likelihood of the extracted features with
+the UBM and the speaker model.
+
 The baseline systems are denoted as follows.
 \begin{enumerate}
 \item UBM-MFC-male : Male speaker verification system with MFCC feature
@@ -393,16 +439,23 @@ The baseline systems are denoted as follows.
 \item UBM-MGD-female : Female speaker verification system with MODGD feature
 \end{enumerate}
 
-\textbf{i-vector system.} 
-Similar to UBM-GMM systems, 38 dimensional feature vectors are extracted and feature-based 1024 mixture UBMs are built for each gender.  Using the UBM and feature vectors, first order statistics are calculated and super vectors are formed for the development data. A randomly initialized T-matrix of size $(38\times1024)$-by-$R$ is used along with estimated super vectors to get i-vectors of dimension $R$. This step is mathematically elaborated in \cite{dehak_ivector, kenny_JFA}. Once i-vectors are obtained from initial T-matrix, they are used to re-estimate the T-matrix. This procedure is repeated for some fixed number of iterations. 
+\textbf{i-vector system:} 
+38-dimensional feature vectors are extracted and first and second order
+supervector statistics are computed using a 1024-mixture UBM. A total
+variability matrix of size 38912 $\times$ 600 is randomly initialized and
+estimated using development data, as detailed in \cite{dehak_ivector,
+kenny_JFA}. 600-dimensional i-vectors are estimated for each enrollment
+utterance and test utterance. Preprocessing steps to reduce channel variablity including linear
+discriminant analysis (LDA) and within-class covariance normalization (WCCN) are
+applied to the i-vectors.
 
-\vspace*{0.25cm}
-The  i-vectors of development data estimated from final T-matrix, are subjected to whitening transformation, linear discriminant analysis (LDA) \cite{lda, lda_tutorial}, and within-class covariance normalization (WCCN) \cite{dehak_ivector, wccn}. The considered database has different speaker utterances through different channels. LDA and WCCN are needed to model the speaker and channel variability in the total factor space \cite{dehak_ivector}. Training phase ends with the estimation of i-vectors for training trials of evaluation dataset. 
+What is the data used to estimate the LDA and WCCN matrices?
 
-\vspace*{0.25cm}
-In the testing phase, the features are extracted and i-vector is estimated for the test utterances that comes with a claim. The similarity between the test i-vector and the train i-vector can be estimated  by using different metrics like Euclidean distance measure \cite{euclid}, cosine similarity measure \cite{z_norm_cosine} etc. 
+Cosine similarity between enrollment and test i-vectors is utilised to determine
+the similarity score between them.
 
-\vspace*{0.25cm}
+Are you applying score normalization?
+
 The four different baseline systems developed in this framework are referred as 
 \begin{enumerate}
 \item ivec-MFC-male
@@ -411,7 +464,11 @@ The four different baseline systems developed in this framework are referred as
 \item ivec-MGD-female
 \end{enumerate}
 
-In both the frameworks, similarity scores calculated between the test and training utterances are subjected to T-normalization \cite{tnorm}. True and impostor scores are identified from the ground truth and EER is calculated as the performance metric of the developed speaker verification system. The EERs of these baseline systems are listed in the Table \ref{tab:eer}.
+In both the GMM-UBM and the i-vector frameworks, similarity scores calculated
+between the test and enrollment utterances are subjected to T-normalization
+\cite{tnorm}. True and impostor scores are identified from the ground truth and
+EER is determined. The EERs of these baseline systems are listed in the Table
+\ref{tab:eer}.
 
 \subsection{Score-Fusion Systems}
 \label{subsec:scoreFusion}
