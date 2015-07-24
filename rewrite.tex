@@ -280,8 +280,7 @@ UBM $\lambda_{\textrm{UBM}}$ are in the $p$th feature space, and $p$ ranges from
 %using the $i$ th feature representation.
 
 
-A linear combination of these two measures are used to determine the optimal
-feature
+A linear combination of these two measures is determined 
 
 \begin{equation}
 \phi_p = \alpha \theta_p  + (1-\alpha) \gamma_p,
@@ -445,24 +444,20 @@ supervector statistics are computed using a 1024-mixture UBM. A total
 variability matrix of size 38912 $\times$ 600 is randomly initialized and
 estimated using development data, as detailed in \cite{dehak_ivector,
 kenny_JFA}. 600-dimensional i-vectors are estimated for each enrollment
-utterance and test utterance. Preprocessing steps to reduce channel variablity including linear
-discriminant analysis (LDA) and within-class covariance normalization (WCCN) are
-applied to the i-vectors.
+utterance and test utterance. Preprocessing steps to reduce channel variablity
+including i-vector length normalization \cite{garciaRomero}, 
+linear discriminant analysis (LDA) and within-class covariance
+normalization (WCCN) are applied to the i-vectors.
 
 What is the data used to estimate the LDA and WCCN matrices?
 
 Cosine similarity between enrollment and test i-vectors is utilised to determine
 the similarity score between them.
 
-Are you applying score normalization?
+Are you using Eucledian also? I thought all results are with cosine.
 
 The four different baseline systems developed in this framework are referred as 
-\begin{enumerate}
-\item ivec-MFC-male
-\item ivec-MFC-female
-\item ivec-MGD-male
-\item ivec-MGD-female
-\end{enumerate}
+ivec-MFC-male, ivec-MFC-female, ivec-MGD-male and ivec-MGD-female.
 
 In both the GMM-UBM and the i-vector frameworks, similarity scores calculated
 between the test and enrollment utterances are subjected to T-normalization
@@ -470,56 +465,57 @@ between the test and enrollment utterances are subjected to T-normalization
 EER is determined. The EERs of these baseline systems are listed in the Table
 \ref{tab:eer}.
 
-\subsection{Score-Fusion Systems}
-\label{subsec:scoreFusion}
-	Instead of using a single feature-based speaker verification system, more than one feature can be used to improve the effectiveness of the system \cite{scoreFusion, scoreFusion1}. This is possible with different strategies like early fusion, score fusion etc. {\it Feature fusion}, also often referred as {\it early fusion} is the process of concatenating the individual feature vectors of different feature types \cite{padmanInterspeech2010}. The detriment of this method is the increased dimension of the new concatenated feature vectors which leads to the fact of dimensionality curse. 
+What is the devel data for score norm?
 
-\vspace{0.25 cm}	
-	Score fusion is an another method, where the goal is to improve the performance of the system by combining the scores of individual feature-specific systems. The contribution of individual systems are determined by a weight parameter \cite{scoreFusion}. Though this procedure do not have the detriment of early fusion system, two individual feature-specific systems are needed to be developed to get the score fusion systems.
-	 
-\vspace{0.25 cm}	
-	Score fusion systems can be easily developed from the feature-specific baseline systems of each gender. The similarity scores of a speaker X, from all the feature space under consideration are summed up using a trade-off parameter $\alpha$ as  %That is, the fused score for a speaker $X$ can be obtained by adding the similarity score of the speaker from the individual MFCC-based system and MODGDF-based system using $\alpha$ as 
-	
-	\begin{equation}
-	 S_{fused}\left( X \right) = \alpha S_{mfc}\left( X \right) + (1-\alpha)S_{mgd}\left( X \right)
-	\label{eq:scoreFuse}
-	\end{equation}
-	
-	$S_{fused}\left( X \right)$ is the fused score of speaker X,  $S_{mfc}\left( X \right)$ and $S_{mgd}\left( X \right)$ are the similarity scores of speaker X in MFCC-based baseline system and MODGDF-based baseline system respectively. 
+\textbf{Score-level fusion:} The traditional way of combining information from
+multiple feature representations is to combine them either at the feature level
+or at the score level. In our experiments, this procedure is applied to both the
+GMM-UBM system, and the i-vector system. The fusion scores are a linear
+combination of the MFCC and MODGDF scores. A line search is performed to find
+the optimal weighing parameter. These systems are denoted as SF-GMM-male,
+SF-GMM-fem, SF-ivec-male and SF-ivec-fem. The performance of the fusion systems
+are given in Table \ref{tab:eer}.
 
-\vspace{0.25 cm}		 
-	In this paper, four score fusion systems built to compare the performance of feature switching systems are. 
-	\begin{enumerate}
-	\item SF-UBM-male: Score fusion system for Male in GMM-UBM framework.
-	\item SF-UBM-female: Score fusion system for Female in GMM-UBM framework.
-	\item SF-ivec-male: Score fusion system for Male in i-vector framework.
-	\item SF-ivec-female	: Score fusion system for Female in i-vector framework.
-	\end{enumerate}
-	In both frameworks, different score fusion systems are developed with all values of alpha between the range 0.1 to 0.9 with a step size of 0.1.  The combination which has lesser EER is listed in the Table \ref{tab:eer}, along with the weight-age given to the MODGDF and MFCC feature representations.
 	
-\subsection{Feature-switching Systems}
+\subsection{Feature-switching}
 \label{subsec:featSwitch}
 
-In the proposed feature-switching framework, different speaker claims are verified using different feature representations. The speaker verification systems with feature switching paradigm is developed in both conventional UBM-GMM framework and in the state-of-the-art i-vector framework.
+In the proposed feature-switching framework, different speaker claims are
+verified using different feature representations.  Experimental evaluation of
+feature-switching is done in both GMM-UBM and i-vector frameworks. The details
+of these systems are given below.
 
-\vspace{0.25 cm}	
 \textbf{GMM-UBM feature-switching system:}
 
-In the training phase of the feature switching system, UBMs are built for both the genders in each feature domain. Speaker dependent models are built for training data, by adapting the means of the feature-based, gender-dependent UBM as in baseline systems. Optimal features for every training utterance is identified using KL-Divergence and Mutual Information (MI) as  discussed in the Section \ref{subsec:ubm_optFeat}. The trade off between MI and KLD is achieved by defining a feature selector function ($\phi$) with the help of a weight parameter $\alpha$ as in the Equation \ref{eq:phiFunc}. 
+The baseline systems (MFCC and MODGDF) described in section \ref{subsec:baseline} form the
+constituent systems for feature-switching. This is shown in Figure \ref{fig:systemArch2}. For each enrollment
+speaker, the optimal feature is determined from the enrollment utterance, as described in section
+\ref{subsec:ubm_optFeat}. Here, the number of candidate features, $P$ is two. 
 
-\vspace{0.25 cm}	
-Speaker-specific alpha $(\alpha)$ is used to get better performance of the speaker verification system. Since there is no simple way to identifying optimal $\alpha$ for a speaker, a line-search is performed for $\alpha$ values between 0 to 1 with a step size of 0.1 and $\phi$ is calculated in all feature-space. All these possible $\phi$ values for a speaker (obtained for different $\alpha$ in different feature-space), are pooled together and the maximum is picked out. The feature-domain $p$ corresponding to that maximum $\phi$ is considered as the optimal feature for that speaker as in Equation \ref{eq:ubm_optFeat}. The speaker and the identified optimal feature pair is saved in the look-up table. Out of 1402 male  and 1758 female training utterances from the NIST-SRE-2010 evaluation data set, 634 male trials and 641 female trials chose MODGDF and remaining chose MFCC as their optimal feature.
+The weighting parameter $\alpha$ is used as a tradeoff between mutual information and
+KL-divergence for determining the optimal feature of a given speaker (equation
+\ref{eq:phiFunc}). Different speakers can have different $\alpha$ values. Since
+there is no theoretical insight to determining the correct weighting feature,
+the following procedure is adopted for each of the $N$ enrollment speakers.
 
-\vspace{0.25 cm}	
-In test phase, the test utterance comes with a claim. The optimal feature for the claim is identified from the look-up table. Feature is extracted in optimal feature domain for the test utterances. With the help of UBM, these features are compared against the speaker-dependent models of claim speaker's trials and log-likelihood scores are obtained. The similarity scores are then subjected to T-Normalisation and EER is computed to evaluate the performance of the developed systems. 
+For a given speaker, the value of $\phi_p$ is determined accross various values
+of $\alpha$, 
+\begin{equation}
+\phi_p = \max \; \alpha \theta_p + (1-\alpha) \gamma_p
+\end{equation}
+where the values of $\alpha$ are varied from $0$ to $1$ in steps of $0.1$. Once
+$\phi_p$ is determined, the optimal feature is computed as in equation
+\ref{eq:ubm_optFeat}.
 
+Out of 1402 male  and 1758 female speakers in the SRE 2010 dataset, the
+optimal features were as follows
 
-\vspace{0.25 cm}
-The two feature-switching systems are developed in this framework are
-\begin{enumerate}
-\item FS-UBM-male 
-\item FS-UBM-female
-\end{enumerate}
+Give table here.
+
+634 male  and 641 female trials chose MODGDF and remaining chose MFCC as their optimal feature.
+
+The two feature-switching systems are developed in this framework are denoted as
+FS-UBM-male, and FS-UBM-female. 
 
 
 \subsubsection{i-Vector Framework}
