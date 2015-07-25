@@ -73,9 +73,6 @@ our studies show that feature-switching improves verification accuracy, when com
 conventional baseline systems, as well as fusion systems. Experiments are performed on the
 NIST 2010 speaker recognition evaluation (SRE) \cite{nist2010SRE} data.
 
-% not needed here
-%Feature switching in the context of UBM-GMM and i-vector systems are discussed in  \cite{padmanInterspeech2010} and \cite{asha} respectively. The similarity and/or distance measure between every target and corresponding non-target speakers in each feature domain is calculated. For every speaker, the feature with minimum similarity score or maximum distance score is identified as the best discriminating optimal feature. 
-
 
 \section{Separability analysis in different feature spaces}
 \label{sec:separability}
@@ -107,8 +104,9 @@ and the UBM implies improved accuracy in verification.
 %	\label{fig:GmmMfcOpt}
 %	\end{figure}
 \end{minipage}
-\caption{Sub-figures (a) and (b) show the same speaker and background model centroids in MFCC and MODGDF spaces. This speaker and the UBM are better separable in 
-MODGDF space.}
+\caption{Sub-figures (a) and (b) show the same speaker and background model
+centroids in MFCC and MODGDF spaces. This speaker and the UBM are better
+separable in MODGDF space.}
 \label{fig:ubm_sep1}
 \end{figure}
 
@@ -130,8 +128,9 @@ MODGDF space.}
 %	\label{fig:GmmMfcOpt}
 %	\end{figure}
 \end{minipage}
-\caption{Sub-figures (a) and (b) show the same speaker and background model centroids in MFCC and MODGDF spaces. This speaker and the UBM are better separable in 
-MFCC space.}
+\caption{Sub-figures (a) and (b) show the same speaker and background model
+centroids in MFCC and MODGDF spaces. This speaker and the UBM are better
+separable in MFCC space.}
 \label{fig:ubm_sep2}
 \end{figure}
 
@@ -333,7 +332,7 @@ for the $i$th speaker can be determined as
 
 \begin{equation}
 \Hat{p} = \arg\max_p \{s_p\},
-\label{eq:p_hat}
+\label{eq:opt_ivec}
 \end{equation}
 
 where 
@@ -364,8 +363,6 @@ MODGDF features are briefly described below. More details regarding the theory
 of MODGF can be found in \cite{5} and \cite{6}.
 
 Give the algorithm for extrating MODGDF.
-
-
 
 
 
@@ -486,25 +483,24 @@ feature-switching is done in both GMM-UBM and i-vector frameworks. The details
 of these systems are given below.
 
 \textbf{GMM-UBM feature-switching system:}
-
 The baseline systems (MFCC and MODGDF) described in section \ref{subsec:baseline} form the
 constituent systems for feature-switching. This is shown in Figure \ref{fig:systemArch2}. For each enrollment
 speaker, the optimal feature is determined from the enrollment utterance, as described in section
-\ref{subsec:ubm_optFeat}. Here, the number of candidate features, $P$ is two. 
+\ref{subsec:ubm_optFeat}. Here, the number of candidate features, $P$, is two,
+with $p=1$ meaning MFCC features and $p=2$ meaning MODGDF features.
 
 The weighting parameter $\alpha$ is used as a tradeoff between mutual information and
 KL-divergence for determining the optimal feature of a given speaker (equation
 \ref{eq:phiFunc}). Different speakers can have different $\alpha$ values. Since
 there is no theoretical insight to determining the correct weighting feature,
 the following procedure is adopted for each of the $N$ enrollment speakers.
-
 For a given speaker, the value of $\phi_p$ is determined accross various values
-of $\alpha$, 
+of $\alpha$ as, 
 \begin{equation}
 \phi_p = \max \; \alpha \theta_p + (1-\alpha) \gamma_p
 \end{equation}
 where the values of $\alpha$ are varied from $0$ to $1$ in steps of $0.1$. Once
-$\phi_p$ is determined, the optimal feature is computed as in equation
+$\phi_p$ is determined for $p=1$ and $p=2$, the optimal feature is computed as in equation
 \ref{eq:ubm_optFeat}.
 
 Out of 1402 male  and 1758 female speakers in the SRE 2010 dataset, the
@@ -518,14 +514,21 @@ The two feature-switching systems are developed in this framework are denoted as
 FS-UBM-male, and FS-UBM-female. 
 
 
-\subsubsection{i-Vector Framework}
-\label{subsubsec:fs_ivec} 
+\textbf{i-vector feature-switching system:}
+As in the case of the GMM-UBM system, the MFCC and MODGDF i-vector systems
+described in section \ref{subsec:baseline} are the constituent systems for the
+feature-switching system. For each speaker, the optimal feature representation
+is computed as described in equation \ref{eq:opt_ivec}. For the SRE 10 dataset,
+the optimal features are summarised as given below.
 
+Give table here.
 
-T-matrix and i-vectors are estimated iteratively for development data using UBM and super vectors.  To find the optimal feature for a training speaker 'X', the i-vector of the speaker 'X' is compared with all the training speakers in same feature domain using cosine similarity measure. These similarity scores of the speaker 'X' in each feature domain is averaged and compared. The feature-space with maximum similarity score is decided as the optimal feature space for that speaker. The train speaker and its optimal feature pair is entered in a look-up table for future reference. Out of 1402 male and 1758 female training data, 26 and 1673 trials chose MODGDF as their optimal feature respectively.
+Out of 1402 male and 1758 female training data, 26 and 1673 trials chose MODGDF
+as their optimal feature respectively.
 
-\vspace{0.25 cm}
-When a test utterance along with a speaker claim is given as the input, the feature-switching system obtains the optimal feature for the claim from the look-up table. Either cosine similarity or Euclidean distance measures can be computed between the i-vector of test utterance and the i-vectors of all the training utterances of claimed speaker. The EERs of these feature switching systems are given in tabel \ref{tab:eer}.
+The feature-switching based i-vector systems are denoted as FS-ivec-male and
+FS-ivec-female. The resulting EERs for these are also described in table
+\ref{tab:eer}.
 
 \section{Result Analysis}
 \label{sec:resAnalysis}
