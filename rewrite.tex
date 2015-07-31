@@ -362,24 +362,27 @@ via group delay functions \cite{group_delay}. The modified group delay feature (
 extracting MODGDF features are briefly described below. More details regarding the theory
 of MODGF can be found in \cite{modgd_func} and \cite{modgd_feat}. The algorithm for extracting the MODGDF feature is given below as in \cite{hegdeModgdf}.
 
-\begin{table}
-\centering
-\begin{tabular}{l}
-\hline {\bf Algorithm 1: MODGDF Extraction} \\
-\hline \hline 
+\subsubsection*{\bf \small Algorithm 1: MODGDF Extraction} \\
 1. {\bf Input:} A frame of speech signal $x(n)$. \\
-\: \: {\bf Output:} MODGDF features c(n). \\
+\hspace*{0.3 cm} {\bf Output:} MODGDF features c(n). \\
 2. Compute the DFT $X(k)$ of the speech frame $x(n)$. \\
 3. Compute the DFT $\hat{X(k)}$ of the signal $nx(n)$. \\
-4. Compute the cepstrally smoothed spectra of $X(k)$ and denote it as $S(k)$. \\
-5. 
-
-\end{tabular}
-\end{table}
-
-
-
-
+4. Compute the cepstrally smoothed spectra of $X(k)$ and denote it as $S(k)$. 
+\hspace*{0.35 cm} Length of window in cepstral domain is controlled by the lifter parameter $\omega$ \\
+5. MODGD function is computed as:
+	\begin{equation*}
+			\tau_{m}(k)=\left( \frac{\tau (k)}{\left| \tau (k) \right|} \right) \left( \left| \tau(k) \right| \right)^{\alpha}
+	\end{equation*}
+	\hspace*{0.3 cm} where
+	\begin{equation*}
+		 \tau(k)=\frac{X_R(k)\hat{X}_R(k)+X_I(k)\hat{X}_I(k)}{\left| S(k)\right|^{2\gamma}}
+	\end{equation*}
+	 	\hspace*{0.3 cm} $\alpha$ and $\gamma$ are the parameters used to control the dynamic range of the MODGD function. \\
+6. By taking the DCT of the MODGD, MODGDF features are computed as 
+	\begin{equation*}
+	c(n)=\sum_{k=0}^{N_f-1}\tau_m(k)cos(n(2k+1)\pi/N_f), \;\; 0\leq n < N_c
+	\end{equation*}	
+	where $N_f$	  is the DFT size and $N_c$ is the number of cepstral coefficients.
 
 
 \section{Experimental evaluation}
@@ -470,12 +473,14 @@ and ivec-MGD-female.
 
 In both the GMM-UBM and the i-vector frameworks, similarity
 scores calculated between the test and enrolment utterances 
-are subjected to T-normalization \cite{tnorm}. True and 
-impostor scores are identified from the ground truth and
-EER is determined. The EERs of these baseline systems are
-listed in the Table \ref{tab:eer}.
+are subjected to T-normalization \cite{tnorm}. True and impostor
+models for every speaker is given along with the database. Each 
+test utterance is scored against those fixed set of true and imposter 
+speaker models. From this set of scores, the mean and standard
+deviation are computed and T-Normalization is performed. The 
+EERs of these baseline systems are listed in the Table \ref{tab:eer}.
+%%% \textbf {What is the devel data for score norm?}
 
-\textbf {What is the devel data for score norm?}
 
 \textbf{Feature-level fusion:} The traditional way of combining
 information from multiple feature representations is to combine
@@ -626,9 +631,9 @@ UBM-MGD-Male & 19.54 & 19.89 & 11.65 & 13.99 & 5.19 \\ \hline
 
 \multicolumn{6}{|c|}{\bf Early Fusion Systems} \\ \hline
 
-{EF-UBM-Male} & 17.97 & 20.22 & 12.84 & 15.94 & 10.14\\ \hline
+{EF-UBM-Male} & 17.97 & 20.22 & 12.84 & 15.94 & 6.14\\ \hline
 
-{EF-UBM-Female} & & & & &  \\ \hline
+{EF-UBM-Female} & 17.56 & 20.67  & 23.1  & 13.11 & 5.42  \\ \hline
 
 {EF-ivec-Male} & 18.61 & 18.15 & 12.7 & 11.1 & 6.41 \\ \hline
 
