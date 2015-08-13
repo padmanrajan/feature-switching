@@ -140,15 +140,16 @@ Figures \ref{fig:ubm_sep1} and \ref{fig:ubm_sep2} illustrate the
 separability obtained in MFCC and MODGDF feature spaces for two different
 speakers. The mean vectors of a 32-mixture GMM and UBM are plotted in
 two-dimensional space. In these figures, the 39-dimensional MFCC and MODGDF
-feature vectors are reduced to two dimensions using the Sammon mapping technique \cite{sammon}. Sammon mapping represents N-
-dimensional vectors\ from N-space to a lower-dimensional space such
-that the inherent data structure is preserved.  It can be seen that in Figure \ref{fig:ubm_sep1}(b), there is
-better separation between the GMM and the UBM in the MODGDF space, when compared
-to the MFCC space. Thus, it is likely that this speaker is better discriminated
-against the UBM in the MODGDF space. Similarly, for a different speaker, 
-Figure \ref{fig:ubm_sep2}(a) shows better separation in the MFCC space. Thus,
-for this speaker, performing verification in the MFCC space gives better
-discrimination between the UBM and the GMM. 
+feature vectors are reduced to two dimensions using the Sammon mapping technique
+\cite{sammon}. Sammon mapping represents N-dimensional vectors\ from N-space to 
+a lower-dimensional space such that the inherent data structure is preserved. 
+ It can be seen that in Figure \ref{fig:ubm_sep1}(b), there is
+ better separation between the GMM and the UBM in the MODGDF space, when compared
+ to the MFCC space. Thus, it is likely that this speaker is better discriminated
+ against the UBM in the MODGDF space. Similarly, for a different speaker, 
+ Figure \ref{fig:ubm_sep2}(a) shows better separation in the MFCC space. Thus,
+ for this speaker, performing verification in the MFCC space gives better
+ discrimination between the UBM and the GMM. 
 
 \begin{figure}[h!tb]
 \centering \hspace{-5cm}
@@ -361,7 +362,8 @@ via group delay functions \cite{group_delay}. The modified group delay feature (
 \cite{modgd_feat}, which is derived from the modified group delay function
 \cite{modgd_func}, have been explored as complementary features to MFCCs. The procedure for
 extracting MODGDF features are briefly described below. More details regarding the theory
-of MODGF can be found in \cite{modgd_func} and \cite{modgd_feat}. The algorithm for extracting the MODGDF feature is given below as in \cite{hegdeModgdf}.
+of MODGF can be found in \cite{modgd_func} and \cite{modgd_feat}. The algorithm for
+extracting the MODGDF feature is given below as in \cite{hegdeModgdf}.
 
 \begin{algorithm}
 \caption{Algorithm 1: MODGDF Extraction}
@@ -372,19 +374,21 @@ of MODGF can be found in \cite{modgd_func} and \cite{modgd_feat}. The algorithm 
 %\Procedure{}{} \\
 \State Compute the DFT $X(k)$ of the speech frame $x(n)$. 
 \State Compute the DFT $\hat{X(k)}$ of the signal $nx(n)$. 
-\State Compute the cepstrally smoothed spectra of $X(k)$ and denote it as $S(k)$. Length of window in cepstral domain is controlled by the lifter parameter $\omega$ 
+\State Compute the cepstrally smoothed spectra of $X(k)$ and denote it as $S(k)$. 
+Length of window in cepstral domain is controlled by the lifter parameter $\omega$ 
 \State MODGD function is computed as:
 		\begin{equation*}
 			\tau_{m}(k)=\left( \frac{\tau (k)}{\left| \tau (k) \right|} \right) \left( \left| \tau(k) \right| \right)^{\alpha}
 	\end{equation*} where
 	\begin{equation*}
 		 \tau(k)=\frac{X_R(k)\hat{X}_R(k)+X_I(k)\hat{X}_I(k)}{\left| S(k)\right|^{2\gamma}}
-	\end{equation*} $\alpha$ and $\gamma$ are the parameters used to control the dynamic range of the MODGD function.
+	\end{equation*} $\alpha$ and $\gamma$ are the parameters used to control the 
+	dynamic range of the MODGD function.
 \State By taking the DCT of the MODGD, MODGDF features are computed as 
 \begin{equation*}
 	c(n)=\sum_{k=0}^{N_f-1}\tau_m(k)cos(n(2k+1)\pi/N_f), \;\; 0\leq n < N_c
 	\end{equation*}	
-	where $N_f$	  is the DFT size and $N_c$ is the number of cepstral coefficients.
+	where $N_f$	is the DFT size and $N_c$ is the number of cepstral coefficients.
 
 %\EndProcedure
 \end{algorithmic}
@@ -400,8 +404,11 @@ fusion systems.
 \subsection{Dataset description}
 \label{sec:dB}
 Speaker verification experiments are performed on a subset of
-the NIST 2010 SRE dataset. Telephone and microphone utterances under varying vocal effort, as detailed in \cite{nist2010SRE}
-are used for enrolment and evaluation. These are summarised in Table \ref{tab:datasetConditions}. Hyper-parameters for the speaker recognition systems are developed using data from SRE99, SRE03, SRE04, SRE05, SRE06, SRE08, and SRE08-extended data.
+the NIST 2010 SRE dataset. Telephone and microphone utterances under varying 
+vocal effort, as detailed in \cite{nist2010SRE} are used for enrolment and 
+evaluation. These are summarised in Table \ref{tab:datasetConditions}. 
+Hyper-parameters for the speaker recognition systems are developed using data 
+from SRE99, SRE03, SRE04, SRE05, SRE06, SRE08, and SRE08-extended data.
 
 \begin{table}[h!tb]
 \centering
@@ -424,9 +431,9 @@ C9 & Microphone & Normal & Low \\ \hline
 \subsection{Baseline verification systems}
 \label{subsec:baseline}
 
-Feature-switching is performed on two speaker verification frameworks: the GMM-UBM system \cite{reynoldsAdaptedGMM}, and
-the i-vector system \cite{dehak_ivector}. The evaluation metric
-used is the equal error rate (EER), and is evaluated separately
+Feature-switching is performed on two speaker verification frameworks: the GMM-UBM system
+\cite{reynoldsAdaptedGMM}, and the i-vector system \cite{dehak_ivector}. The evaluation
+metric used is the equal error rate (EER), and is evaluated separately
 for male and female genders.
 
 \textbf{Voice activity detection (VAD)}: VAD is a crucial
@@ -436,13 +443,13 @@ for male and female genders.
  using threshold on average short-term energy is utilised. This
  typically discards about 20-25\% of the input frames.
 
-\textbf{GMM-UBM system:} GMM-UBM systems are developed separately for MFCC and MODGDF feature representations. 
-38-dimensional feature vectors are extracted in each feature 
-domain. Gender-dependent 1024-mixture UBMs are built 
-from development data.  Speaker-dependent GMM models are generated for the enrolment data by adapting the means of top
-10 maximum contributing mixture components of the UBM. For each
-test utterance, similarity scores are computed as the ratio of
-the log-likelihood of the extracted features with the UBM and
+\textbf{GMM-UBM system:} GMM-UBM systems are developed separately for 
+MFCC and MODGDF feature representations. 38-dimensional feature vectors are 
+extracted in each feature domain. Gender-dependent 1024-mixture UBMs are built 
+from development data.  Speaker-dependent GMM models are generated for the 
+enrolment data by adapting the means of top 10 maximum contributing mixture 
+components of the UBM. For each test utterance, similarity scores are computed 
+as the ratio of the log-likelihood of the extracted features with the UBM and
 the speaker model.
 
 The baseline systems are denoted as follows.
@@ -467,10 +474,12 @@ within-class covariance normalization (WCCN) are applied to the
 i-vectors.
 
 %What is the data used to estimate the LDA and WCCN matrices?
-LDA followed by WCCN is used to achieve better performance as in \cite{dehak_ivector}. All possible classes from development
-data is subjected to LDA and WCCN and a projection matrix is obtained. Each class is made up of all the recording of a single speaker. The i-vectors are then subjected to this projection matrix to maximize the discrimination between the speakers. Cosine similarity between enrolment and test 
-i-vectors is utilised to determine the similarity score between
-them.
+LDA followed by WCCN is used to achieve better performance as in \cite{dehak_ivector}. 
+All possible classes from development data is subjected to LDA and WCCN and a projection
+matrix is obtained. Each class is made up of all the recording of a single speaker. The 
+i-vectors are then subjected to this projection matrix to maximize the discrimination
+between the speakers. Cosine similarity between enrolment and test i-vectors is 
+utilised to determine the similarity score between them.
 
 The four different baseline systems developed in this framework
 are referred as ivec-MFC-male, ivec-MFC-female, ivec-MGD-male
@@ -489,14 +498,15 @@ EERs of these baseline systems are listed in the Table \ref{tab:eer}.
 
 \textbf{Feature-level fusion:} The traditional way of combining
 information from multiple feature representations is to combine
-them either at the feature-level or at the score-level \cite{fusion}. In our experiments, this procedure is applied to
-both the GMM-UBM system, and the i-vector system. Feature-level fusion also known as early fusion, is achieved by fusing the
-38-dimensional MFCC and MODGDF feature vectors used in baseline
-systems to get a 76-dimensional feature vector. Using these
+them either at the feature-level or at the score-level \cite{fusion}. 
+In our experiments, this procedure is applied to both the GMM-UBM system
+and the i-vector system. Feature-level fusion also known as early fusion,
+is achieved by fusing the 38-dimensional MFCC and MODGDF feature vectors 
+used in baseline systems to get a 76-dimensional feature vector. Using these
 feature vectors, gender-dependent speaker verification systems
- are built. These systems are indicated as EF-UBM-male, 
- EF-UBM-female, EF-ivec-male, and EF-ivec-female. The EERs of
- these systems are shown in Table  \ref{tab:eer}.
+ are built. These systems are indicated as EF-UBM-male, EF-UBM-female, 
+ EF-ivec-male, and EF-ivec-female. The EERs of these systems are shown in 
+ Table  \ref{tab:eer}.
 
 \textbf{Score-level fusion:}  Score-level fusion is achieved by
 fusing the scores of individual feature-based baseline systems
@@ -525,11 +535,11 @@ are given below.
 
 
 \textbf{GMM-UBM feature-switching system:}
-The baseline systems (MFCC and MODGDF) described in section \ref{subsec:baseline} form the
-constituent systems for feature-switching. This is shown in Figure \ref{fig:systemArch2}. For each enrolment
-speaker, the optimal feature is determined from the enrolment utterance, as described in section
-\ref{subsec:ubm_optFeat}. Here, the number of candidate features, $P$, is two,
-with $p=1$ meaning MFCC features and $p=2$ meaning MODGDF features.
+The baseline systems (MFCC and MODGDF) described in section \ref{subsec:baseline} 
+form the constituent systems for feature-switching. This is shown in Figure
+\ref{fig:systemArch2}. For each enrolment speaker, the optimal feature is 
+determined from the enrolment utterance, as described in section \ref{subsec:ubm_optFeat}. Here, the number of candidate features, $P$, is two, with $p=1$ meaning 
+MFCC features and $p=2$ meaning MODGDF features.
 
 The weighting parameter $\alpha$ is used as a trade-off between mutual information and
 KL-divergence for determining the optimal feature of a given speaker (equation
@@ -549,8 +559,10 @@ Out of 1402 male  and 1758 female enrolment speakers in the SRE 2010
 dataset, 734 male  and 641 female speakers chose MODGDF and 
 remaining chose MFCC as their optimal feature. Approximately, 890
 male utterances and 1100 female utterances were used across the five
-different test conditions listed in Section \ref{sec:dB}. The two feature-switching systems are developed in this framework are denoted as 
-FS-UBM-male, and FS-UBM-female. The distribution of speakers in both feature domain for these feature switching systems are listed in the Table \ref{tab:ubm-spkrCount}.
+different test conditions listed in Section \ref{sec:dB}. The two 
+feature-switching systems are developed in this framework are denoted as 
+FS-UBM-male, and FS-UBM-female. The distribution of speakers in both feature 
+domain for these feature switching systems are listed in the Table \ref{tab:ubm-spkrCount}.
 
 
 \textbf{i-vector feature-switching system:}
@@ -564,8 +576,10 @@ Out of 1402 male and 1758 female enrolment data, 26 and 1673
 trials chose MODGDF as their optimal feature respectively.
 The same test set used for feature-switching in UBM-GMM framework 
 is used here. The two feature-switching systems are developed in this
-framework are denoted as FS-UBM-male, and FS-UBM-female. The distribution of speakers in both feature domain for these feature switching systems are listed in the Table \ref{tab:ivec-spkrCount}.
-The resulting EERs for these systems are also described in Table \ref{tab:eer}.
+framework are denoted as FS-UBM-male, and FS-UBM-female. The distribution 
+of speakers in both feature domain for these feature switching systems 
+are listed in the Table \ref{tab:ivec-spkrCount}. The resulting EERs for 
+these systems are also described in Table \ref{tab:eer}.
 
 \section{Result Analysis}
 \label{subsec:resAnalysis}
@@ -636,24 +650,31 @@ SF-ivec-Female & 5.52 & 7.53 & 13.33 & 3.83 & 3.44 \\
 	\end{table}
 
 
-The various speaker verification systems described in Section \ref{sec:expts} include four baseline systems (UBM-MFC, UBM-MGD, ivec-MFC, ivec-MGD), two score fusion systems (give names) and
-two proposed feature-switching systems. Each of these have corresponding systems
-for male trials and female trials. The performance metric is the equal error
-rate (EER.) These are tabulated in table \ref{tab:eer}.
+The various speaker verification systems described in Section \ref{sec:expts} 
+include four baseline systems (UBM-MFC, UBM-MGD, ivec-MFC, ivec-MGD), two score 
+fusion systems (SF-UBM, SF-ivec) and two proposed feature-switching systems 
+(FS-UBM, FS-ivec). Each of these have corresponding systems for male trials and 
+female trials. The performance metric is the equal error rate (EER). These are 
+tabulated in table \ref{tab:eer}.
 
 %In all cases, give the relative improvement.
 As expected, the score fusion system performs better than the individual
 baseline systems. In test conditions C6 and C8 for SF-UBM-Male system, 
-there is approximately 1.8\% of improvement in EER compared to the baseline systems. Similarly for test conditions C5, C7, and C9, for the same system, the improvement in performance is about 0.4\% of improvement is observed in same system. Similarly for 
+there is approximately 1.8\% of improvement in EER compared to the baseline systems.
+Similarly for test conditions C5, C7, and C9, for the same system, the improvement in
+performance is about 0.4\% of improvement is observed in same system. Similarly for 
 the test cases C5 and C7 of SF-UBM-Female system, performance is improved around 0.5\%.
-For the same system, nearly 1.5\% of performance improved is seen for test cases C6, C8 and
-C9.
+For the same system, nearly 1.5\% of performance improved is seen for test cases C6, 
+C8 and C9.
 
 $******************************************* $ \\
 Why is early fusion poor? Justify. \\
 $*******************************************$ \\
 
-It is evident from the results that performance of the score-fusion system is better than the early fusion systems and baseline systems. But the feature switching system outperforms the score-fusion systems in both the frameworks in all test cases except for case C7 in female database.
+It is evident from the results that performance of the score-fusion system is 
+better than the early fusion systems and baseline systems. But the feature 
+switching system outperforms the score-fusion systems in both the frameworks 
+in all test cases except for case C7 in female database.
 
 The comparison of best baseline system and feature switching system, along with
 the number of speakers in the optimal feature space in listed in the Table
@@ -664,11 +685,15 @@ of the Table \ref{tab:ubm-spkrCount}).
 %Give table here.
 \begin{table}[h!tb]
 \centering
-\caption{The distribution of speakers in the feature spaces using feature switching in UBM-GMM framework. (EERs of baseline system and feature switching systems are compared and lesser EER in given in bold font)}
+\caption{The distribution of speakers in the feature spaces using feature switching 
+in UBM-GMM framework. (EERs of baseline system and feature switching systems are 
+compared and lesser EER in given in bold font)}
 \begin{tabular}{cc|c|c|c|}
 \cline{3-5}
 \multicolumn{1}{l}{} & \multicolumn{1}{l|}{} & \multicolumn{3}{c|}{UBM-GMM Framework} \\ \hline
-\multicolumn{1}{|c|}{Gender} & Condition & \begin{tabular}[c]{@{}c@{}}Best Baseline \\ EER\end{tabular} & \begin{tabular}[c]{@{}c@{}}Feature \\ Switching\\ EER\end{tabular} & \begin{tabular}[c]{@{}c@{}}Speaker Count\\ (MGD/MFCC)\end{tabular} \\ \hline
+\multicolumn{1}{|c|}{Gender} & Condition & \begin{tabular}[c]{@{}c@{}}Best Baseline \\
+ EER\end{tabular} & \begin{tabular}[c]{@{}c@{}}Feature \\ Switching\\ EER\end{tabular} &
+  \begin{tabular}[c]{@{}c@{}}Speaker Count\\ (MGD/MFCC)\end{tabular} \\ \hline
 \multicolumn{1}{|c|}{\multirow{5}{*}{Male}} & C5 & 17.27 (MFC) & {\bf 10.48} & 168/187 \\ \cline{2-5} 
 \multicolumn{1}{|c|}{} & C6 & 18.09 (MFC) & {\bf 12.32} & 113/34 \\ \cline{2-5} 
 \multicolumn{1}{|c|}{} & C7 & 11.65 (MGD) & {\bf 9.06} & 96/53 \\ \cline{2-5} 
@@ -686,11 +711,15 @@ of the Table \ref{tab:ubm-spkrCount}).
 %Give table here.
 \begin{table}[h!tb]
 \centering
-\caption{The distribution of speakers in the feature spaces using feature switching in UBM-GMM framework. (EERs of baseline system and feature switching systems are compared and lesser EER in given in bold font)}
+\caption{The distribution of speakers in the feature spaces using feature 
+switching in UBM-GMM framework. (EERs of baseline system and feature switching 
+systems are compared and lesser EER in given in bold font)}
 \begin{tabular}{cc|c|c|c|}
 \cline{3-5}
 \multicolumn{1}{l}{} & \multicolumn{1}{l|}{} & \multicolumn{3}{c|}{i-vector Framework} \\ \hline
-\multicolumn{1}{|c|}{Gender} & Condition & \begin{tabular}[c]{@{}c@{}}Best Baseline \\ EER\end{tabular} & \begin{tabular}[c]{@{}c@{}}Feature\\  Switching\\ EER\end{tabular} & \begin{tabular}[c]{@{}c@{}}Speaker Count\\ (MGD/MFCC)\end{tabular} \\ \hline
+\multicolumn{1}{|c|}{Gender} & Condition & \begin{tabular}[c]{@{}c@{}}Best Baseline \\
+ EER\end{tabular} & \begin{tabular}[c]{@{}c@{}}Feature\\  Switching\\ EER\end{tabular} &
+ \begin{tabular}[c]{@{}c@{}}Speaker Count\\ (MGD/MFCC)\end{tabular} \\ \hline
 \multicolumn{1}{|c|}{\multirow{5}{*}{Male}} & C5 & 5.10 (MFC) & {\bf 3.56} & 8/352 \\ \cline{2-5} 
 \multicolumn{1}{|c|}{} & C6 & 6.20 (MFC) & {\bf 4.86} & 6/146 \\ \cline{2-5} 
 \multicolumn{1}{|c|}{} & C7 & 7.06 (MGD) & {\bf 5.57} & 7/147 \\ \cline{2-5} 
@@ -707,14 +736,21 @@ of the Table \ref{tab:ubm-spkrCount}).
 
 
 \vspace{0.25cm}
-MODGDF is generally preferred over MFCC feature for male and MFCC is preferred for female over MODGDF in UBM-GMM framework. The complete reverse scenario is observed in i-vector framework, where MFCC is preferred for most of the test cases in male and MODGDF is preferred for female. On comparing the i-vector and UBM-GMM framework, out of 1402 trials 
-in the male enrolment data, 730 trials chose different optimal feature. Likewise, out of 1758 trials in female enrolment data, 1136 trials adopted different optimal features.
+MODGDF is generally preferred over MFCC feature for male and MFCC is preferred for female
+over MODGDF in UBM-GMM framework. The complete reverse scenario is observed in i-vector
+framework, where MFCC is preferred for most of the test cases in male and MODGDF is
+preferred for female. On comparing the i-vector and UBM-GMM framework, out of 1402 trials 
+in the male enrolment data, 730 trials chose different optimal feature. Likewise, out of
+1758 trials in female enrolment data, 1136 trials adopted different optimal features.
 
 
-The considerable reduction in EERs of feature-switching systems in all cases except for C7 in FS-ivec-female system, demonstrates feature-switching systems are efficient than the score-fusion and baseline systems. 
+The considerable reduction in EERs of feature-switching systems in all cases 
+except for C7 in FS-ivec-female system, demonstrates feature-switching systems 
+are efficient than the score-fusion and baseline systems. 
 \\$**********************$ \\
-The exception may be due to reverberation in high vocal effort testing \cite{vocalEffort} {\bf (I am not clear with the justification here Sir...!)}. \\ $**********************$ \\
-Overall performance of i-vector systems are better than UBM-GMM systems.  
+The exception may be due to reverberation in high vocal effort testing 
+\cite{vocalEffort} {\bf (I am not clear with the justification here Sir...!)}. \\ $**********************$ \\ Overall performance of i-vector systems are better 
+than UBM-GMM systems.  
 
 \vspace{0.25cm}
 \section{Conclusion}
