@@ -9,10 +9,11 @@
 \usepackage{flushend}
 \usepackage{subfigure}
 \usepackage{algorithm}
-\usepackage{algpseudocode}
+\usepackage{algorithmic}
 \usepackage{url}
 
 \DeclareMathSizes{10}{10}{10}{10}
+
 
 \title{Feature-switching paper draft today modified again from Mandi}
 
@@ -141,15 +142,17 @@ separability obtained in MFCC and MODGDF feature spaces for two different
 speakers. The mean vectors of a 32-mixture GMM and UBM are plotted in
 two-dimensional space. In these figures, the 39-dimensional MFCC and MODGDF
 feature vectors are reduced to two dimensions using the Sammon mapping technique
-\cite{sammon}. Sammon mapping represents N-dimensional vectors\ from N-space to 
-a lower-dimensional space such that the inherent data structure is preserved. 
- It can be seen that in Figure \ref{fig:ubm_sep1}(b), there is
- better separation between the GMM and the UBM in the MODGDF space, when compared
- to the MFCC space. Thus, it is likely that this speaker is better discriminated
- against the UBM in the MODGDF space. Similarly, for a different speaker, 
- Figure \ref{fig:ubm_sep2}(a) shows better separation in the MFCC space. Thus,
- for this speaker, performing verification in the MFCC space gives better
- discrimination between the UBM and the GMM. 
+\cite{sammon}. Sammon mapping represents N-dimensional vectors from N-space to a 
+lower-dimensional space such that the inherent data structure is preserved.  The measure
+used by the Sammon mapping is designed to minimise the differences between corresponding
+inter-point distances in the two spaces. To the greatest possible extent it conserves the
+distance between each pair of points \cite{sammon1}. It can be seen that in Figure
+  \ref{fig:ubm_sep1}(b), there is  better separation between the GMM and the UBM in the
+  MODGDF space, when compared to the MFCC space. Thus, it is likely that this speaker is
+  better discriminated against the UBM in the MODGDF space. Similarly, for a different
+  speaker, Figure \ref{fig:ubm_sep2}(a) shows better separation in the MFCC space. Thus,
+  for this speaker, performing verification in the MFCC space gives better discrimination
+  between the UBM and the GMM. 
 
 \begin{figure}[h!tb]
 \centering \hspace{-5cm}
@@ -362,37 +365,37 @@ via group delay functions \cite{group_delay}. The modified group delay feature (
 \cite{modgd_feat}, which is derived from the modified group delay function
 \cite{modgd_func}, have been explored as complementary features to MFCCs. The procedure for
 extracting MODGDF features are briefly described below. More details regarding the theory
-of MODGF can be found in \cite{modgd_func} and \cite{modgd_feat}. The algorithm for
-extracting the MODGDF feature is given below as in \cite{hegdeModgdf}.
+of MODGF can be found in \cite{modgd_func} and \cite{modgd_feat}. The algorithm for extracting the MODGDF feature is given below as in \cite{hegdeModgdf}.
+
+\renewcommand{\algorithmicrequire}{\textbf{Input:}}
+\renewcommand{\algorithmicensure}{\textbf{Output:}}
 
 \begin{algorithm}
 \caption{Algorithm 1: MODGDF Extraction}
 \label{alg:mgdExtraction}
-\textbf{Input:} A frame of speech signal $x(n)$  \\
-\textbf {Output:} MODGDF features c(n). 
 \begin{algorithmic}[1]
-%\Procedure{}{} \\
-\State Compute the DFT $X(k)$ of the speech frame $x(n)$. 
-\State Compute the DFT $\hat{X(k)}$ of the signal $nx(n)$. 
-\State Compute the cepstrally smoothed spectra of $X(k)$ and denote it as $S(k)$. 
-Length of window in cepstral domain is controlled by the lifter parameter $\omega$ 
-\State MODGD function is computed as:
-		\begin{equation*}
-			\tau_{m}(k)=\left( \frac{\tau (k)}{\left| \tau (k) \right|} \right) \left( \left| \tau(k) \right| \right)^{\alpha}
-	\end{equation*} where
-	\begin{equation*}
-		 \tau(k)=\frac{X_R(k)\hat{X}_R(k)+X_I(k)\hat{X}_I(k)}{\left| S(k)\right|^{2\gamma}}
-	\end{equation*} $\alpha$ and $\gamma$ are the parameters used to control the 
-	dynamic range of the MODGD function.
-\State By taking the DCT of the MODGD, MODGDF features are computed as 
+\REQUIRE		{A frame of speech signal $x(n)$}
+\ENSURE		{ MODGDF features $c(n)$}
+\STATE Compute the DFT $X(k)$ of the speech frame $x(n)$.
+\STATE Compute the DFT $\hat{X(k)}$ of the signal $nx(n)$.
+\STATE Compute the cepstrally smoothed spectra of $X(k)$ and denote it as $S(k)$.
+Length of window in cepstral domain is controlled by the lifter parameter $\omega$
+\STATE MODGD function is computed as:
+                \begin{equation*}
+                        \tau_{m}(k)=\left( \frac{\tau (k)}{\left| \tau (k) \right|} \right) \left( \left| \tau(k) \right| \right)^{\alpha}
+        \end{equation*} where
+        \begin{equation*}
+                 \tau(k)=\frac{X_R(k)\hat{X}_R(k)+X_I(k)\hat{X}_I(k)}{\left| S(k)\right|^{2\gamma}}
+        \end{equation*} $\alpha$ and $\gamma$ are the parameters used to control the
+        dynamic range of the MODGD function.
+\STATE By taking the DCT of the MODGD, MODGDF features are computed as
 \begin{equation*}
-	c(n)=\sum_{k=0}^{N_f-1}\tau_m(k)cos(n(2k+1)\pi/N_f), \;\; 0\leq n < N_c
-	\end{equation*}	
-	where $N_f$	is the DFT size and $N_c$ is the number of cepstral coefficients.
-
-%\EndProcedure
+        c(n)=\sum_{k=0}^{N_f-1}\tau_m(k)cos(n(2k+1)\pi/N_f), \;\; 0\leq n < N_c
+        \end{equation*}
+        where $N_f$     is the DFT size and $N_c$ is the number of cepstral coefficients.
 \end{algorithmic}
 \end{algorithm}
+
 
 \section{Experimental evaluation}
 \label{sec:expts}
