@@ -580,11 +580,12 @@ are given below.
 
 
 \textbf{GMM-UBM feature-switching system:}
-The baseline systems (MFCC and MODGDF) described in section \ref{subsec:baseline} 
-form the constituent systems for feature-switching. This is shown in Figure
-\ref{fig:systemArch2}. For each enrolment speaker, the optimal feature is 
-determined from the enrolment utterance, as described in section \ref{subsec:ubm_optFeat}. Here, the number of candidate features, $P$, is two, with $p=1$ meaning 
-MFCC features and $p=2$ meaning MODGDF features.
+The baseline systems (MFCC and MODGDF) described in section
+\ref{subsec:baseline} form the constituent systems for feature-switching. This
+is shown in Figure \ref{fig:systemArch2}. For each enrolment speaker, the
+optimal feature is determined from the enrolment utterance, as described in
+section \ref{subsec:ubm_optFeat}. Here, the number of candidate features, $P$,
+is two, with $p=1$ meaning MFCC features and $p=2$ meaning MODGDF features.
 
 The weighting parameter $\alpha$ is used as a trade-off between mutual information and
 KL-divergence for determining the optimal feature of a given speaker (equation
@@ -594,7 +595,7 @@ the following procedure is adopted for each of the $N$ enrolment speakers.
 For a given speaker, the value of $\phi_p$ is determined accross various values
 of $\alpha$ as, 
 \begin{equation}
-\phi_p = \max \; (\alpha \theta_p + (1-\alpha) \gamma_p)
+\phi_p = \max \; (\alpha \theta_p + (1-\alpha) \gamma_p),
 \end{equation}
 where the values of $\alpha$ are varied from $0$ to $1$ in steps of $0.1$. Once
 $\phi_p$ is determined for $p=1$ and $p=2$, the optimal feature is computed as in equation
@@ -707,23 +708,58 @@ female trials. The performance metric is the equal error rate (EER). These are
 tabulated in table \ref{tab:eer}.
 
 %In all cases, give the relative improvement.
-As expected, the score fusion system performs better than the individual
-baseline systems. In test conditions C6 and C8 for SF-UBM-Male system, 
-there is approximately 1.8\% of improvement in EER compared to the baseline systems.
-Similarly for test conditions C5, C7, and C9, for the same system, the improvement in
-performance is about 0.4\% of improvement is observed in same system. Similarly for 
-the test cases C5 and C7 of SF-UBM-Female system, performance is improved around 0.5\%.
-For the same system, nearly 1.5\% of performance improved is seen for test cases C6, 
-C8 and C9.
+% Have you given absolute or relative improvement figures?
 
-$******************************************* $ \\
-Why is early fusion poor? Justify. \\
-$*******************************************$ \\
+Compared to the baseline systems, the score-fusion systems provide an average
+relative improvement of X\% for male trials, and Y\% for female trials in the
+GMM-UBM case and X\% and Y\% for the ivector case. 
+%More specifically, for male trials, the
+%conditionwise improvements are: C5: X5, C6: X6, C7: X7, C8: X8 and C9: X9. For
+%female trials, the improvements are C5: Y5, C6: Y6, C7: Y7, C8: Y8, C9: Y9.
 
-It is evident from the results that performance of the score-fusion system is 
-better than the early fusion systems and baseline systems. But the feature 
-switching system outperforms the score-fusion systems in both the frameworks 
-in all test cases except for case C7 in female database.
+
+%As expected, the score fusion system performs better than the individual
+%baseline systems. In test conditions C6 and C8 for SF-UBM-Male system, 
+%there is approximately 1.8\% of improvement in EER compared to the baseline systems.
+%Similarly for test conditions C5, C7, and C9, for the same system, the improvement in
+%performance is about 0.4\% of improvement is observed in same system. Similarly for 
+%the test cases C5 and C7 of SF-UBM-Female system, performance is improved around 0.5\%.
+%For the same system, nearly 1.5\% of performance improved is seen for test cases C6, 
+%C8 and C9.
+
+%$******************************************* $ \\
+%Why is early fusion poor? Justify. \\
+%$*******************************************$ \\
+
+%It is evident from the results that performance of the score-fusion system is 
+%better than the early fusion systems and baseline systems. But the feature 
+%switching system outperforms the score-fusion systems in both the frameworks 
+%in all test cases except for case C7 in female database.
+The proposed feature switching system outperforms the score fusion systems in
+almost all the NIST conditions. Compared to the baseline, the average relative
+improvement is X\% for male trials and Y\% for female trials.
+
+To look further into why feature-switching brings about the improvements, we
+analysed the trials in the various evaluation conditions. In the baseline
+systems, each evaluation trial gets verified in the same feature space (be it
+the GMM-UBM case or the i-vector case.) Whereas in feature-switching, the trials
+get evaluated in the optimal feature space of the claimed speaker. This is
+summarised in Tables PPP and QQQ. %(give label here.)
+In table PPP, the first entry states that the best baseline EER of 17.27\% is achived when
+all the trials are evaluated in MFCC space. But in feature-switching, based on
+the optimal feature of the claimed speaker, 187 trials were evaluated in MFCC
+space and 168 trials were evlauated in MODGDF space. This differential
+evaluation resulted in more number of correct verifications, hence bringing down
+the EER.
+
+GMM:
+Out of 1402 male  and 1758 female enrolment speakers in the SRE 2010
+dataset, 734 male  and 641 female speakers chose MODGDF and 
+remaining chose MFCC as their optimal feature.
+ ivec:
+Out of 1402 male and 1758 female enrolment data, 26 and 1673
+trials chose MODGDF as their optimal feature respectively.
+
 
 The comparison of best baseline system and feature switching system, along with
 the number of speakers in the optimal feature space in listed in the Table
