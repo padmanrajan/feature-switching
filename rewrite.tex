@@ -7,10 +7,12 @@
 \usepackage{multirow}
 \usepackage{nonfloat}
 \usepackage{flushend}
-\usepackage{subfigure}
+%\usepackage{subfigure}
 \usepackage{algorithm}
+\usepackage{subcaption}
 \usepackage{algorithmic}
 \usepackage{url}
+\usepackage{lipsum}
 
 \DeclareMathSizes{10}{10}{10}{10}
 
@@ -96,15 +98,15 @@ and the UBM implies improved accuracy in verification.
 \begin{minipage}[c]{0.5\textwidth}
 \centering 
 %	\begin{figure}
-    \includegraphics[scale=0.30]{figures/tdcap_mfcc.eps}
+    \includegraphics[width=0.99\textwidth]{figures/tdcap_mfcc.eps}
 	\caption*{(a)}
 %	\label{fig:GmmMgdOpt}
 %	\end{figure}
 \end{minipage}%
-\begin{minipage}[c]{0.35\textwidth}
+\begin{minipage}[c]{0.5\textwidth}
 \centering  
 %	\begin{figure}
-    \includegraphics[scale=0.30]{figures/tdcap_mgd.eps}
+    \includegraphics[width=0.99\textwidth]{figures/tdcap_mgd.eps}
 	\caption*{(b)}
 %	\label{fig:GmmMfcOpt}
 %	\end{figure}
@@ -117,18 +119,18 @@ separable in MODGDF space.}
 
 \begin{figure}[h]
 \centering 
-\begin{minipage}[c]{0.45\textwidth}
+\begin{minipage}[c]{0.5\textwidth}
 \centering 
 %	\begin{figure}
-    \includegraphics[scale=0.30]{figures/tecer_mfcc.eps}
+    \includegraphics[width=0.99\textwidth]{figures/tecer_mfcc.eps}
 	\caption*{(a)}
 %	\label{fig:GmmMgdOpt}
 %	\end{figure}
 \end{minipage}%
-\begin{minipage}[c]{0.45\textwidth}
+\begin{minipage}[c]{0.5\textwidth}
 \centering  
 %	\begin{figure}
-    \includegraphics[scale=0.30]{figures/tecer_mgd.eps}
+    \includegraphics[width=0.99\textwidth]{figures/tecer_mgd.eps}
 	\caption*{(b)}
 %	\label{fig:GmmMfcOpt}
 %	\end{figure}
@@ -158,29 +160,48 @@ speaker, performing verification in the MFCC space gives better discrimination
 between the UBM and the GMM. 
 
 \begin{figure}[h!tb]
-\centering \hspace{-5cm}
-\begin{minipage}{0.65\textwidth}
 \centering 
-\includegraphics[scale=0.5]{figures/spkr1_mfcc.eps}
+\begin{minipage}{0.5\textwidth}
+\centering 
+\includegraphics[width=0.99\textwidth]{figures/spkr_1_mfcc.eps}
 \caption*{(a)}
 \label{fig:subfig3}
-\end{minipage}%
-\begin{minipage}{0.25\textwidth}
-\centering \hspace{10cm}
-\includegraphics[scale=0.5]{figures/spkr3_mgd.eps}
+\end{minipage}% 
+\begin{minipage}{0.5\textwidth}
+\centering 
+\includegraphics[width=0.99\textwidth]{figures/spkr_1_mgd.eps}
 \caption*{(b)}
 \label{fig:subfig4}
 \end{minipage}
-\caption{Sub-figures (a) and (b) show the i-vectors derived from MFCC (part a)
-and MODGDF (part b) for target and impostor trials. This target and impostor
-i-vectors are better separable in MFCC space for the speaker in (a)
-and in MODGDF space for the speaker  in (b).}
+\caption{Sub-figures (a) and (b) show the i-vectors derived from MFCC
+and MODGDF for target and impostor trials. This target and impostor
+i-vectors are better separable in MFCC space.}
+\label{fig:ivec_separation}
+\end{figure}
+
+\begin{figure}[h!tb]
+\centering 
+\begin{minipage}{0.5\textwidth}
+\centering 
+\includegraphics[width=0.99\textwidth]{figures/spkr_2_mfcc.eps}
+\caption*{(a)}
+\label{fig:subfig3}
+\end{minipage}%
+\begin{minipage}{0.5\textwidth}
+\centering 
+\includegraphics[width=0.99\textwidth]{figures/spkr_2_mgd.eps}
+\caption*{(b)}
+\label{fig:subfig4}
+\end{minipage}
+\caption{Sub-figures (a) and (b) show the i-vectors derived from MFCC
+and MODGDF for target and impostor trials. This target and impostor
+i-vectors are better separable in MODGDF space.}
 \label{fig:ivec_separation}
 \end{figure}
 
 Similar analysis is performed in i-vector space by considering i-vectors derived
 from different feature representations.  For a given speaker, target trials are
-those spoken by the speaker himelf or herself, and are also called true-speaker
+those spoken by the speaker himself or herself, and are also called true-speaker
 trials. Non-target trials are spoken by other speakers, and are also called
 imposter trials. In this figure, 38-dimensional dimension i-vectors are reduced
 to two dimensions using Sammon mapping. The better separation of target and
@@ -373,38 +394,6 @@ via group delay functions \cite{group_delay}. The modified group delay feature (
 extracting MODGDF features are briefly described below. More details regarding the theory
 of MODGF can be found in \cite{modgd_func} and \cite{modgd_feat}. The algorithm for extracting the MODGDF feature is given below as in \cite{hegdeModgdf}.
 
-%\renewcommand{\algorithmicrequire}{\textbf{Input:}}
-%\renewcommand{\algorithmicensure}{\textbf{Output:}}
-%
-%\begin{algorithm}
-%\caption{Algorithm 1: MODGDF Extraction}
-%\label{alg:mgdExtraction}
-%\begin{algorithmic}[1]
-%
-%\REQUIRE		{A frame of speech signal $x(n)$}
-%\ENSURE		{ MODGDF features $c(n)$}
-%\STATE Compute the DFT $X(k)$ of the speech frame $x(n)$.
-%\STATE Compute the DFT $\hat{X(k)}$ of the signal $nx(n)$.
-%\STATE Compute the cepstrally smoothed spectra of $X(k)$ and denote it as $S(k)$.
-%Length of window in cepstral domain is controlled by the lifter parameter $\omega$
-%\STATE MODGD function is computed as:
-%                \begin{equation*}
-%                        \tau_{m}(k)=\left( \frac{\tau (k)}{\left| \tau (k) \right|} \right) \left( \left| \tau(k) \right| \right)^{\alpha}
-%        \end{equation*} where
-%        \begin{equation*}
-%                 \tau(k)=\frac{X_R(k)\hat{X}_R(k)+X_I(k)\hat{X}_I(k)}{\left| S(k)\right|^{2\gamma}}
-%        \end{equation*} $\alpha$ and $\gamma$ are the parameters used to control the
-%        dynamic range of the MODGD function.
-%\STATE By taking the DCT of the MODGD, MODGDF features are computed as
-%\begin{equation*}
-%        c(n)=\sum_{k=0}^{N_f-1}\tau_m(k)cos(n(2k+1)\pi/N_f), \;\; 0\leq n < N_c
-%        \end{equation*}
-%        where $N_f$     is the DFT size and $N_c$ is the number of cepstral coefficients.
-%
-%\end{algorithmic}
-%\end{algorithm}
-
-
 \begin{algorithm}
 \caption{MODGDF feature extraction}
 \label{alg:mgdExtraction}
@@ -436,11 +425,6 @@ where $N_f$ is the DFT size and $N_c$ are the number of cepstral coefficients.
 
 \end{algorithmic}
 \end{algorithm}
-
-
-
-
-
 
 \section{Experimental evaluation}
 \label{sec:expts}
@@ -634,70 +618,151 @@ these systems are also described in Table \ref{tab:eer}.
 \section{Result Analysis}
 \label{subsec:resAnalysis}
 
-\begin{table}[h]
-	\centering
-	\caption{EERs in \% for baseline systems, score fusion (SF) systems and
-	feature switching (FS) systems in UBM-GMM and i-vector frameworks}
-	\begin{tabular}{|c|c|c|c|c|c|} \hline
- {\bf System} & {\bf C5 } &  {\bf C6} & {\bf C7} & {\bf C8}  & {\bf C9  }\\ \hline \hline
-\multicolumn{6}{|c|}{\bf Baseline Systems} \\ \hline
+%\begin{table}[h]
+%	\centering
+%	\caption{EERs in \% for baseline systems, score fusion (SF) systems and
+%	feature switching (FS) systems in UBM-GMM and i-vector frameworks}
+%	\begin{tabular}{|c|c|c|c|c|c|} \hline
+% {\bf System} & {\bf C5 } &  {\bf C6} & {\bf C7} & {\bf C8}  & {\bf C9  }\\ \hline \hline
+%\multicolumn{6}{|c|}{\bf Baseline Systems} \\ \hline
+%UBM-MFC-Male & 17.27 & 18.09 & 18.06 & 11.82 & 4.55 \\ \hline
+%
+%UBM-MGD-Male & 19.54 & 19.89 & 11.65 & 13.99 & 5.19 \\ \hline
+%
+%{UBM-MFC-Female} & 18.07 & 22.19 & 27.74 & 11.01 & 4.76 \\ \hline
+%
+%{UBM-MGD-Female} & 22.64 & 22.15 & 18.07 & 15.14 & 7.14 \\ \hline
+%
+%{ivec-MFC-Male} & 5.10 & 6.20 & 7.44 & 2.17 & 3.13 \\ \hline
+%
+%{ivec-MGD-Male} &  6.26 & 8.02 & 7.06 & 3.02 & 3.31  \\ \hline
+%
+%{ivec-MFC-Female} & 6.25 & 9.32 & 16.55 & 4.60 & 3.65 \\ \hline
+%
+%{ivec-MGD-Female} & 7.02 & 9.89 & {\bf 11.64} & 3.98 & 3.73 \\ \hline 
+%
+%\multicolumn{6}{|c|}{\bf Early Fusion Systems} \\ \hline
+%
+%{EF-UBM-Male} & 17.97 & 20.22 & 12.84 & 15.94 & 6.14\\ \hline
+%
+%{EF-UBM-Female} & 17.56 & 20.67  & 23.1  & 13.11 & 5.42  \\ \hline
+%
+%{EF-ivec-Male} & 18.61 & 18.15 & 12.7 & 11.1 & 6.41 \\ \hline
+%
+%{EF-ivec-Female} & 7.91 & 11.8 & 14.83 & 6.13 & 4.64 \\ \hline 
+%
+%\multicolumn{6}{|c|}{\bf Score Fusion Systems} \\ \hline
+%
+%SF-UBM-Male & 16.71 & 16.38 & 11.04 & 9.79 & 4.43 \\ 
+%%(weights:MGD+MFC) & (0.4+0.6) & (0.5+0.5) & (0.8+0.2) & (0.1+0.9) & (0.3+0.7) \\ 
+%\hline
+%
+%SF-UBM-Female & 17.80 & 20.27 & 17.26 & 10.40 & 3.24 \\ 
+%%(weights:MGD+MFC) & (0.3+0.7) & (0.5+0.5) & (0.9+0.1) & (0.2+0.8) & (0.4+0.6) \\ 
+%\hline
+%
+%SF-ivec-Male & 4.48 & 5.39 & 6.74 & 1.99 & 3.09 \\ 
+%%(weights:MGD+MFC) & (0.3+0.7) & (0.3+0.7) & (0.7+0.3) & (0.2+0.8) & (0.3+0.7) \\ 
+%\hline
+%
+%SF-ivec-Female & 5.52 & 7.53 & 13.33 & 3.83 & 3.44 \\ 
+%%(weights:MGD+MFC) & (0.2+0.8) & (0.5+0.5) & (0.9+0.1) & (0.3+0.7) & (0.4+0.6) \\
+% \hline
+%
+%\multicolumn{6}{|c|}{\bf Feature Switching Systems} \\ \hline
+%
+%{FS-UBM-Male} & {10.48} & {12.32} & {9.06} & {9.4} & {3.21} \\  \hline
+%
+%{FS-UBM-Female} & {15.12 } & {18.39} & {14.14} & {9.89} & {4.27} \\ \hline
+%
+% {FS-ivec-Male} & {\bf 3.56} & {\bf 4.86} & {\bf 5.57} & {\bf 1.36} & {\bf 2.48} \\ \hline
+%
+%{FS-ivec-Female} & {\bf 5.62} & {\bf 8.58} & 11.86 & {\bf 3.61} & {\bf 3.52} \\ \hline
+%
+%	\end{tabular}
+%	\label{tab:eer}
+%	\end{table}
+
+
+\begin{table}
+\centering
+\caption{EERs for NIST-2010 male and female database (in \%)}
+
+\begin{subtable}{.55\linewidth}
+\centering
+{
+\caption{\small For male database in UBM-GMM framework}
+\resizebox{0.99\textwidth}{!}{
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+{\bf System} & {\bf C5 } &  {\bf C6} & {\bf C7} & {\bf C8}  & {\bf C9  }\\ \hline \hline
+\multicolumn{6}{|c|}{\bf UBM-Framework Male} \\ \hline
 UBM-MFC-Male & 17.27 & 18.09 & 18.06 & 11.82 & 4.55 \\ \hline
-
 UBM-MGD-Male & 19.54 & 19.89 & 11.65 & 13.99 & 5.19 \\ \hline
+EF-UBM-Male & 17.97 & 20.22 & 12.84 & 15.94 & 6.14\\ \hline
+SF-UBM-Male & 16.71 & 16.38 & 11.04 & 9.79 & 4.43 \\ \hline
+FS-UBM-Male & {10.48} & {12.32} & {9.06} & {9.4} & {3.21} \\  \hline
+\end{tabular}
+}
+\label{tab:eer_ubm_male}}
+\end{subtable}%
+\begin{subtable}{.55\linewidth}
+\centering
+\caption{\small For female database in UBM-GMM framework}
+{
+\resizebox{0.99\textwidth}{!}{
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline 
+{\bf System} & {\bf C5 } &  {\bf C6} & {\bf C7} & {\bf C8}  & {\bf C9  }\\ \hline \hline
+\multicolumn{6}{|c|}{\bf UBM-Framework Female} \\ \hline
+UBM-MFC-Female & 18.07 & 22.19 & 27.74 & 11.01 & 4.76 \\ \hline
+UBM-MGD-Female & 22.64 & 22.15 & 18.07 & 15.14 & 7.14 \\ \hline
+EF-UBM-Female & 17.56 & 20.67  & 23.1  & 13.11 & 5.42  \\ \hline
+SF-UBM-Female & 17.80 & 20.27 & 17.26 & 10.40 & 3.24 \\ \hline
+FS-UBM-Female & {15.12 } & {18.39} & {14.14} & {9.89} & {4.27} \\ \hline
+\end{tabular}
+}
+\label{tab:eer_ubm_female}}
+\end{subtable}
 
-{UBM-MFC-Female} & 18.07 & 22.19 & 27.74 & 11.01 & 4.76 \\ \hline
-
-{UBM-MGD-Female} & 22.64 & 22.15 & 18.07 & 15.14 & 7.14 \\ \hline
-
-{ivec-MFC-Male} & 5.10 & 6.20 & 7.44 & 2.17 & 3.13 \\ \hline
-
-{ivec-MGD-Male} &  6.26 & 8.02 & 7.06 & 3.02 & 3.31  \\ \hline
-
+\begin{subtable}{.55\linewidth}
+\centering
+{
+\caption{\small For male database in i-vector framework}
+\resizebox{0.99\textwidth}{!}{
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+{\bf System} & {\bf C5 } &  {\bf C6} & {\bf C7} & {\bf C8}  & {\bf C9  }\\ \hline \hline
+\multicolumn{6}{|c|}{\bf ivec-Framework Male} \\ \hline
+ivec-MFC-Male & 5.10 & 6.20 & 7.44 & 2.17 & 3.13 \\ \hline
+ivec-MGD-Male &  6.26 & 8.02 & 7.06 & 3.02 & 3.31  \\ \hline
+EF-ivec-Male & 18.61 & 18.15 & 12.7 & 11.1 & 6.41 \\ \hline
+SF-UBM-Male & 16.71 & 16.38 & 11.04 & 9.79 & 4.43 \\ \hline
+FS-ivec-Male & {\bf 3.56} & {\bf 4.86} & {\bf 5.57} & {\bf 1.36} & {\bf 2.48} \\ \hline
+\end{tabular}
+}
+\label{tab:eer_ivec_male}}
+\end{subtable}%
+\begin{subtable}{.55\linewidth}
+\centering
+\caption{\small For female database in i-vector framework}
+{
+\resizebox{0.99\textwidth}{!}{
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline 
+{\bf System} & {\bf C5 } &  {\bf C6} & {\bf C7} & {\bf C8}  & {\bf C9  }\\ \hline \hline
+\multicolumn{6}{|c|}{\bf ivec-Framework Female} \\ \hline
 {ivec-MFC-Female} & 6.25 & 9.32 & 16.55 & 4.60 & 3.65 \\ \hline
-
-{ivec-MGD-Female} & 7.02 & 9.89 & {\bf 11.64} & 3.98 & 3.73 \\ \hline 
-
-\multicolumn{6}{|c|}{\bf Early Fusion Systems} \\ \hline
-
-{EF-UBM-Male} & 17.97 & 20.22 & 12.84 & 15.94 & 6.14\\ \hline
-
-{EF-UBM-Female} & 17.56 & 20.67  & 23.1  & 13.11 & 5.42  \\ \hline
-
-{EF-ivec-Male} & 18.61 & 18.15 & 12.7 & 11.1 & 6.41 \\ \hline
-
+{ivec-MGD-Male} &  6.26 & 8.02 & 7.06 & 3.02 & 3.31  \\ \hline 
 {EF-ivec-Female} & 7.91 & 11.8 & 14.83 & 6.13 & 4.64 \\ \hline 
-
-\multicolumn{6}{|c|}{\bf Score Fusion Systems} \\ \hline
-
-SF-UBM-Male & 16.71 & 16.38 & 11.04 & 9.79 & 4.43 \\ 
-%(weights:MGD+MFC) & (0.4+0.6) & (0.5+0.5) & (0.8+0.2) & (0.1+0.9) & (0.3+0.7) \\ 
-\hline
-
-SF-UBM-Female & 17.80 & 20.27 & 17.26 & 10.40 & 3.24 \\ 
-%(weights:MGD+MFC) & (0.3+0.7) & (0.5+0.5) & (0.9+0.1) & (0.2+0.8) & (0.4+0.6) \\ 
-\hline
-
-SF-ivec-Male & 4.48 & 5.39 & 6.74 & 1.99 & 3.09 \\ 
-%(weights:MGD+MFC) & (0.3+0.7) & (0.3+0.7) & (0.7+0.3) & (0.2+0.8) & (0.3+0.7) \\ 
-\hline
-
-SF-ivec-Female & 5.52 & 7.53 & 13.33 & 3.83 & 3.44 \\ 
-%(weights:MGD+MFC) & (0.2+0.8) & (0.5+0.5) & (0.9+0.1) & (0.3+0.7) & (0.4+0.6) \\
- \hline
-
-\multicolumn{6}{|c|}{\bf Feature Switching Systems} \\ \hline
-
-{FS-UBM-Male} & {10.48} & {12.32} & {9.06} & {9.4} & {3.21} \\  \hline
-
-{FS-UBM-Female} & {15.12 } & {18.39} & {14.14} & {9.89} & {4.27} \\ \hline
-
- {FS-ivec-Male} & {\bf 3.56} & {\bf 4.86} & {\bf 5.57} & {\bf 1.36} & {\bf 2.48} \\ \hline
-
+{SF-ivec-Female} & 5.52 & 7.53 & 13.33 & 3.83 & 3.44 \\ \hline
 {FS-ivec-Female} & {\bf 5.62} & {\bf 8.58} & 11.86 & {\bf 3.61} & {\bf 3.52} \\ \hline
-
-	\end{tabular}
-	\label{tab:eer}
-	\end{table}
+\end{tabular}
+}
+\label{tab:eer_ivec_female}}
+\end{subtable}
+\label{tab:eer}
+\end{table}
 
 
 The various speaker verification systems described in Section \ref{sec:expts} 
@@ -773,22 +838,22 @@ of the Table \ref{tab:ubm-spkrCount}).
 \caption{The distribution of speakers in the feature spaces using feature switching 
 in UBM-GMM framework. (EERs of baseline system and feature switching systems are 
 compared and lesser EER in given in bold font)}
-\begin{tabular}{cc|c|c|c|}
-\cline{3-5}
-\multicolumn{1}{l}{} & \multicolumn{1}{l|}{} & \multicolumn{3}{c|}{UBM-GMM Framework} \\ \hline
-\multicolumn{1}{|c|}{Gender} & Condition & \begin{tabular}[c]{@{}c@{}}Best Baseline \\
- EER\end{tabular} & \begin{tabular}[c]{@{}c@{}}Feature \\ Switching\\ EER\end{tabular} &
-  \begin{tabular}[c]{@{}c@{}}Speaker Count\\ (MGD/MFCC)\end{tabular} \\ \hline
-\multicolumn{1}{|c|}{\multirow{5}{*}{Male}} & C5 & 17.27 (MFC) & {\bf 10.48} & 168/187 \\ \cline{2-5} 
-\multicolumn{1}{|c|}{} & C6 & 18.09 (MFC) & {\bf 12.32} & 113/34 \\ \cline{2-5} 
-\multicolumn{1}{|c|}{} & C7 & 11.65 (MGD) & {\bf 9.06} & 96/53 \\ \cline{2-5} 
-\multicolumn{1}{|c|}{} & C8 & 11.82 (MFC) & {\bf 9.4} & 64/52 \\ \cline{2-5} 
-\multicolumn{1}{|c|}{} & C9 & 4.55 (MFC) & {\bf 3.21} & 67/48 \\ \hline
-\multicolumn{1}{|c|}{\multirow{5}{*}{Female}} & C5 & 18.07 (MFC) & {\bf 15.12} & 76/281 \\ \cline{2-5} 
-\multicolumn{1}{|c|}{} & C6 & 22.15 (MGD) & {\bf 18.39} & 62/123 \\ \cline{2-5} 
-\multicolumn{1}{|c|}{} & C7 & 18.07 (MGD) & {\bf 14.14} & 33/152 \\ \cline{2-5} 
-\multicolumn{1}{|c|}{} & C8 & 11.01 (MFC) & {\bf 9.89} & 78/106 \\ \cline{2-5} 
-\multicolumn{1}{|c|}{} & C9 & 4.76 (MFC) & {\bf 4.27} & 75/106 \\ \hline
+\begin{tabular}{cc|c|c|c|c|}
+\cline{3-6}
+\multicolumn{1}{l}{} & \multicolumn{1}{l|}{} & \multicolumn{4}{c|}{UBM-GMM Framework} \\ \hline
+\multicolumn{1}{|c|}{Gender} & Condition & \begin{tabular}[c]{@{}c@{}}No. of \\ trails \end{tabular} & \begin{tabular}[c]{@{}c@{}}Best Baseline EER \\  and Feature
+Space\end{tabular} & \begin{tabular}[c]{@{}c@{}}Feature \\ Switching\\ EER\end{tabular} &
+  \begin{tabular}[c]{@{}c@{}}No. of trails\\ evaluated in \\ (MGD/MFCC)\end{tabular} \\ \hline
+\multicolumn{1}{|c|}{\multirow{5}{*}{Male}} & C5 & 355 & 17.27 (MFC) & {\bf 10.48} & 168/187 \\ \cline{2-6} 
+\multicolumn{1}{|c|}{} & C6 & 152 & 18.09 (MFC) & {\bf 12.32} & 113/34 \\ \cline{2-6} 
+\multicolumn{1}{|c|}{} & C7 & 154 & 11.65 (MGD) & {\bf 9.06} & 96/53 \\ \cline{2-6} 
+\multicolumn{1}{|c|}{} & C8 & 124 & 11.82 (MFC) & {\bf 9.4} & 64/52 \\ \cline{2-6} 
+\multicolumn{1}{|c|}{} & C9 & 119 & 4.55 (MFC) & {\bf 3.21} & 67/48 \\ \hline
+\multicolumn{1}{|c|}{\multirow{5}{*}{Female}} & C5 & 357 & 18.07 (MFC) & {\bf 15.12} & 76/281 \\ \cline{2-6} 
+\multicolumn{1}{|c|}{} & C6 & 185 & 22.15 (MGD) & {\bf 18.39} & 62/123 \\ \cline{2-6} 
+\multicolumn{1}{|c|}{} & C7 & 185 & 18.07 (MGD) & {\bf 14.14} & 33/152 \\ \cline{2-6} 
+\multicolumn{1}{|c|}{} & C8 & 184 & 11.01 (MFC) & {\bf 9.89} & 78/106 \\ \cline{2-6} 
+\multicolumn{1}{|c|}{} & C9 & 181 & 4.76 (MFC) & {\bf 4.27} & 75/106 \\ \hline
 \end{tabular}
 \label{tab:ubm-spkrCount}
 \end{table}
@@ -799,22 +864,22 @@ compared and lesser EER in given in bold font)}
 \caption{The distribution of speakers in the feature spaces using feature 
 switching in UBM-GMM framework. (EERs of baseline system and feature switching 
 systems are compared and lesser EER in given in bold font)}
-\begin{tabular}{cc|c|c|c|}
-\cline{3-5}
-\multicolumn{1}{l}{} & \multicolumn{1}{l|}{} & \multicolumn{3}{c|}{i-vector Framework} \\ \hline
-\multicolumn{1}{|c|}{Gender} & Condition & \begin{tabular}[c]{@{}c@{}}Best Baseline \\
- EER\end{tabular} & \begin{tabular}[c]{@{}c@{}}Feature\\  Switching\\ EER\end{tabular} &
- \begin{tabular}[c]{@{}c@{}}Speaker Count\\ (MGD/MFCC)\end{tabular} \\ \hline
-\multicolumn{1}{|c|}{\multirow{5}{*}{Male}} & C5 & 5.10 (MFC) & {\bf 3.56} & 8/352 \\ \cline{2-5} 
-\multicolumn{1}{|c|}{} & C6 & 6.20 (MFC) & {\bf 4.86} & 6/146 \\ \cline{2-5} 
-\multicolumn{1}{|c|}{} & C7 & 7.06 (MGD) & {\bf 5.57} & 7/147 \\ \cline{2-5} 
-\multicolumn{1}{|c|}{} & C8 & 2.17 (MFC) & {\bf 1.36} & 8/116 \\ \cline{2-5} 
-\multicolumn{1}{|c|}{} & C9 & 3.13 (MFC) & {\bf 2.48} & 4/115 \\ \hline
-\multicolumn{1}{|c|}{\multirow{5}{*}{Female}} & C5 & 6.25 (MFC) & {\bf 5.62} & 193/164 \\ \cline{2-5} 
-\multicolumn{1}{|c|}{} & C6 & 9.32 (MFC) & {\bf 8.58} & 102/83 \\ \cline{2-5} 
-\multicolumn{1}{|c|}{} & C7 & {\bf 11.64 (MGD)} & 11.86 & 176/9 \\ \cline{2-5} 
-\multicolumn{1}{|c|}{} & C8 & 3.98 (MGD) & {\bf 3.61} & 86/98 \\ \cline{2-5} 
-\multicolumn{1}{|c|}{} & C9 & 3.65 (MFC) & {\bf 3.52} & 170/11 \\ \hline
+\begin{tabular}{cc|c|c|c|c|}
+\cline{3-6}
+\multicolumn{1}{l}{} & \multicolumn{1}{l|}{} & \multicolumn{4}{c|}{i-vector Framework} \\ \hline
+\multicolumn{1}{|c|}{Gender} & Condition & \begin{tabular}[c]{@{}c@{}}No. of \\ trails \end{tabular} & \begin{tabular}[c]{@{}c@{}}Best Baseline EER \\  and Feature
+Space\end{tabular} & \begin{tabular}[c]{@{}c@{}}Feature \\ Switching\\ EER\end{tabular} &
+  \begin{tabular}[c]{@{}c@{}}No. of trails\\ evaluated in \\ (MGD/MFCC)\end{tabular} \\ \hline
+\multicolumn{1}{|c|}{\multirow{5}{*}{Male}} & C5 & 355 & 5.10 (MFC) & {\bf 3.56} & 8/352 \\ \cline{2-6} 
+\multicolumn{1}{|c|}{} & C6 & 152 & 6.20 (MFC) & {\bf 4.86} & 6/146 \\ \cline{2-6} 
+\multicolumn{1}{|c|}{} & C7 & 154 & 7.06 (MGD) & {\bf 5.57} & 7/147 \\ \cline{2-6} 
+\multicolumn{1}{|c|}{} & C8 & 124 & 2.17 (MFC) & {\bf 1.36} & 8/116 \\ \cline{2-6} 
+\multicolumn{1}{|c|}{} & C9 & 119 & 3.13 (MFC) & {\bf 2.48} & 4/115 \\ \hline
+\multicolumn{1}{|c|}{\multirow{5}{*}{Female}} & C5 & 357 & 6.25 (MFC) & {\bf 5.62} & 193/164 \\ \cline{2-6} 
+\multicolumn{1}{|c|}{} & C6 & 185 & 9.32 (MFC) & {\bf 8.58} & 102/83 \\ \cline{2-6} 
+\multicolumn{1}{|c|}{} & C7 & 185 & {\bf 11.64 (MGD)} & 11.86 & 176/9 \\ \cline{2-6} 
+\multicolumn{1}{|c|}{} & C8 & 184 & 3.98 (MGD) & {\bf 3.61} & 86/98 \\ \cline{2-6} 
+\multicolumn{1}{|c|}{} & C9 & 181 & 3.65 (MFC) & {\bf 3.52} & 170/11 \\ \hline
 \end{tabular}
 \label{tab:ivec-spkrCount}
 \end{table}
