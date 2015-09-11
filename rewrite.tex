@@ -612,72 +612,6 @@ these systems are also described in Table \ref{tab:eer}.
 \section{Result Analysis}
 \label{subsec:resAnalysis}
 
-%\begin{table}[h]
-%	\centering
-%	\caption{EERs in \% for baseline systems, score fusion (SF) systems and
-%	feature switching (FS) systems in UBM-GMM and i-vector frameworks}
-%	\begin{tabular}{|c|c|c|c|c|c|} \hline
-% {\bf System} & {\bf C5 } &  {\bf C6} & {\bf C7} & {\bf C8}  & {\bf C9  }\\ \hline \hline
-%\multicolumn{6}{|c|}{\bf Baseline Systems} \\ \hline
-%UBM-MFC-Male & 17.27 & 18.09 & 18.06 & 11.82 & 4.55 \\ \hline
-%
-%UBM-MGD-Male & 19.54 & 19.89 & 11.65 & 13.99 & 5.19 \\ \hline
-%
-%{UBM-MFC-Female} & 18.07 & 22.19 & 27.74 & 11.01 & 4.76 \\ \hline
-%
-%{UBM-MGD-Female} & 22.64 & 22.15 & 18.07 & 15.14 & 7.14 \\ \hline
-%
-%{ivec-MFC-Male} & 5.10 & 6.20 & 7.44 & 2.17 & 3.13 \\ \hline
-%
-%{ivec-MGD-Male} &  6.26 & 8.02 & 7.06 & 3.02 & 3.31  \\ \hline
-%
-%{ivec-MFC-Female} & 6.25 & 9.32 & 16.55 & 4.60 & 3.65 \\ \hline
-%
-%{ivec-MGD-Female} & 7.02 & 9.89 & {\bf 11.64} & 3.98 & 3.73 \\ \hline 
-%
-%\multicolumn{6}{|c|}{\bf Early Fusion Systems} \\ \hline
-%
-%{EF-UBM-Male} & 17.97 & 20.22 & 12.84 & 15.94 & 6.14\\ \hline
-%
-%{EF-UBM-Female} & 17.56 & 20.67  & 23.1  & 13.11 & 5.42  \\ \hline
-%
-%{EF-ivec-Male} & 18.61 & 18.15 & 12.7 & 11.1 & 6.41 \\ \hline
-%
-%{EF-ivec-Female} & 7.91 & 11.8 & 14.83 & 6.13 & 4.64 \\ \hline 
-%
-%\multicolumn{6}{|c|}{\bf Score Fusion Systems} \\ \hline
-%
-%SF-UBM-Male & 16.71 & 16.38 & 11.04 & 9.79 & 4.43 \\ 
-%%(weights:MGD+MFC) & (0.4+0.6) & (0.5+0.5) & (0.8+0.2) & (0.1+0.9) & (0.3+0.7) \\ 
-%\hline
-%
-%SF-UBM-Female & 17.80 & 20.27 & 17.26 & 10.40 & 3.24 \\ 
-%%(weights:MGD+MFC) & (0.3+0.7) & (0.5+0.5) & (0.9+0.1) & (0.2+0.8) & (0.4+0.6) \\ 
-%\hline
-%
-%SF-ivec-Male & 4.48 & 5.39 & 6.74 & 1.99 & 3.09 \\ 
-%%(weights:MGD+MFC) & (0.3+0.7) & (0.3+0.7) & (0.7+0.3) & (0.2+0.8) & (0.3+0.7) \\ 
-%\hline
-%
-%SF-ivec-Female & 5.52 & 7.53 & 13.33 & 3.83 & 3.44 \\ 
-%%(weights:MGD+MFC) & (0.2+0.8) & (0.5+0.5) & (0.9+0.1) & (0.3+0.7) & (0.4+0.6) \\
-% \hline
-%
-%\multicolumn{6}{|c|}{\bf Feature Switching Systems} \\ \hline
-%
-%{FS-UBM-Male} & {10.48} & {12.32} & {9.06} & {9.4} & {3.21} \\  \hline
-%
-%{FS-UBM-Female} & {15.12 } & {18.39} & {14.14} & {9.89} & {4.27} \\ \hline
-%
-% {FS-ivec-Male} & {\bf 3.56} & {\bf 4.86} & {\bf 5.57} & {\bf 1.36} & {\bf 2.48} \\ \hline
-%
-%{FS-ivec-Female} & {\bf 5.62} & {\bf 8.58} & 11.86 & {\bf 3.61} & {\bf 3.52} \\ \hline
-%
-%	\end{tabular}
-%	\label{tab:eer}
-%	\end{table}
-
-
 \begin{table}
 \centering
 \caption{EERs (in \%)for NIST 2010 male and female trials, conditions C5-C9 }
@@ -691,11 +625,11 @@ these systems are also described in Table \ref{tab:eer}.
 \hline
 {\bf System} & {\bf C5 } &  {\bf C6} & {\bf C7} & {\bf C8}  & {\bf C9  }\\ \hline \hline
 %\multicolumn{6}{|c|}{\bf UBM-Framework Male} \\ \hline
-UBM-MFC & 17.27 & 18.09 & 18.06 & 11.82 & 4.55 \\ \hline
-UBM-MGD & 19.54 & 19.89 & 11.65 & 13.99 & 5.19 \\ \hline
+UBM-MFC & 17.27 & 18.09 & 17.28 & 9.97 & 4.55 \\ \hline
+UBM-MGD & 19.04 & 19.15 & 11.65 & 13.65 & 5.19 \\ \hline
 EF-UBM & 17.97 & 20.22 & 12.84 & 15.94 & 6.14\\ \hline
 LF-UBM & 16.71 & 16.38 & 11.04 & 9.79 & 4.43 \\ \hline
-FS-UBM & {10.48} & {12.32} & {9.06} & {9.4} & {3.21} \\  \hline
+FS-UBM & {\bf 10.48} & {\bf 12.32} & {\bf 9.06} & {\bf 9.4} & {\bf 3.21} \\  \hline
 \end{tabular}
 }
 \label{tab:eer_ubm_male}}
@@ -709,11 +643,11 @@ FS-UBM & {10.48} & {12.32} & {9.06} & {9.4} & {3.21} \\  \hline
 \hline 
 {\bf System} & {\bf C5 } &  {\bf C6} & {\bf C7} & {\bf C8}  & {\bf C9  }\\ \hline \hline
 %\multicolumn{6}{|c|}{\bf UBM-Framework Female} \\ \hline
-UBM-MFC & 18.07 & 22.19 & 27.74 & 11.01 & 4.76 \\ \hline
-UBM-MGD & 22.64 & 22.15 & 18.07 & 15.14 & 7.14 \\ \hline
+UBM-MFC & 18.07 & {\bf 15.04} & 27.43 & 11.01 & 3.74 \\ \hline
+UBM-MGD & 18.37 & 22.02 & 17.51 & 14.32 & 6.87 \\ \hline
 EF-UBM & 17.56 & 20.67  & 23.1  & 13.11 & 5.42  \\ \hline
-LF-UBM & 17.80 & 20.27 & 17.26 & 10.40 & 3.24 \\ \hline
-FS-UBM & {15.12 } & {18.39} & {14.14} & {9.89} & {4.27} \\ \hline
+LF-UBM & 17.80 & 20.27 & 17.26 & 10.40 & {\bf 3.24} \\ \hline
+FS-UBM & {\bf 15.12 } & {18.39} & {\bf 14.14} & {\bf 9.89} & 4.27 \\ \hline
 \end{tabular}
 }
 \label{tab:eer_ubm_female}}
@@ -731,7 +665,7 @@ FS-UBM & {15.12 } & {18.39} & {14.14} & {9.89} & {4.27} \\ \hline
 ivec-MFC & 5.10 & 6.20 & 7.44 & 2.17 & 3.13 \\ \hline
 ivec-MGD &  6.26 & 8.02 & 7.06 & 3.02 & 3.31  \\ \hline
 EF-ivec & 18.61 & 18.15 & 12.7 & 11.1 & 6.41 \\ \hline
-LF-ivec & 4.48 & 5.39 & 6.74 & 2.99 & 3.09 \\ \hline
+LF-ivec & 4.48 & 5.39 & 6.74 & 1.99 & 3.09 \\ \hline
 FS-ivec & {\bf 3.56} & {\bf 4.86} & {\bf 5.57} & {\bf 1.36} & {\bf 2.48} \\ \hline
 \end{tabular}
 }
@@ -747,10 +681,10 @@ FS-ivec & {\bf 3.56} & {\bf 4.86} & {\bf 5.57} & {\bf 1.36} & {\bf 2.48} \\ \hli
 {\bf System} & {\bf C5 } &  {\bf C6} & {\bf C7} & {\bf C8}  & {\bf C9  }\\ \hline \hline
 %\multicolumn{6}{|c|}{\bf ivec-Framework Female} \\ \hline
 {ivec-MFC} & 6.25 & 9.32 & 16.55 & 4.60 & 3.65 \\ \hline
-{ivec-MGD} &  7.02 & 9.89 & 11.64 & 3.98 & 3.73  \\ \hline 
+{ivec-MGD} & 6.95 & 9.89 & 11.64 & 3.98 & 3.39  \\ \hline 
 {EF-ivec} & 7.91 & 11.8 & 14.83 & 6.13 & 4.64 \\ \hline 
 {LF-ivec} & 5.52 & 7.53 & 13.33 & 3.83 & 3.44 \\ \hline
-{FS-ivec} & {\bf 5.62} & {\bf 8.58} & 11.86 & {\bf 3.61} & {\bf 3.52} \\ \hline
+{FS-ivec} & {\bf 4.62} & {\bf 6.58} & {\bf 11.56} & {\bf 3.61} & {\bf 2.92} \\ \hline
 \end{tabular}
 }
 \label{tab:eer_ivec_female}}
@@ -841,13 +775,13 @@ Space\end{tabular} & \begin{tabular}[c]{@{}c@{}}Feature \\ Switching\\ EER\end{t
 \multicolumn{1}{|c|}{\multirow{5}{*}{Male}} & C5 & 355 & 17.27 (MFC) & {\bf 10.48} & 168/187 \\ \cline{2-6} 
 \multicolumn{1}{|c|}{} & C6 & 152 & 18.09 (MFC) & {\bf 12.32} & 113/34 \\ \cline{2-6} 
 \multicolumn{1}{|c|}{} & C7 & 154 & 11.65 (MGD) & {\bf 9.06} & 96/53 \\ \cline{2-6} 
-\multicolumn{1}{|c|}{} & C8 & 124 & 11.82 (MFC) & {\bf 9.4} & 64/52 \\ \cline{2-6} 
+\multicolumn{1}{|c|}{} & C8 & 124 & 9.97 (MFC) & {\bf 9.4} & 64/52 \\ \cline{2-6} 
 \multicolumn{1}{|c|}{} & C9 & 119 & 4.55 (MFC) & {\bf 3.21} & 67/48 \\ \hline
 \multicolumn{1}{|c|}{\multirow{5}{*}{Female}} & C5 & 357 & 18.07 (MFC) & {\bf 15.12} & 76/281 \\ \cline{2-6} 
-\multicolumn{1}{|c|}{} & C6 & 185 & 22.15 (MGD) & {\bf 18.39} & 62/123 \\ \cline{2-6} 
-\multicolumn{1}{|c|}{} & C7 & 185 & 18.07 (MGD) & {\bf 14.14} & 33/152 \\ \cline{2-6} 
+\multicolumn{1}{|c|}{} & C6 & 185 & {\bf 15.04} (MGD) & {18.39} & 62/123 \\ \cline{2-6} 
+\multicolumn{1}{|c|}{} & C7 & 185 & 17.51 (MGD) & {\bf 14.14} & 33/152 \\ \cline{2-6} 
 \multicolumn{1}{|c|}{} & C8 & 184 & 11.01 (MFC) & {\bf 9.89} & 78/106 \\ \cline{2-6} 
-\multicolumn{1}{|c|}{} & C9 & 181 & 4.76 (MFC) & {\bf 4.27} & 75/106 \\ \hline
+\multicolumn{1}{|c|}{} & C9 & 181 & {\bf 3.74} (MFC) & {4.27} & 75/106 \\ \hline
 \end{tabular}
 \label{tab:ubm-spkrCount}
 \end{table}
@@ -869,11 +803,11 @@ Space\end{tabular} & \begin{tabular}[c]{@{}c@{}}Feature \\ Switching\\ EER\end{t
 \multicolumn{1}{|c|}{} & C7 & 154 & 7.06 (MGD) & {\bf 5.57} & 7/147 \\ \cline{2-6} 
 \multicolumn{1}{|c|}{} & C8 & 124 & 2.17 (MFC) & {\bf 1.36} & 8/116 \\ \cline{2-6} 
 \multicolumn{1}{|c|}{} & C9 & 119 & 3.13 (MFC) & {\bf 2.48} & 4/115 \\ \hline
-\multicolumn{1}{|c|}{\multirow{5}{*}{Female}} & C5 & 357 & 6.25 (MFC) & {\bf 5.62} & 193/164 \\ \cline{2-6} 
-\multicolumn{1}{|c|}{} & C6 & 185 & 9.32 (MFC) & {\bf 8.58} & 102/83 \\ \cline{2-6} 
-\multicolumn{1}{|c|}{} & C7 & 185 & {\bf 11.64 (MGD)} & 11.86 & 176/9 \\ \cline{2-6} 
+\multicolumn{1}{|c|}{\multirow{5}{*}{Female}} & C5 & 357 & 6.25 (MFC) & {\bf 4.62} & 193/164 \\ \cline{2-6} 
+\multicolumn{1}{|c|}{} & C6 & 185 & 9.32 (MFC) & {\bf 6.58} & 102/83 \\ \cline{2-6} 
+\multicolumn{1}{|c|}{} & C7 & 185 & 11.64 (MGD) & {\bf 11.56} & 176/9 \\ \cline{2-6} 
 \multicolumn{1}{|c|}{} & C8 & 184 & 3.98 (MGD) & {\bf 3.61} & 86/98 \\ \cline{2-6} 
-\multicolumn{1}{|c|}{} & C9 & 181 & 3.65 (MFC) & {\bf 3.52} & 170/11 \\ \hline
+\multicolumn{1}{|c|}{} & C9 & 181 & 3.39 (MGD) & {\bf 2.92} & 170/11 \\ \hline
 \end{tabular}
 \label{tab:ivec-spkrCount}
 \end{table}
