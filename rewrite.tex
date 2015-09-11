@@ -269,9 +269,10 @@ $\hat{f}$ and $\hat{g}$, the KL-divergence has the closed form expression
 
 where $\hat{f} = \mathcal{N}(\mu_f,\Sigma_f)$ and $\hat{g} = \mathcal{N}(\mu_g,\Sigma_g)$.
 
-For multi-modal speaker models $\lambda_{\textrm{spk}}$, whose means are adapted from the UBM model
-$\lambda_{\textrm{ubm}}$ (the covariances and mixture weights are same as that of the UBM), 
-the KL-divergence reduces to 
+For multi-modal speaker models $\lambda_{\textrm{spk}}$, whose means
+$\mu_{\textrm{spk},i}$ are adapted from the means $\mu_{\textrm{ubm},i}$ of the UBM
+model $\lambda_{\textrm{ubm}}$ (the covariances and mixture weights are same as
+that of the UBM), the KL-divergence reduces to 
 \begin{equation}
 \textrm{kld}(\lambda_{\textrm{spk}},\lambda_{\textrm{ubm}}) = 
 	\displaystyle \sum_i\ \pi_i\ \textrm{kld}(f_i,g_i),
@@ -281,11 +282,11 @@ the KL-divergence reduces to
 where, \\
 $\lambda_{\textrm{spk}} = \displaystyle \sum_i \, \pi_i \, f_i$, \\
 $\lambda_{\textrm{ubm}} = \displaystyle\sum_i \, \pi_i \, g_i$, \\
-$f = \mathcal{N}(\mu_{\textrm{spk}},\Sigma)$, and \\
-$g = \mathcal{N}(\mu_{\textrm{ubm}},\Sigma)$.
+$f_i = \mathcal{N}(\mu_{\textrm{spk},i},\Sigma_i)$, and \\
+$g_i = \mathcal{N}(\mu_{\textrm{ubm},i},\Sigma_i)$.
 
-$\pi$ are the mixture weights and
-$i$ varies from 1 to $C$, the number of mixture components. Here, $f$ and $g$ are
+\noindent $\pi$ are the mixture weights and
+$i$ varies from 1 to $C$, the number of mixture components. Here, $f_i$ and $g_i$ are
 corresponding unimodal Gaussian distributions.
 
 
@@ -383,19 +384,22 @@ i-vector representation.
 \label{sec:featExt}
 
 The underlying assumption in feature-switching is that information in different
-feature representations can be utilised dynamically. Earlier studies \cite{complement1},
-\cite{complement2}, \cite{mgd_complement} have demonstrated complementary information in
-magnitude and phase spectra. Mel frequency cepstra (MFCC) are derived from the magnitude
-spectrum. A popular method for utilising information from the phase spectrum is
-via group delay functions \cite{group_delay}. The modified group delay feature (MODGDF) 
-\cite{modgd_feat}, which is derived from the modified group delay function
-\cite{modgd_func}, have been explored as complementary features to MFCCs. The procedure for
-extracting MODGDF features are briefly described below. More details regarding the theory
-of MODGF can be found in \cite{modgd_func} and \cite{modgd_feat}. The algorithm for extracting the MODGDF feature is given below as in \cite{hegdeModgdf}.
+feature representations can be utilised dynamically. Earlier studies
+\cite{complement1}, \cite{complement2}, \cite{mgd_complement} have demonstrated
+complementary information in magnitude and phase spectra. Mel frequency cepstra
+(MFCC) are derived from the magnitude spectrum. A popular method for utilising
+information from the phase spectrum is via group delay functions
+\cite{group_delay}. The modified group delay feature (MODGDF) \cite{modgd_feat},
+which is derived from the modified group delay function \cite{modgd_func}, have
+been explored as complementary features to MFCCs. The procedure for extracting
+MODGDF features are briefly described below. More details regarding the theory
+of MODGF can be found in \cite{modgd_func} and \cite{modgd_feat}. The algorithm
+for extracting the MODGDF feature is given in algorithm \ref{algo:modgd} as 
+in \cite{hegdeModgdf}.
 
-\begin{algorithm}
+\begin{algorithm}[!th]
 \caption{MODGDF feature extraction}
-\label{alg:mgdExtraction}
+\label{algo:modgd}
 \begin{algorithmic}[1]
 
 \STATE \COMMENT{\textbf{Input:} A frame of speech $x(n)$\\
@@ -444,7 +448,7 @@ from SRE99, SRE03, SRE04, SRE05, SRE06, SRE08, and SRE08-extended data.
 
 \begin{table}[h!tb]
 \centering
-\caption{Test Conditions for Evaluation Data}
+\caption{NIST 2010 conditions used in the evaluation}
 \begin{tabular}{|c|c|c|c|}
 \hline
 Condition & Channel & Training vocal effort & Testing vocal effort \\ 
@@ -484,41 +488,38 @@ as the ratio of the log-likelihood of the extracted features with the speaker
 model and the UBM.
 
 The baseline systems are denoted as follows. The names of the various systems
-compared are self-descriptive, and separate systems are built for each gender.
+compared are self-descriptive, and individual systems are built for each gender.
 \begin{enumerate}
 \item UBM-MFC: UBM-GMM verification system with MFCC features
 \item UBM-MGD: UBM-GMM verification system with MODGD features
 \end{enumerate}
 
 \textbf{i-vector system:} 
-38-dimensional feature vectors are extracted and first and
- second order super-vector statistics are computed using a
- 1024-mixture UBM. A total variability matrix of size 38912
- $\times$ 600 is randomly initialized and estimated using
- development data, as detailed in \cite{dehak_ivector, kenny_JFA}. 
-500-dimensional i-vectors are estimated for each enrolment
-utterance and test utterance. Preprocessing steps to reduce
-channel variability including i-vector length normalization
-\cite{garciaRomero}, linear discriminant analysis (LDA) and
-within-class covariance normalization (WCCN) are applied to the
-i-vectors.%What is the data used to estimate the LDA and WCCN matrices?
-LDA followed by WCCN is used to achieve better performance as in \cite{dehak_ivector}. 
-All possible classes from development data is subjected to LDA and WCCN and a projection
-matrix is obtained. Each class is made up of all the recording of a single speaker. The 
-i-vectors are then subjected to this projection matrix to maximize the discrimination
-between the speakers. Cosine similarity between enrolment and test i-vectors is 
-utilised to determine the similarity score between them.
-
-The different baseline systems developed in this framework are referred as
-ivec-MFC and ivec-MGD. As before, these are gender specific.
+38-dimensional feature vectors are extracted and first and second order
+super-vector statistics are computed using a 1024-mixture UBM. A total
+variability matrix of size 38912 $\times$ 600 is randomly initialized and
+estimated using development data, as detailed in \cite{dehak_ivector,
+kenny_JFA}.  500-dimensional i-vectors are estimated for each enrolment
+utterance and test utterance. Preprocessing steps to reduce channel variability
+including i-vector length normalization \cite{garciaRomero}, linear discriminant
+analysis (LDA) and within-class covariance normalization (WCCN) are applied to
+the i-vectors.  The LDA projection matrix is learnt by utilising
+speaker-specific recordings from the development data. Is this gender specific?
+Cosine similarity between enrolment and test i-vectors is utilised to determine
+the similarity score between them.The different baseline systems developed in
+this framework are referred as ivec-MFC and ivec-MGD. As before, these are
+gender specific.
 
 In both the GMM-UBM and the i-vector frameworks, similarity
 scores calculated between the test and enrolment utterances 
-are subjected to T-normalization \cite{tnorm}. True and impostor
-models for every speaker is given along with the database. Each 
-test utterance is scored against those fixed set of true and imposter 
-speaker models. From this set of scores, the mean and standard
-deviation are computed and T-Normalization is performed. The 
+are subjected to T-normalization \cite{tnorm}. What is the data used to estimate
+the mean and variance?
+%True and impostor
+%models for every speaker is given along with the database. Each 
+%test utterance is scored against those fixed set of true and imposter 
+%speaker models. From this set of scores, the mean and standard
+%deviation are computed and T-Normalization is performed. 
+The 
 EERs of these baseline systems are listed in the Table \ref{tab:eer}.
 %%% \textbf {What is the devel data for score norm?}
 
@@ -759,11 +760,11 @@ FS-ivec & {\bf 3.56} & {\bf 4.86} & {\bf 5.57} & {\bf 1.36} & {\bf 2.48} \\ \hli
 
 
 The various speaker verification systems described in Section \ref{sec:expts} 
-include four baseline systems (UBM-MFC, UBM-MGD, ivec-MFC, ivec-MGD), two score 
-fusion systems (SF-UBM, SF-ivec) and two proposed feature-switching systems 
-(FS-UBM, FS-ivec). Each of these have corresponding systems for male trials and 
-female trials. The performance metric is the equal error rate (EER). These are 
-tabulated in table \ref{tab:eer}.
+include four baseline systems (UBM-MFC, UBM-MGD, ivec-MFC, ivec-MGD), two early
+fusion systems (EF-UBM, EF-ivec), two late fusion systems (LF-UBM, LF-ivec) 
+and two proposed feature-switching systems (FS-UBM, FS-ivec). Each of these have 
+corresponding systems for male trials and female trials. The performance metric 
+is the equal error rate (EER). This is tabulated in table \ref{tab:eer}.
 
 %In all cases, give the relative improvement.
 % Have you given absolute or relative improvement figures?
