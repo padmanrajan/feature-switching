@@ -609,8 +609,6 @@ framework are denoted as FS-ivec.
 The resulting EERs for 
 these systems are also described in Table \ref{tab:eer}.
 
-\section{Result Analysis}
-\label{subsec:resAnalysis}
 
 \begin{table}
 \centering
@@ -693,23 +691,23 @@ FS-ivec & {\bf 3.56} & {\bf 4.86} & {\bf 5.57} & {\bf 1.36} & {\bf 2.48} \\ \hli
 \end{table}
 
 
+\subsection{Result analysis}
+\label{subsec:resAnalysis}
+
 The various speaker verification systems described in Section \ref{sec:expts} 
 include four baseline systems (UBM-MFC, UBM-MGD, ivec-MFC, ivec-MGD), two early
 fusion systems (EF-UBM, EF-ivec), two late fusion systems (LF-UBM, LF-ivec) 
 and two proposed feature-switching systems (FS-UBM, FS-ivec). Each of these have 
 corresponding systems for male trials and female trials. The performance metric 
-is the equal error rate (EER). This is tabulated in table \ref{tab:eer}.
-
+is the equal error rate (EER). The performance is tabulated in table \ref{tab:eer}.
 %In all cases, give the relative improvement.
 % Have you given absolute or relative improvement figures?
-
 Compared to the baseline systems, the score-fusion systems provide an average
 relative improvement of X\% for male trials, and Y\% for female trials in the
 GMM-UBM case and X\% and Y\% for the ivector case. 
-%More specifically, for male trials, the
-%conditionwise improvements are: C5: X5, C6: X6, C7: X7, C8: X8 and C9: X9. For
-%female trials, the improvements are C5: Y5, C6: Y6, C7: Y7, C8: Y8, C9: Y9.
-
+More specifically, for male trials, the
+conditionwise improvements are: C5: X5, C6: X6, C7: X7, C8: X8 and C9: X9. For
+female trials, the improvements are C5: Y5, C6: Y6, C7: Y7, C8: Y8, C9: Y9.
 
 %As expected, the score fusion system performs better than the individual
 %baseline systems. In test conditions C6 and C8 for SF-UBM-Male system, 
@@ -720,47 +718,60 @@ GMM-UBM case and X\% and Y\% for the ivector case.
 %For the same system, nearly 1.5\% of performance improved is seen for test cases C6, 
 %C8 and C9.
 
-%$******************************************* $ \\
-%Why is early fusion poor? Justify. \\
-%$*******************************************$ \\
-
 %It is evident from the results that performance of the score-fusion system is 
 %better than the early fusion systems and baseline systems. But the feature 
 %switching system outperforms the score-fusion systems in both the frameworks 
 %in all test cases except for case C7 in female database.
+
 The proposed feature switching system outperforms the score fusion systems in
 almost all the NIST conditions. Compared to the baseline, the average relative
-improvement is X\% for male trials and Y\% for female trials.
+improvement is X\% for male trials and Y\% for female trials. The only exception
+is in condition C6 in the GMM-UBM case, for female trials, where the baseline
+MFCC system achieves the lowest EER.
 
 To look further into why feature-switching brings about the improvements, we
 analysed the trials in the various evaluation conditions. In the baseline
 systems, each evaluation trial gets verified in the same feature space (be it
 the GMM-UBM case or the i-vector case.) Whereas in feature-switching, the trials
 get evaluated in the optimal feature space of the claimed speaker. This is
-summarised in Tables PPP and QQQ. %(give label here.)
-In table PPP, the first entry states that the best baseline EER of 17.27\% is achived when
-all the trials are evaluated in MFCC space. But in feature-switching, based on
-the optimal feature of the claimed speaker, 187 trials were evaluated in MFCC
-space and 168 trials were evlauated in MODGDF space. This differential
-evaluation resulted in more number of correct verifications, hence bringing down
-the EER.
+summarised in Tables \ref{tab:gmmAnalysis} and \ref{tab:ivecAnalysis}.  In table
+\ref{tab:gmmAnalysis}, the first entry states that the best baseline EER of
+17.27\% is achived when all the trials are evaluated in MFCC space. But in
+feature-switching, based on the optimal feature of the claimed speaker, 187
+trials were evaluated in MFCC space and 168 trials were evlauated in MODGDF
+space. This differential evaluation resulted in more number of correct
+verifications, hence bringing down the EER. The other entires in Tables
+\ref{tab:gmmAnalysis} and \ref{tab:ivecAnalysis} give details of the other
+cases. 
 
-GMM:
-Out of 1402 male  and 1758 female enrolment speakers in the SRE 2010
-dataset, 734 male  and 641 female speakers chose MODGDF and 
-remaining chose MFCC as their optimal feature.
- ivec:
-Out of 1402 male and 1758 female enrolment data, 26 and 1673
-trials chose MODGDF as their optimal feature respectively.
+\begin{table}[h]
+\centering
+\begin{tabular}{|l|l|l|l|}
+\hline
+Gender & MFCC & MODGDF & Total \\
+\hline
+\multicolumn{4}{|c|}{FS-UBM system}\\
+\hline
+Male & 668 (48\%) & 734 (52\%) & 1402 \\
+Female & 1117 (64\%) & 641 (36\%) & 1758 \\
+\hline
+\multicolumn{4}{|c|}{FS-ivec system}\\
+\hline
+Male & 1376 (98\%)& 26 (2\%)& 1402 \\
+Female & 85 (5\%) & 1673 (95\%) & 1758 \\
+\hline
+\end{tabular}
+\caption{Distribution of the speakers to MFCC and MODGDF optimal feature spaces.}
+\label{tab:optFeat}
+\end{table}
 
+%The comparison of best baseline system and feature switching system, along with
+%the number of speakers in the optimal feature space in listed in the Table
+%\ref{tab:gmmAnalysis} and \ref{tab:ivecAnalysis}. For male database in
+%i-vector framework, only 1.8\% of training data chose MODGDF as their optimal
+%feature. Thus fewer test utterances chose MODGDF as optimal feature (last column
+%of the Table \ref{tab:ubm-spkrCount}). 
 
-The comparison of best baseline system and feature switching system, along with
-the number of speakers in the optimal feature space in listed in the Table
-\ref{tab:ubm-spkrCount} and \ref{tab:ivec-spkrCount}. For male database in
-i-vector framework, only 1.8\% of training data chose MODGDF as their optimal
-feature. Thus fewer test utterances chose MODGDF as optimal feature (last column
-of the Table \ref{tab:ubm-spkrCount}). 
-%Give table here.
 \begin{table}[h!tb]
 \centering
 \caption{The distribution of speakers in the feature spaces using feature switching 
@@ -783,7 +794,7 @@ Space\end{tabular} & \begin{tabular}[c]{@{}c@{}}Feature \\ Switching\\ EER\end{t
 \multicolumn{1}{|c|}{} & C8 & 184 & 11.01 (MFC) & {\bf 9.89} & 78/106 \\ \cline{2-6} 
 \multicolumn{1}{|c|}{} & C9 & 181 & {\bf 3.74} (MFC) & {4.27} & 75/106 \\ \hline
 \end{tabular}
-\label{tab:ubm-spkrCount}
+\label{tab:gmmAnalysis}
 \end{table}
 
 %Give table here.
@@ -795,45 +806,52 @@ systems are compared and lesser EER in given in bold font)}
 \begin{tabular}{cc|c|c|c|c|}
 \cline{3-6}
 \multicolumn{1}{l}{} & \multicolumn{1}{l|}{} & \multicolumn{4}{c|}{i-vector Framework} \\ \hline
-\multicolumn{1}{|c|}{Gender} & Condition & \begin{tabular}[c]{@{}c@{}}No. of \\ trails \end{tabular} & \begin{tabular}[c]{@{}c@{}}Best Baseline EER \\  and Feature
+\multicolumn{1}{|c|}{Gender} & Condition & \begin{tabular}[c]{@{}c@{}}No. of \\ trails
+\end{tabular} & \begin{tabular}[c]{@{}c@{}}Best Baseline EER \\  and Feature
 Space\end{tabular} & \begin{tabular}[c]{@{}c@{}}Feature \\ Switching\\ EER\end{tabular} &
   \begin{tabular}[c]{@{}c@{}}No. of trails\\ evaluated in \\ MGD/MFCC\end{tabular} \\ \hline
-\multicolumn{1}{|c|}{\multirow{5}{*}{Male}} & C5 & 355 & 5.10 (MFC) & {\bf 3.56} & 8/352 \\ \cline{2-6} 
+\multicolumn{1}{|c|}{\multirow{5}{*}{Male}} & C5 & 355 & 5.10 (MFC) & {\bf 3.56} & 8/352 
+\\ \cline{2-6} 
 \multicolumn{1}{|c|}{} & C6 & 152 & 6.20 (MFC) & {\bf 4.86} & 6/146 \\ \cline{2-6} 
 \multicolumn{1}{|c|}{} & C7 & 154 & 7.06 (MGD) & {\bf 5.57} & 7/147 \\ \cline{2-6} 
 \multicolumn{1}{|c|}{} & C8 & 124 & 2.17 (MFC) & {\bf 1.36} & 8/116 \\ \cline{2-6} 
 \multicolumn{1}{|c|}{} & C9 & 119 & 3.13 (MFC) & {\bf 2.48} & 4/115 \\ \hline
-\multicolumn{1}{|c|}{\multirow{5}{*}{Female}} & C5 & 357 & 6.25 (MFC) & {\bf 4.62} & 193/164 \\ \cline{2-6} 
+\multicolumn{1}{|c|}{\multirow{5}{*}{Female}} & C5 & 357 & 6.25 (MFC) & {\bf 4.62} & 193/164 
+\\ \cline{2-6} 
 \multicolumn{1}{|c|}{} & C6 & 185 & 9.32 (MFC) & {\bf 6.58} & 102/83 \\ \cline{2-6} 
 \multicolumn{1}{|c|}{} & C7 & 185 & 11.64 (MGD) & {\bf 11.56} & 176/9 \\ \cline{2-6} 
 \multicolumn{1}{|c|}{} & C8 & 184 & 3.98 (MGD) & {\bf 3.61} & 86/98 \\ \cline{2-6} 
 \multicolumn{1}{|c|}{} & C9 & 181 & 3.39 (MGD) & {\bf 2.92} & 170/11 \\ \hline
 \end{tabular}
-\label{tab:ivec-spkrCount}
+\label{tab:ivecAnalysis}
 \end{table}
 
 
-\vspace{0.25cm}
-MODGDF is generally preferred over MFCC feature for male and MFCC is preferred for female
-over MODGDF in UBM-GMM framework. The complete reverse scenario is observed in i-vector
-framework, where MFCC is preferred for most of the test cases in male and MODGDF is
-preferred for female. On comparing the i-vector and UBM-GMM framework, out of 1402 trials 
-in the male enrolment data, 730 trials chose different optimal feature. Likewise, out of
-1758 trials in female enrolment data, 1136 trials adopted different optimal features.
+%MODGDF is generally preferred over MFCC feature for male and MFCC is preferred for female
+%over MODGDF in UBM-GMM framework. The complete reverse scenario is observed in i-vector
+%framework, where MFCC is preferred for most of the test cases in male and MODGDF is
+%preferred for female. On comparing the i-vector and UBM-GMM framework, out of 1402 trials 
+%in the male enrolment data, 730 trials chose different optimal feature. Likewise, out of
+%1758 trials in female enrolment data, 1136 trials adopted different optimal features.
+%
+%
+%The considerable reduction in EERs of feature-switching systems in all cases
+%except for C7 in FS-ivec-female system, demonstrates feature-switching systems
+%are efficient than the score-fusion and baseline systems.
+%\\$**********************$ \\ The exception may be due to reverberation in high
+%vocal effort testing \cite{vocalEffort} {\bf (I am not clear with the
+%justification here Sir...!)}. \\ $**********************$ \\ Overall performance
+%of i-vector systems are better than UBM-GMM systems.  
 
 
-The considerable reduction in EERs of feature-switching systems in all cases 
-except for C7 in FS-ivec-female system, demonstrates feature-switching systems 
-are efficient than the score-fusion and baseline systems. 
-\\$**********************$ \\
-The exception may be due to reverberation in high vocal effort testing 
-\cite{vocalEffort} {\bf (I am not clear with the justification here Sir...!)}. \\ $**********************$ \\ Overall performance of i-vector systems are better 
-than UBM-GMM systems.  
 
-\vspace{0.25cm}
+The distribution of enrollment speakers among the optimal feature spaces
+is given in table \ref{tab:optFeat}. The optimal feature of a given speaker is
+not the same for the GMM-UBM feature-switching system and the i-vector
+feature-switching system. Why?? 
+
 \section{Conclusion}
 \label{sec:conclude}
-\vspace{0.25cm}
 \section{Acknowledgement}
 \label{sec:ack}
 
