@@ -21,6 +21,24 @@
 
 \begin{document}
 
+
+\section*{Abstract}
+
+Conventional speaker verification systems utilise information from different
+feature representations by means of fusion. In this paper, we propose an
+alternative technique which achives similar effect, but utilises a more
+effective feature selection. The underlying assumption of the method is that
+different speakers may be better represented, and hence better verified, in
+different feature spaces.  This technique, which we term feature-switching,
+performs verification using a feature representation most suitable to the
+speaker under consideration. Out of possible candidate representations, the more
+optimal feature representation of a speaker is first determined. Then
+verification is performed using the optimal feature of the claimed speaker.
+Experimental evaluation of feature-switching is performed utilising the
+classical GMM-UBM speaker verification system, as well as the i-vector
+verification system. Our results show that feature-switching achieves improved
+performance compared to conventional as well as fusion based-systems.
+
 \section{Introduction}
 \label{sec:intro}
 Feature extraction is an important step in pattern recognition systems. For
@@ -852,6 +870,30 @@ feature-switching system. Why??
 
 \section{Conclusion}
 \label{sec:conclude}
+
+In this paper, we developed the paradigm of feature-switching to perform
+text-independent speaker verification. By performing verification in a
+feature space that is well-suited to the speaker under consideration,
+improvements in accuracy are obtained. The method is evaluated using the
+classical GMM-UBM speaker verification framework, as well as the i-vector
+framework. Once the well-suited feature representation of a given speaker is
+determined, verification of that speaker can be performed in that feature space.
+Our experimental evaluation demonstrates that feature-switching
+provides benefits above that of conventional system fusion. On the NIST 2010 SRE
+dataset, an average improvement of X\% is attained.
+
+In principle, the method of feature-switching can be applied to any verification
+task; for example, to face verification. In this paper, we have applied
+feature-switching between two feature representations, which are derived
+respectively from magnitude and phase, and are known to be complementary. In
+principle, the number of feature representations can be larger. Future
+research directions can include a more robust procedure to determine the optimal
+feature for a given speaker. An ideal scenario might be to have customised
+feature representations for every class under consideration, and
+feature-switching between them during verification.
+
+
+
 \section{Acknowledgement}
 \label{sec:ack}
 
