@@ -757,16 +757,17 @@ the GMM-UBM case or the i-vector case.) Whereas in feature-switching, the trials
 get evaluated in the optimal feature space of the claimed speaker. This is
 summarised in Tables \ref{tab:gmmAnalysis} and \ref{tab:ivecAnalysis}.  In table
 \ref{tab:gmmAnalysis}, the first entry states that the best baseline EER of
-17.27\% is achived when all the trials are evaluated in MFCC space. But in
-feature-switching, based on the optimal feature of the claimed speaker, 187
-trials were evaluated in MFCC space and 168 trials were evaluated in MODGDF
+17.27\% is achieved when all the trials are evaluated in MFCC space. But in
+feature-switching, based on the optimal feature of the claimed speaker, 10131
+trials were evaluated in MFCC space and 3934 trials were evaluated in MODGDF
 space. This differential evaluation resulted in more number of correct
 verifications, hence bringing down the EER. The other entries in Tables
 \ref{tab:gmmAnalysis} and \ref{tab:ivecAnalysis} give details of the other
-cases. 
+cases. Figure~\ref{fig:scoreDist} shows the score distribution comparison of true and impostor trials of condition C5, of baseline systems and feature switching system for male database in i-vector case.
 
 \begin{table}[h]
 \centering
+\caption{Distribution of the speakers to MFCC and MODGDF optimal feature spaces.}
 \begin{tabular}{|l|l|l|l|}
 \hline
 Gender & MFCC & MODGDF & Total \\
@@ -782,7 +783,6 @@ Male & 1376 (98\%)& 26 (2\%)& 1402 \\
 Female & 85 (5\%) & 1673 (95\%) & 1758 \\
 \hline
 \end{tabular}
-\caption{Distribution of the speakers to MFCC and MODGDF optimal feature spaces.}
 \label{tab:optFeat}
 \end{table}
 
@@ -793,35 +793,90 @@ Female & 85 (5\%) & 1673 (95\%) & 1758 \\
 %feature. Thus fewer test utterances chose MODGDF as optimal feature (last column
 %of the Table \ref{tab:ubm-spkrCount}). 
 
+%\begin{table}[h!tb]
+%\centering
+%\caption{The distribution of speakers in the feature spaces using feature switching 
+%in UBM-GMM framework. (EERs of baseline system and feature switching systems are 
+%compared and lesser EER in given in bold font)}
+%\begin{tabular}{cc|c|c|c|c|}
+%\cline{3-6}
+%\multicolumn{1}{l}{} & \multicolumn{1}{l|}{} & \multicolumn{4}{c|}{UBM-GMM Framework} \\ \hline
+%\multicolumn{1}{|c|}{Gender} & Condition & \begin{tabular}[c]{@{}c@{}}No. of \\ trials \end{tabular} & \begin{tabular}[c]{@{}c@{}}Best Baseline EER \\  and Feature
+%Space\end{tabular} & \begin{tabular}[c]{@{}c@{}}Feature \\ Switching\\ EER\end{tabular} &
+%  \begin{tabular}[c]{@{}c@{}}No. of trails\\ evaluated in \\ MGD/MFCC\end{tabular} \\ \hline
+%\multicolumn{1}{|c|}{\multirow{5}{*}{Male}} & C5 & 355 & 17.27 (MFC) & {\bf 10.48} & 168/187 \\ \cline{2-6} 
+%\multicolumn{1}{|c|}{} & C6 & 152 & 18.09 (MFC) & {\bf 12.32} & 113/34 \\ \cline{2-6} 
+%\multicolumn{1}{|c|}{} & C7 & 154 & 11.65 (MGD) & {\bf 9.06} & 96/53 \\ \cline{2-6} 
+%\multicolumn{1}{|c|}{} & C8 & 124 & 9.97 (MFC) & {\bf 9.4} & 64/52 \\ \cline{2-6} 
+%\multicolumn{1}{|c|}{} & C9 & 119 & 4.55 (MFC) & {\bf 3.21} & 67/48 \\ \hline
+%\multicolumn{1}{|c|}{\multirow{5}{*}{Female}} & C5 & 357 & 18.07 (MFC) & {\bf 15.12} & 76/281 \\ \cline{2-6} 
+%\multicolumn{1}{|c|}{} & C6 & 185 & {\bf 15.04} (MGD) & {18.39} & 62/123 \\ \cline{2-6} 
+%\multicolumn{1}{|c|}{} & C7 & 185 & 17.51 (MGD) & {\bf 14.14} & 33/152 \\ \cline{2-6} 
+%\multicolumn{1}{|c|}{} & C8 & 184 & 11.01 (MFC) & {\bf 9.89} & 78/106 \\ \cline{2-6} 
+%\multicolumn{1}{|c|}{} & C9 & 181 & {\bf 3.74} (MFC) & {4.27} & 75/106 \\ \hline
+%\end{tabular}
+%\label{tab:gmmAnalysis}
+%\end{table}
+
 \begin{table}[h!tb]
 \centering
-\caption{The distribution of speakers in the feature spaces using feature switching 
+\caption{The distribution of speaker trials in the feature spaces using feature switching 
 in UBM-GMM framework. (EERs of baseline system and feature switching systems are 
 compared and lesser EER in given in bold font)}
 \begin{tabular}{cc|c|c|c|c|}
 \cline{3-6}
 \multicolumn{1}{l}{} & \multicolumn{1}{l|}{} & \multicolumn{4}{c|}{UBM-GMM Framework} \\ \hline
-\multicolumn{1}{|c|}{Gender} & Condition & \begin{tabular}[c]{@{}c@{}}No. of \\ trails \end{tabular} & \begin{tabular}[c]{@{}c@{}}Best Baseline EER \\  and Feature
+\multicolumn{1}{|c|}{Gender} & Condition & \begin{tabular}[c]{@{}c@{}}No. of \\ trials \end{tabular} & \begin{tabular}[c]{@{}c@{}}Best Baseline EER \\  and Feature
 Space\end{tabular} & \begin{tabular}[c]{@{}c@{}}Feature \\ Switching\\ EER\end{tabular} &
   \begin{tabular}[c]{@{}c@{}}No. of trails\\ evaluated in \\ MGD/MFCC\end{tabular} \\ \hline
-\multicolumn{1}{|c|}{\multirow{5}{*}{Male}} & C5 & 355 & 17.27 (MFC) & {\bf 10.48} & 168/187 \\ \cline{2-6} 
-\multicolumn{1}{|c|}{} & C6 & 152 & 18.09 (MFC) & {\bf 12.32} & 113/34 \\ \cline{2-6} 
-\multicolumn{1}{|c|}{} & C7 & 154 & 11.65 (MGD) & {\bf 9.06} & 96/53 \\ \cline{2-6} 
-\multicolumn{1}{|c|}{} & C8 & 124 & 9.97 (MFC) & {\bf 9.4} & 64/52 \\ \cline{2-6} 
-\multicolumn{1}{|c|}{} & C9 & 119 & 4.55 (MFC) & {\bf 3.21} & 67/48 \\ \hline
-\multicolumn{1}{|c|}{\multirow{5}{*}{Female}} & C5 & 357 & 18.07 (MFC) & {\bf 15.12} & 76/281 \\ \cline{2-6} 
-\multicolumn{1}{|c|}{} & C6 & 185 & {\bf 15.04} (MGD) & {18.39} & 62/123 \\ \cline{2-6} 
-\multicolumn{1}{|c|}{} & C7 & 185 & 17.51 (MGD) & {\bf 14.14} & 33/152 \\ \cline{2-6} 
-\multicolumn{1}{|c|}{} & C8 & 184 & 11.01 (MFC) & {\bf 9.89} & 78/106 \\ \cline{2-6} 
-\multicolumn{1}{|c|}{} & C9 & 181 & {\bf 3.74} (MFC) & {4.27} & 75/106 \\ \hline
+\multicolumn{1}{|c|}{\multirow{5}{*}{Male}} & C5 & 14065 & 17.27 (MFC) & {\bf 10.48} & 3934/10131 \\ \cline{2-6} 
+\multicolumn{1}{|c|}{} & C6 & 12975 & 18.09 (MFC) & {\bf 12.32} & 2904/10071 \\ \cline{2-6} 
+\multicolumn{1}{|c|}{} & C7 & 12938 & 11.65 (MGD) & {\bf 9.06} & 3915/9023 \\ \cline{2-6} 
+\multicolumn{1}{|c|}{} & C8 & 11116 & 9.97 (MFC) & {\bf 9.4} & 2193/8923 \\ \cline{2-6} 
+\multicolumn{1}{|c|}{} & C9 & 10815 & 4.55 (MFC) & {\bf 3.21} & 3281/7534 \\ \hline
+\multicolumn{1}{|c|}{\multirow{5}{*}{Female}} & C5 & 16317 & 18.07 (MFC) & {\bf 15.12} & 2501/13817 \\ \cline{2-6} 
+\multicolumn{1}{|c|}{} & C6 & 15673 & {\bf 15.04} (MGD) & {18.39} & 2400/13273 \\ \cline{2-6} 
+\multicolumn{1}{|c|}{} & C7 & 15398 & 17.51 (MGD) & {\bf 14.14} & 4542/10856 \\ \cline{2-6} 
+\multicolumn{1}{|c|}{} & C8 & 17495 & 11.01 (MFC) & {\bf 9.89} & 2747/14748 \\ \cline{2-6} 
+\multicolumn{1}{|c|}{} & C9 & 16716 & {\bf 3.74} (MFC) & {4.27} & 4880/11836 \\ \hline
 \end{tabular}
 \label{tab:gmmAnalysis}
 \end{table}
 
+
+
+%%Give table here.
+%\begin{table}[h!tb]
+%\centering
+%\caption{The distribution of speakers in the feature spaces using feature 
+%switching in i-vector framework. (EERs of baseline system and feature switching 
+%systems are compared and lesser EER in given in bold font)}
+%\begin{tabular}{cc|c|c|c|c|}
+%\cline{3-6}
+%\multicolumn{1}{l}{} & \multicolumn{1}{l|}{} & \multicolumn{4}{c|}{i-vector Framework} \\ \hline
+%\multicolumn{1}{|c|}{Gender} & Condition & \begin{tabular}[c]{@{}c@{}}No. of \\ trails
+%\end{tabular} & \begin{tabular}[c]{@{}c@{}}Best Baseline EER \\  and Feature
+%Space\end{tabular} & \begin{tabular}[c]{@{}c@{}}Feature \\ Switching\\ EER\end{tabular} &
+%  \begin{tabular}[c]{@{}c@{}}No. of trails\\ evaluated in \\ MGD/MFCC\end{tabular} \\ \hline
+%\multicolumn{1}{|c|}{\multirow{5}{*}{Male}} & C5 & 355 & 5.10 (MFC) & {\bf 3.56} & 8/347 
+%\\ \cline{2-6} 
+%\multicolumn{1}{|c|}{} & C6 & 152 & 6.20 (MFC) & {\bf 4.86} & 6/146 \\ \cline{2-6} 
+%\multicolumn{1}{|c|}{} & C7 & 154 & 7.06 (MGD) & {\bf 5.57} & 7/147 \\ \cline{2-6} 
+%\multicolumn{1}{|c|}{} & C8 & 124 & 2.17 (MFC) & {\bf 1.36} & 8/116 \\ \cline{2-6} 
+%\multicolumn{1}{|c|}{} & C9 & 119 & 3.13 (MFC) & {\bf 2.48} & 4/115 \\ \hline
+%\multicolumn{1}{|c|}{\multirow{5}{*}{Female}} & C5 & 357 & 6.25 (MFC) & {\bf 4.62} & 193/164 
+%\\ \cline{2-6} 
+%\multicolumn{1}{|c|}{} & C6 & 185 & 9.32 (MFC) & {\bf 6.58} & 102/83 \\ \cline{2-6} 
+%\multicolumn{1}{|c|}{} & C7 & 185 & 11.64 (MGD) & {\bf 11.56} & 176/9 \\ \cline{2-6} 
+%\multicolumn{1}{|c|}{} & C8 & 184 & 3.98 (MGD) & {\bf 3.61} & 86/98 \\ \cline{2-6} 
+%\multicolumn{1}{|c|}{} & C9 & 181 & 3.39 (MGD) & {\bf 2.92} & 170/11 \\ \hline
+%\end{tabular}
+%\label{tab:ivecAnalysis}
+%\end{table}
 %Give table here.
 \begin{table}[h!tb]
 \centering
-\caption{The distribution of speakers in the feature spaces using feature 
+\caption{The distribution of speaker trials in the feature spaces using feature 
 switching in i-vector framework. (EERs of baseline system and feature switching 
 systems are compared and lesser EER in given in bold font)}
 \begin{tabular}{cc|c|c|c|c|}
@@ -831,22 +886,29 @@ systems are compared and lesser EER in given in bold font)}
 \end{tabular} & \begin{tabular}[c]{@{}c@{}}Best Baseline EER \\  and Feature
 Space\end{tabular} & \begin{tabular}[c]{@{}c@{}}Feature \\ Switching\\ EER\end{tabular} &
   \begin{tabular}[c]{@{}c@{}}No. of trails\\ evaluated in \\ MGD/MFCC\end{tabular} \\ \hline
-\multicolumn{1}{|c|}{\multirow{5}{*}{Male}} & C5 & 355 & 5.10 (MFC) & {\bf 3.56} & 8/347 
+\multicolumn{1}{|c|}{\multirow{5}{*}{Male}} & C5 & 14065 & 5.10 (MFC) & {\bf 3.56} & 376/13698 
 \\ \cline{2-6} 
-\multicolumn{1}{|c|}{} & C6 & 152 & 6.20 (MFC) & {\bf 4.86} & 6/146 \\ \cline{2-6} 
-\multicolumn{1}{|c|}{} & C7 & 154 & 7.06 (MGD) & {\bf 5.57} & 7/147 \\ \cline{2-6} 
-\multicolumn{1}{|c|}{} & C8 & 124 & 2.17 (MFC) & {\bf 1.36} & 8/116 \\ \cline{2-6} 
-\multicolumn{1}{|c|}{} & C9 & 119 & 3.13 (MFC) & {\bf 2.48} & 4/115 \\ \hline
-\multicolumn{1}{|c|}{\multirow{5}{*}{Female}} & C5 & 357 & 6.25 (MFC) & {\bf 4.62} & 193/164 
+\multicolumn{1}{|c|}{} & C6 & 12975 & 6.20 (MFC) & {\bf 4.86} & 89/12886 \\ \cline{2-6} 
+\multicolumn{1}{|c|}{} & C7 & 12938 & 7.06 (MGD) & {\bf 5.57} & 142/12796 \\ \cline{2-6} 
+\multicolumn{1}{|c|}{} & C8 & 11116 & 2.17 (MFC) & {\bf 1.36} & 97/11019 \\ \cline{2-6} 
+\multicolumn{1}{|c|}{} & C9 & 10815 & 3.13 (MFC) & {\bf 2.48} & 97/10770 \\ \hline
+\multicolumn{1}{|c|}{\multirow{5}{*}{Female}} & C5 & 16317 & 6.25 (MFC) & {\bf 4.62} & 15233/1084
 \\ \cline{2-6} 
-\multicolumn{1}{|c|}{} & C6 & 185 & 9.32 (MFC) & {\bf 6.58} & 102/83 \\ \cline{2-6} 
-\multicolumn{1}{|c|}{} & C7 & 185 & 11.64 (MGD) & {\bf 11.56} & 176/9 \\ \cline{2-6} 
-\multicolumn{1}{|c|}{} & C8 & 184 & 3.98 (MGD) & {\bf 3.61} & 86/98 \\ \cline{2-6} 
-\multicolumn{1}{|c|}{} & C9 & 181 & 3.39 (MGD) & {\bf 2.92} & 170/11 \\ \hline
+\multicolumn{1}{|c|}{} & C6 & 15673 & 9.32 (MFC) & {\bf 6.58} & 15363/309 \\ \cline{2-6} 
+\multicolumn{1}{|c|}{} & C7 & 15398 & 11.64 (MGD) & {\bf 11.56} & 14772/626 \\ \cline{2-6} 
+\multicolumn{1}{|c|}{} & C8 & 17495 & 3.98 (MGD) & {\bf 3.61} & 17199/296 \\ \cline{2-6} 
+\multicolumn{1}{|c|}{} & C9 & 16716 & 3.39 (MGD) & {\bf 2.92} & 16041/675 \\ \hline
 \end{tabular}
 \label{tab:ivecAnalysis}
 \end{table}
 
+\begin{figure}[h!tb]
+\centering
+\vspace{-2cm}
+\includegraphics[width=0.8\textwidth]{figures/m-det5-scoresDist.eps}
+\caption{Score distribution of baseline systems (MFCC and MODGD) and feature switching (FS) system for male databse in test condition C5 using i-vector case.}
+\label{fig:scoreDist}
+\end{figure}
 
 %MODGDF is generally preferred over MFCC feature for male and MFCC is preferred for female
 %over MODGDF in UBM-GMM framework. The complete reverse scenario is observed in i-vector
