@@ -27,17 +27,17 @@
 
 Conventional speaker verification systems utilise information from different
 feature representations by means of fusion. In this paper, we propose an
-alternative technique which achieves similar effect, but utilises a more
-effective feature selection. The underlying assumption of the method is that
-different speakers may be better represented, and hence better verified, in
-different feature spaces.  This technique, which we term feature-switching,
+alternative technique which achieves similar effect or better performances, but 
+utilises a more effective feature selection. The underlying assumption of the 
+method is that different speakers may be better represented, and hence better 
+verified, in different feature spaces.  This technique, which we term feature-switching,
 performs verification using a feature representation most suitable to the
-speaker under consideration. Out of possible candidate representations, the more
-optimal feature representation of a speaker is first determined. Then
-verification is performed using the optimal feature of the claimed speaker.
-Experimental evaluation of feature-switching is performed utilising the
-classical GMM-UBM speaker verification system, as well as the i-vector
-verification system. Our results show that feature-switching achieves improved
+speaker under consideration. A set of candidate feature representations are defined. 
+Out of this possible set of candidate representations, the most optimal representation
+of a speaker is determined during training. Then verification is performed using the
+optimal feature of the claimed speaker. Experimental evaluation of feature-switching is
+performed utilising the classical GMM-UBM speaker verification system, as well as the 
+i-vector verification system. Our results show that feature-switching achieves improved
 performance compared to conventional as well as fusion based-systems.
 
 \section{Introduction}
@@ -63,10 +63,10 @@ Traditionally, the diversity of different feature transformations have been
 utilised by combining them. These include the so-called \emph{early fusion},
 which is a combination at the feature level, and \emph{late fusion}, which is at
 the classifier (or decision) level. Combining the information from multiple
-feature transformations usually results in improved performance, though
+feature transformations usually results in improved performance, albeit
 with an increase in system complexity. Feature-switching aims to utilise
-information from multiple feature representations, although in a non-traditional
-manner. Early fusion systems typically work by concatenating feature vectors;
+information from multiple feature representations, in an unconventional manner. 
+Early fusion systems typically work by concatenating feature vectors;
 hence the resulting feature space is of higher dimensions. This in turn requires
 more data to effectively train statistical models. Late fusion requires
 individual systems to be developed and fused; in platforms with limited
@@ -103,7 +103,7 @@ evaluation (SRE) \cite{nist2010SRE} data.
 \section{Separability analysis in different feature spaces}
 \label{sec:separability}
 The underlying hypothesis for feature-switching is that speakers are separated
-differently in different feature spaces. To study this in more detail, we
+differently in different feature spaces. To study this in detail, we
 perform separability studies in MFCC space and MODGDF space.
 
 In the classical GMM-UBM framework \cite{reynoldsAdaptedGMM}, a speaker is
@@ -165,7 +165,7 @@ separability obtained in MFCC and MODGDF feature spaces for two different
 speakers. The mean vectors of a 32-mixture GMM and UBM are plotted in
 two-dimensional space. In these figures, the 39-dimensional MFCC and MODGDF
 feature vectors are reduced to two dimensions using the Sammon mapping technique
-\cite{sammon}. Sammon mapping represents N-dimensional vectors to a 
+\cite{sammon}. Sammon mapping represents N-dimensional vectors in a 
 lower-dimensional space such that the inherent data structure is preserved. The measure
 used by Sammon mapping is designed to minimise the differences between corresponding
 inter-point distances in the two spaces \cite{sammon1}. 
@@ -238,7 +238,7 @@ verification in the well-suited feature space of the claimed speaker. This
 well-suited feature representation is henceforth termed as the \emph{optimal
 feature}. The overall architecture of the feature-switching system is shown in the
 Figure \ref{fig:systemArch}. The optimal feature is determined for every speaker
-during enrolment, and stored into a lookup-table. During testing, the optimal
+during enrolment, and stored in a lookup-table. During testing, the optimal
 feature of the claimed speaker is looked-up, and verification is performed in
 the optimal feature space.
 
@@ -358,7 +358,7 @@ the form
 s = \mu + T w.
 \end{equation}
 
-Here, acoustic feature vector is $F$-dimensional, the UBM has $M$ components,
+Here, the acoustic feature vector is $F$-dimensional, the UBM has $M$ components,
 $T$ is an $FM \times D$ low-rank matrix, and $w$ is a $D \times 1$ latent
 vector, with a standard normal distribution $w \sim \mathcal{N}(0,I)$. The
 i-vector is estimated as the mean of the posterior distribution of $w$, given
@@ -566,7 +566,7 @@ systems are given in Table \ref{tab:eer}.
 
 In the proposed feature-switching framework, different speaker
 claims are verified using different feature representations. 
-Experimental evaluation of feature-switching is done in both
+Experimental evaluation of feature-switching is performed in both
 GMM-UBM and i-vector frameworks. The details of these systems
 are given below.
 
@@ -729,20 +729,6 @@ More specifically, for male trials in i-vector case, the
 condition wise improvements are: C5: 0.62\%, C6: 0.81\%, C7: 0.32\%, C8: 0.18\% and C9: 0.04\%. For
 female trials, the improvements are C5: 0.73\%, C6: 1.79, C7: -1.69, C8: 0.15, C9: -0.04.
 
-%As expected, the score fusion system performs better than the individual
-%baseline systems. In test conditions C6 and C8 for SF-UBM-Male system, 
-%there is approximately 1.8\% of improvement in EER compared to the baseline systems.
-%Similarly for test conditions C5, C7, and C9, for the same system, the improvement in
-%performance is about 0.4\% of improvement is observed in same system. Similarly for 
-%the test cases C5 and C7 of SF-UBM-Female system, performance is improved around 0.5\%.
-%For the same system, nearly 1.5\% of performance improved is seen for test cases C6, 
-%C8 and C9.
-
-%It is evident from the results that performance of the score-fusion system is 
-%better than the early fusion systems and baseline systems. But the feature 
-%switching system outperforms the score-fusion systems in both the frameworks 
-%in all test cases except for case C7 in female database.
-
 The proposed feature switching system outperforms the score fusion systems in
 almost all the NIST conditions. Compared to the baseline, the average relative
 improvement is 3.412\% for male trials and 2.48\% for female trials in UBM-GMM case and 1.67\% and 1.11\% in 
@@ -750,12 +736,12 @@ i-vector case. The only exception is in condition C6
 in the GMM-UBM case, for female trials, where the baseline
 MFCC system achieves the lowest EER.
 
-To look further into why feature-switching brings about the improvements, we
+To understand why feature-switching brings about the improvements, we
 analysed the trials in the various evaluation conditions. In the baseline
 systems, each evaluation trial gets verified in the same feature space (be it
 the GMM-UBM case or the i-vector case.) Whereas in feature-switching, the trials
 get evaluated in the optimal feature space of the claimed speaker. This is
-summarised in Tables \ref{tab:gmmAnalysis} and \ref{tab:ivecAnalysis}.  In table
+summarised in Tables \ref{tab:gmmAnalysis} and \ref{tab:ivecAnalysis}.  In Table
 \ref{tab:gmmAnalysis}, the first entry states that the best baseline EER of
 17.27\% is achieved when all the trials are evaluated in MFCC space. But in
 feature-switching, based on the optimal feature of the claimed speaker, 10131
@@ -786,38 +772,6 @@ Female & 85 (5\%) & 1673 (95\%) & 1758 \\
 \label{tab:optFeat}
 \end{table}
 
-%The comparison of best baseline system and feature switching system, along with
-%the number of speakers in the optimal feature space in listed in the Table
-%\ref{tab:gmmAnalysis} and \ref{tab:ivecAnalysis}. For male database in
-%i-vector framework, only 1.8\% of training data chose MODGDF as their optimal
-%feature. Thus fewer test utterances chose MODGDF as optimal feature (last column
-%of the Table \ref{tab:ubm-spkrCount}). 
-
-%\begin{table}[h!tb]
-%\centering
-%\caption{The distribution of speakers in the feature spaces using feature switching 
-%in UBM-GMM framework. (EERs of baseline system and feature switching systems are 
-%compared and lesser EER in given in bold font)}
-%\begin{tabular}{cc|c|c|c|c|}
-%\cline{3-6}
-%\multicolumn{1}{l}{} & \multicolumn{1}{l|}{} & \multicolumn{4}{c|}{UBM-GMM Framework} \\ \hline
-%\multicolumn{1}{|c|}{Gender} & Condition & \begin{tabular}[c]{@{}c@{}}No. of \\ trials \end{tabular} & \begin{tabular}[c]{@{}c@{}}Best Baseline EER \\  and Feature
-%Space\end{tabular} & \begin{tabular}[c]{@{}c@{}}Feature \\ Switching\\ EER\end{tabular} &
-%  \begin{tabular}[c]{@{}c@{}}No. of trails\\ evaluated in \\ MGD/MFCC\end{tabular} \\ \hline
-%\multicolumn{1}{|c|}{\multirow{5}{*}{Male}} & C5 & 355 & 17.27 (MFC) & {\bf 10.48} & 168/187 \\ \cline{2-6} 
-%\multicolumn{1}{|c|}{} & C6 & 152 & 18.09 (MFC) & {\bf 12.32} & 113/34 \\ \cline{2-6} 
-%\multicolumn{1}{|c|}{} & C7 & 154 & 11.65 (MGD) & {\bf 9.06} & 96/53 \\ \cline{2-6} 
-%\multicolumn{1}{|c|}{} & C8 & 124 & 9.97 (MFC) & {\bf 9.4} & 64/52 \\ \cline{2-6} 
-%\multicolumn{1}{|c|}{} & C9 & 119 & 4.55 (MFC) & {\bf 3.21} & 67/48 \\ \hline
-%\multicolumn{1}{|c|}{\multirow{5}{*}{Female}} & C5 & 357 & 18.07 (MFC) & {\bf 15.12} & 76/281 \\ \cline{2-6} 
-%\multicolumn{1}{|c|}{} & C6 & 185 & {\bf 15.04} (MGD) & {18.39} & 62/123 \\ \cline{2-6} 
-%\multicolumn{1}{|c|}{} & C7 & 185 & 17.51 (MGD) & {\bf 14.14} & 33/152 \\ \cline{2-6} 
-%\multicolumn{1}{|c|}{} & C8 & 184 & 11.01 (MFC) & {\bf 9.89} & 78/106 \\ \cline{2-6} 
-%\multicolumn{1}{|c|}{} & C9 & 181 & {\bf 3.74} (MFC) & {4.27} & 75/106 \\ \hline
-%\end{tabular}
-%\label{tab:gmmAnalysis}
-%\end{table}
-
 \begin{table}[h!tb]
 \centering
 \caption{The distribution of speaker trials in the feature spaces using feature switching 
@@ -843,37 +797,6 @@ Space\end{tabular} & \begin{tabular}[c]{@{}c@{}}Feature \\ Switching\\ EER\end{t
 \label{tab:gmmAnalysis}
 \end{table}
 
-
-
-%%Give table here.
-%\begin{table}[h!tb]
-%\centering
-%\caption{The distribution of speakers in the feature spaces using feature 
-%switching in i-vector framework. (EERs of baseline system and feature switching 
-%systems are compared and lesser EER in given in bold font)}
-%\begin{tabular}{cc|c|c|c|c|}
-%\cline{3-6}
-%\multicolumn{1}{l}{} & \multicolumn{1}{l|}{} & \multicolumn{4}{c|}{i-vector Framework} \\ \hline
-%\multicolumn{1}{|c|}{Gender} & Condition & \begin{tabular}[c]{@{}c@{}}No. of \\ trails
-%\end{tabular} & \begin{tabular}[c]{@{}c@{}}Best Baseline EER \\  and Feature
-%Space\end{tabular} & \begin{tabular}[c]{@{}c@{}}Feature \\ Switching\\ EER\end{tabular} &
-%  \begin{tabular}[c]{@{}c@{}}No. of trails\\ evaluated in \\ MGD/MFCC\end{tabular} \\ \hline
-%\multicolumn{1}{|c|}{\multirow{5}{*}{Male}} & C5 & 355 & 5.10 (MFC) & {\bf 3.56} & 8/347 
-%\\ \cline{2-6} 
-%\multicolumn{1}{|c|}{} & C6 & 152 & 6.20 (MFC) & {\bf 4.86} & 6/146 \\ \cline{2-6} 
-%\multicolumn{1}{|c|}{} & C7 & 154 & 7.06 (MGD) & {\bf 5.57} & 7/147 \\ \cline{2-6} 
-%\multicolumn{1}{|c|}{} & C8 & 124 & 2.17 (MFC) & {\bf 1.36} & 8/116 \\ \cline{2-6} 
-%\multicolumn{1}{|c|}{} & C9 & 119 & 3.13 (MFC) & {\bf 2.48} & 4/115 \\ \hline
-%\multicolumn{1}{|c|}{\multirow{5}{*}{Female}} & C5 & 357 & 6.25 (MFC) & {\bf 4.62} & 193/164 
-%\\ \cline{2-6} 
-%\multicolumn{1}{|c|}{} & C6 & 185 & 9.32 (MFC) & {\bf 6.58} & 102/83 \\ \cline{2-6} 
-%\multicolumn{1}{|c|}{} & C7 & 185 & 11.64 (MGD) & {\bf 11.56} & 176/9 \\ \cline{2-6} 
-%\multicolumn{1}{|c|}{} & C8 & 184 & 3.98 (MGD) & {\bf 3.61} & 86/98 \\ \cline{2-6} 
-%\multicolumn{1}{|c|}{} & C9 & 181 & 3.39 (MGD) & {\bf 2.92} & 170/11 \\ \hline
-%\end{tabular}
-%\label{tab:ivecAnalysis}
-%\end{table}
-%Give table here.
 \begin{table}[h!tb]
 \centering
 \caption{The distribution of speaker trials in the feature spaces using feature 
@@ -904,39 +827,34 @@ Space\end{tabular} & \begin{tabular}[c]{@{}c@{}}Feature \\ Switching\\ EER\end{t
 
 \begin{figure}[h!tb]
 \centering
-\vspace{-2cm}
-\includegraphics[width=0.8\textwidth]{figures/m-det5-scoresDist.eps}
-\caption{Score distribution of baseline systems (MFCC and MODGD) and feature switching (FS) system for male databse in test condition C5 using i-vector case.}
+
+\includegraphics[width=0.7\textwidth]{figures/m-det5-scoresDist.eps}
+\caption{Score distribution of baseline systems (MFCC and MODGD) and feature switching (FS) system for male database in test condition C5 using i-vector case.}
 \label{fig:scoreDist}
 \end{figure}
 
-%MODGDF is generally preferred over MFCC feature for male and MFCC is preferred for female
-%over MODGDF in UBM-GMM framework. The complete reverse scenario is observed in i-vector
-%framework, where MFCC is preferred for most of the test cases in male and MODGDF is
-%preferred for female. On comparing the i-vector and UBM-GMM framework, out of 1402 trials 
-%in the male enrolment data, 730 trials chose different optimal feature. Likewise, out of
-%1758 trials in female enrolment data, 1136 trials adopted different optimal features.
-%
-%
-%The considerable reduction in EERs of feature-switching systems in all cases
-%except for C7 in FS-ivec-female system, demonstrates feature-switching systems
-%are efficient than the score-fusion and baseline systems.
-%\\$**********************$ \\ The exception may be due to reverberation in high
-%vocal effort testing \cite{vocalEffort} {\bf (I am not clear with the
-%justification here Sir...!)}. \\ $**********************$ \\ Overall performance
-%of i-vector systems are better than UBM-GMM systems.  
-
-
 
 The distribution of enrolment speakers among the optimal feature spaces
-is given in table \ref{tab:optFeat}. The optimal feature of a given speaker is
-not the same for the GMM-UBM feature-switching system and the i-vector
-feature-switching system. Why?? 
+is given in Table \ref{tab:optFeat}. The optimal feature of a given speaker is
+not the same for the UBM-GMM feature-switching system and the i-vector
+feature-switching system. This contradictory behaviour may be due to the
+LDA and WCCN performed in i-vector case. When WCCN is performed, the variance becomes 
+uniform in all the directions (Figure \ref{fig:ubmivec}) and LDA chooses the direction that maximises the distance between the centroids.  LDA and WCCN makes i-vector to behave more like a discriminative classifier whereas UBM-GMM behaves like a codebook. 
+
+\begin{figure}[h!tb]
+\centering
+
+\includegraphics[width=0.7\textwidth]{figures/UBMvsIVec.eps}
+\caption{Projection in UBM-GMM and i-vector case}
+\label{fig:ubmivec}
+\end{figure}
+
+%% Why?? 
 
 \section{Conclusion}
 \label{sec:conclude}
 
-In this paper, we developed the paradigm of feature-switching to perform
+In this paper, we developed the paradigm "feature-switching" to perform
 text-independent speaker verification. By performing verification in a
 feature space that is well-suited to the speaker under consideration,
 improvements in accuracy are obtained. The method is evaluated using the
@@ -956,7 +874,6 @@ research directions can include a more robust procedure to determine the optimal
 feature for a given speaker. An ideal scenario might be to have customised
 feature representations for every class under consideration, and
 feature-switching between them during verification.
-
 
 
 \section{Acknowledgement}
