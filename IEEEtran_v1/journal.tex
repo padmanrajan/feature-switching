@@ -1,6 +1,7 @@
-\documentclass[conference,compsoc]{IEEEtran}
-\usepackage[nocompress]{cite}
-\usepackage[dvips]{graphicx}
+\documentclass[preprint,12pt,5p]{elsarticle}
+
+
+\usepackage{graphicx}
 \DeclareGraphicsExtensions{.eps}
 \usepackage{epsfig}
 \usepackage{amssymb,amsmath,bm}
@@ -16,36 +17,29 @@
 \usepackage{array}
 \usepackage[caption=false,font=footnotesize,labelfont=sf,textfont=sf]{subfig}
 \usepackage{url}
+\usepackage{nonfloat}
+\usepackage{flushend}
+
+\DeclareMathSizes{10}{10}{10}{10}
 
 \begin{document}
 
-\title{Feature Switching in Speaker Verification using UBM-GMM and i-Vector}
+\begin{frontmatter}
 
-\author{
-\IEEEauthorblockN{M. S. Saranya}
-\IEEEauthorblockA{Department of Computer \\
-Science and Engineering \\
-Indian Institute of Technology Madras\\
-Chennai, India \\
-Email: ca15d006@cse.iitm.ac.in}
-\and
-\IEEEauthorblockN{R. Padmanabhan}
-\IEEEauthorblockA{School of Computing \\
-and Electrical Engineering \\
-Indian Institute of Technology Mandi\\
-Mandi, India\\
-Email: padman@iitmandi.ac.in}
-\and
-\IEEEauthorblockN{Hema A. Murthy}
-\IEEEauthorblockA{Department of Computer \\
-Science and Engineering\\
-Indian Institute of Technology Madras\\
-Chennai, India \\
-Email: hema@cse.iitm.ac.in \\
-}
-}
+\title{ {\bf COMPARATIVE STUDY ON FEATURE SWITCHING FOR SPEAKER VERIFICATION USING GMM-UBM AND {\it i }-VECTOR FRAMEWORKS}}
 
-\maketitle
+\author[label1]{Saranya M S}
+\address[label1]{exIndian Institue of Technology Madras}
+
+\ead{cs15d006@cse.iitm.ac.in}
+%\ead[url]{author-one-homepage.com}
+
+\author[label2]{Padmanabhan R}
+\address[label2]{Indian Institute of Technology Mandi}
+\ead{padman@iitmandi.ac.in }
+
+\author[label1]{Hema A Murthy}
+\ead{hema@cse.iitm.ac.in}
 
 \begin{abstract}
 Conventional speaker verification systems utilise information from different
@@ -64,6 +58,10 @@ verification system, as well as the i-vector verification system. Our results sh
 that feature-switching achieves improved performance compared to conventional as well
 as fusion based-systems.
 \end{abstract}
+
+\begin{keyword}
+feature switching \sep i-vector \sep speaker verification \sep UBM-GMM \sep Total variability Space (TVS)\sep MGD
+\end{keyword}
 
 \section{Introduction}
 \label{sec:intro}
@@ -897,21 +895,41 @@ feature representations for every class under consideration, and
 feature-switching between them during verification.
 
 
+\section{Acknowledgement}
+\label{sec:ack}
+The authors would like to acknowledge the Defence Research and Development 
+Organization, India for funding the research under the project 
+CSE1314142DRDOHEMA. 
+
+
+\flushend
+%% The Appendices part is started with the command \appendix;
+%% appendix sections are then done as normal sections
+\appendix
 
 
 
-\section*{Acknowledgments}
 
+%% References with bibTeX database:
 
+\bibliographystyle{elsarticle-num}
+% \bibliographystyle{elsarticle-harv}
+% \bibliographystyle{elsarticle-num-names}
+% \bibliographystyle{model1a-num-names}
+% \bibliographystyle{model1b-num-names}
+% \bibliographystyle{model1c-num-names}
+% \bibliographystyle{model1-num-names}
+% \bibliographystyle{model2-names}
+% \bibliographystyle{model3a-num-names}
+% \bibliographystyle{model3-num-names}
+% \bibliographystyle{model4-names}
+% \bibliographystyle{model5-names}
+% \bibliographystyle{model6-num-names}
 
-%\begin{thebibliography}{1}
-%
-%\bibitem{IEEEhowto:kopka}
-%H.~Kopka and P.~W. Daly, \emph{A Guide to \LaTeX}, 3rd~ed.\hskip 1em plus
-%  0.5em minus 0.4em\relax Harlow, England: Addison-Wesley, 1999.
-%
-%\end{thebibliography}
-\bibliographystyle{IEEEtranS}
-\bibliography{refs}
+\bibliography{science}
+
 
 \end{document}
+
+%%
+%% End of file `elsarticle-template-num.tex'.
