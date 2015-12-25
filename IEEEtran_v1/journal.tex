@@ -29,9 +29,9 @@
 \title{ {\bf COMPARATIVE STUDY ON FEATURE SWITCHING FOR SPEAKER VERIFICATION USING GMM-UBM AND {\it i }-VECTOR FRAMEWORKS}}
 
 \author[label1]{Saranya M S}
-\address[label1]{exIndian Institue of Technology Madras}
+\address[label1]{Indian Institue of Technology Madras}
 
-\ead{cs15d006@cse.iitm.ac.in}
+\ead{saranms@cse.iitm.ac.in}
 %\ead[url]{author-one-homepage.com}
 
 \author[label2]{Padmanabhan R}
@@ -42,6 +42,7 @@
 \ead{hema@cse.iitm.ac.in}
 
 \begin{abstract}
+
 Conventional speaker verification systems utilise information from different
 feature representations by means of fusion. In this paper, we propose an
 alternative technique which achieves similar effect or better performances, but 
@@ -57,11 +58,14 @@ of feature-switching is performed utilising the classical GMM-UBM speaker
 verification system, as well as the i-vector verification system. Our results show
 that feature-switching achieves improved performance compared to conventional as well
 as fusion based-systems.
+
 \end{abstract}
 
 \begin{keyword}
 feature switching \sep i-vector \sep speaker verification \sep UBM-GMM \sep Total variability Space (TVS)\sep MGD
 \end{keyword}
+
+\end{frontmatter}
 
 \section{Introduction}
 \label{sec:intro}
@@ -69,7 +73,7 @@ feature switching \sep i-vector \sep speaker verification \sep UBM-GMM \sep Tota
 Feature extraction is an important step in pattern recognition systems. For
 speech signals, feature extraction is a transformation from the acoustic space
 to a feature space. In text-independent speaker verification, the objective is
-to determine if two utterances (the enrolment utterance and the test utterance) are
+to determine if two utterances (the enrollment utterance and the test utterance) are
 both spoken by a particular speaker. We expect that, the transformation into the
 feature space effectively discriminates the utterances spoken by the speaker
 under consideration with those spoken by other speakers. Most speaker
@@ -138,14 +142,14 @@ and the UBM implies improved accuracy in verification.
 \centering 
 \begin{minipage}[c]{0.5\textwidth}
 \centering 
-%    \includegraphics[width=0.99\textwidth]{figures/tdcap_mfcc.eps}
-    \includegraphics[scale=0.4]{figures/tdcap_mfcc.eps}
+%    \includegraphics[width=0.99\textwidth]{../figures/tdcap_mfcc.eps}
+    \includegraphics[scale=0.4]{../figures/tdcap_mfcc.eps}
 	\caption*{(a)}
 \end{minipage}
 \begin{minipage}[c]{0.5\textwidth}
 \centering  
-%    \includegraphics[width=0.99\textwidth]{figures/tdcap_mgd.eps}
-    \includegraphics[scale=0.4]{figures/tdcap_mgd.eps}
+%    \includegraphics[width=0.99\textwidth]{../figures/tdcap_mgd.eps}
+    \includegraphics[scale=0.4]{../figures/tdcap_mgd.eps}
 
 	\caption*{(b)}
 \end{minipage}
@@ -159,14 +163,14 @@ separable in MODGDF space.}
 \centering 
 \begin{minipage}[c]{0.5\textwidth}
 \centering 
-%    \includegraphics[width=0.99\textwidth]{figures/tecer_mfcc.eps}
-    \includegraphics[scale=0.4]{figures/tecer_mfcc.eps}
+%    \includegraphics[width=0.99\textwidth]{../figures/tecer_mfcc.eps}
+    \includegraphics[scale=0.4]{../figures/tecer_mfcc.eps}
 	\caption*{(a)}
 \end{minipage}
 \begin{minipage}[c]{0.5\textwidth}
 \centering  
-%    \includegraphics[width=0.99\textwidth]{figures/tecer_mgd.eps}
-    \includegraphics[scale=0.4]{figures/tecer_mgd.eps}
+%    \includegraphics[width=0.99\textwidth]{../figures/tecer_mgd.eps}
+    \includegraphics[scale=0.4]{../figures/tecer_mgd.eps}
 	\caption*{(b)}
 \end{minipage}
 \caption{Sub-figures (a) and (b) show the same speaker and background model
@@ -197,15 +201,15 @@ between the UBM and the GMM.
 \centering 
 \begin{minipage}{0.5\textwidth}
 \centering 
-%\includegraphics[width=0.99\textwidth]{figures/spkr_1_mfcc.eps}
-\includegraphics[scale=0.4]{figures/spkr_1_mfcc.eps}
+%\includegraphics[width=0.99\textwidth]{../figures/spkr_1_mfcc.eps}
+\includegraphics[scale=0.4]{../figures/spkr_1_mfcc.eps}
 \caption*{(a)}
 \label{fig:subfig3}
 \end{minipage}
 \begin{minipage}{0.5\textwidth}
 \centering 
-%\includegraphics[width=0.99\textwidth]{figures/spkr_1_mgd.eps}
-\includegraphics[scale=0.4]{figures/spkr_1_mgd.eps}
+%\includegraphics[width=0.99\textwidth]{../figures/spkr_1_mgd.eps}
+\includegraphics[scale=0.4]{../figures/spkr_1_mgd.eps}
 \caption*{(b)}
 \label{fig:subfig4}
 \end{minipage}
@@ -219,15 +223,15 @@ i-vectors are better separable in MFCC space.}
 \centering 
 \begin{minipage}{0.5\textwidth}
 \centering 
-%\includegraphics[width=0.99\textwidth]{figures/spkr_2_mfcc.eps}
-\includegraphics[scale=0.4]{figures/spkr_2_mfcc.eps}
+%\includegraphics[width=0.99\textwidth]{../figures/spkr_2_mfcc.eps}
+\includegraphics[scale=0.4]{../figures/spkr_2_mfcc.eps}
 \caption*{(a)}
 \label{fig:subfig3}
 \end{minipage}
 \begin{minipage}{0.5\textwidth}
 \centering 
-%\includegraphics[width=0.99\textwidth]{figures/spkr_2_mgd.eps}
-\includegraphics[scale=0.4]{figures/spkr_2_mgd.eps}
+%\includegraphics[width=0.99\textwidth]{../figures/spkr_2_mgd.eps}
+\includegraphics[scale=0.4]{../figures/spkr_2_mgd.eps}
 \caption*{(b)}
 \label{fig:subfig4}
 \end{minipage}
@@ -257,13 +261,13 @@ verification in the well-suited feature space of the claimed speaker. This
 well-suited feature representation is henceforth termed as the \emph{optimal
 feature}. The overall architecture of the feature-switching system is shown in the
 Figure \ref{fig:systemArch}. The optimal feature is determined for every speaker
-during enrolment, and stored in a lookup-table. During testing, the optimal
+during enrollment, and stored in a lookup-table. During testing, the optimal
 feature of the claimed speaker is looked-up, and verification is performed in
 the optimal feature space.
 
 \begin{figure}[th]
 \centering
-\includegraphics[scale=0.25]{figures/FS_Architect.eps}
+\includegraphics[scale=0.25]{../figures/FS_Architect.eps}
 \caption{System architecture with training and testing phase for feature-switching.}
 \label{fig:systemArch}
 \end{figure}
@@ -275,7 +279,7 @@ For the GMM-UBM framework, the method of determining the optimal feature for a
 particular speaker, given a set of candidate feature representations, was
 described in \cite{padmanInterspeech2010}. The optimal feature is determined by
 evaluating the representation ability and discrimination ability
-of each candidate feature representation. Given an enrolment utterance, the
+of each candidate feature representation. Given an enrollment utterance, the
 mutual information between extracted feature vectors and the complex Fourier
 transform (CFT) is used as an estimate of information captured by the feature
 vectors. Thus, the representation ability of the feature representation is given
@@ -394,7 +398,7 @@ feature vectors and their associated hyper-parameters. Hence, the
 better-suited i-vector representation for a particular speaker can be estimated
 from amongst i-vectors extracted from different acoustic features. One way of
 doing this is by determining the i-vector representation which has the maximum
-distance between the given speaker and the other enrolment speakers. If there
+distance between the given speaker and the other enrollment speakers. If there
 are $N$ speakers, the optimal i-vector representation $\Hat{p}$ 
 for the $i$th speaker can be determined as
 
@@ -410,10 +414,10 @@ s_p = \frac{\displaystyle \sum_{j=1, \; i \neq j}^N d(w_{p,i},w_{p,j})}{N}.
 \label{eq:sp}
 \end{equation}
 
-Here, $w_{p,j}$ represents the enrolment i-vector for the $j$th speaker
+Here, $w_{p,j}$ represents the enrollment i-vector for the $j$th speaker
 extracted using the $p$th feature representation. $d$ is a distance measure (for
 example, cosine distance) between i-vectors. For the $i$th speaker, the average
-distance with the other enrolment speakers is used to determine the optimal
+distance with the other enrollment speakers is used to determine the optimal
 i-vector representation. 
 
 \section{Features from magnitude and phase spectra}
@@ -476,7 +480,7 @@ fusion systems.
 \label{sec:dB}
 Speaker verification experiments are performed on a subset of
 the NIST 2010 SRE dataset. Telephone and microphone utterances under varying 
-vocal effort, as detailed in \cite{nist2010SRE} are used for enrolment and 
+vocal effort, as detailed in \cite{nist2010SRE} are used for enrollment and 
 evaluation. These are summarised in Table \ref{tab:datasetConditions}. 
 Gender-specific hyper-parameters for the speaker recognition systems including 
 the UBM and the T-matrix are developed using data 
@@ -520,7 +524,7 @@ discards about 20-25\% of the input frames.
 MFCC and MODGDF feature representations. 38-dimensional feature vectors are 
 extracted in each feature domain. Gender-dependent 1024-mixture UBMs are built 
 from development data.  Speaker-dependent GMM models are generated for the 
-enrolment data by adapting the means of top 10 maximum contributing mixture 
+enrollment data by adapting the means of top 10 maximum contributing mixture 
 components of the UBM. For each test utterance, similarity scores are computed 
 as the ratio of the log-likelihood of the extracted features with the speaker
 model and the UBM.
@@ -537,19 +541,19 @@ compared are self-descriptive, and individual systems are built for each gender.
 super-vector statistics are computed using a 1024-mixture UBM. A total
 variability matrix of size 38912 $\times$ 600 is randomly initialized and
 estimated using development data, as detailed in \cite{dehak_ivector,
-kenny_JFA}.  500-dimensional i-vectors are estimated for each enrolment
+kenny_JFA}.  500-dimensional i-vectors are estimated for each enrollment
 utterance and test utterance. Preprocessing steps to reduce channel variability
 including i-vector length normalization \cite{garciaRomero}, linear discriminant
 analysis (LDA) and within-class covariance normalization (WCCN) are applied to
 the i-vectors.  The LDA projection matrix is learnt by utilising
 speaker-specific recordings from the development data. %Is this gender specific? - Yes
-Cosine similarity between enrolment and test i-vectors is utilised to determine
+Cosine similarity between enrollment and test i-vectors is utilised to determine
 the similarity score between them.The different baseline systems developed in
 this framework are referred as ivec-MFC and ivec-MGD. As before, these are
 gender specific.
 
 In both the GMM-UBM and the i-vector frameworks, similarity
-scores calculated between the test and enrolment utterances 
+scores calculated between the test and enrollment utterances 
 are subjected to T-normalization \cite{tnorm}. Mean and variance for T-matrix is
 estimated from the target and non-target utterances of each speaker given in the 
 NIST SRE 2010 database.
@@ -590,7 +594,7 @@ GMM-UBM and i-vector frameworks. The details of these systems
 are given below.
 
 \begin{figure}[h]
-\includegraphics[scale=0.25]{figures/FeatureSwithcing.eps}
+\includegraphics[scale=0.25]{../figures/FeatureSwithcing.eps}
 \caption{Testing phase of feature-switching system}
 \label{fig:systemArch2}
 \end{figure}
@@ -599,8 +603,8 @@ are given below.
 \textbf{GMM-UBM feature-switching system:}
 The baseline systems (MFCC and MODGDF) described in section
 \ref{subsec:baseline} form the constituent systems for feature-switching. This
-is shown in Figure \ref{fig:systemArch2}. For each enrolment speaker, the
-optimal feature is determined from the enrolment utterance, as described in
+is shown in Figure \ref{fig:systemArch2}. For each enrollment speaker, the
+optimal feature is determined from the enrollment utterance, as described in
 section \ref{subsec:ubm_optFeat}. Here, the number of candidate features, $P$,
 is two, with $p=1$ meaning MFCC features and $p=2$ meaning MODGDF features.
 
@@ -608,7 +612,7 @@ The weighting parameter $\alpha$ is used as a trade-off between mutual informati
 KL-divergence for determining the optimal feature of a given speaker (equation
 \ref{eq:phiFunc}). Different speakers can have different $\alpha$ values. Since
 there is no theoretical insight to determining the correct weighting feature,
-the following procedure is adopted for each of the $N$ enrolment speakers.
+the following procedure is adopted for each of the $N$ enrollment speakers.
 For a given speaker, the value of $\phi_p$ is determined across various values
 of $\alpha$ as, 
 \begin{equation}
@@ -617,7 +621,7 @@ of $\alpha$ as,
 where the values of $\alpha$ are varied from $0$ to $1$ in steps of $0.1$. Once
 $\phi_p$ is determined for $p=1$ and $p=2$, the optimal feature is computed as in equation
 \ref{eq:ubm_optFeat}.
-%Out of 1402 male  and 1758 female enrolment speakers in the SRE 2010
+%Out of 1402 male  and 1758 female enrollment speakers in the SRE 2010
 %dataset, 734 male  and 641 female speakers chose MODGDF and 
 %remaining chose MFCC as their optimal feature. Approximately, 890
 %male utterances and 1100 female utterances were used across the five
@@ -636,7 +640,7 @@ feature-switching system. For each speaker, the optimal feature representation
 is computed as described in equation \ref{eq:opt_ivec}.
 %For the SRE 10 dataset,
 %the optimal features are summarised as given below.
-%Out of 1402 male and 1758 female enrolment data, 26 and 1673
+%Out of 1402 male and 1758 female enrollment data, 26 and 1673
 %trials chose MODGDF as their optimal feature respectively.
 %The same test set used for feature-switching in UBM-GMM framework 
 %is used here. 
@@ -738,7 +742,7 @@ include four baseline systems (UBM-MFC, UBM-MGD, ivec-MFC, ivec-MGD), two early
 fusion systems (EF-UBM, EF-ivec), two late fusion systems (LF-UBM, LF-ivec) 
 and two proposed feature-switching systems (FS-UBM, FS-ivec). Each of these have 
 corresponding systems for male trials and female trials. The performance metric 
-is the equal error rate (EER) \cite{eer1}. The performance is tabulated in table \ref{tab:eer}.
+is the equal error rate (EER) \cite{eer1}. The performance is tabulated in Table \ref{tab:eer}.
 %In all cases, give the relative improvement.
 % Have you given absolute or relative improvement figures?
 Compared to the baseline systems, the score-fusion systems provide an average
@@ -847,28 +851,30 @@ Space\end{tabular} & \begin{tabular}[c]{@{}c@{}}Feature \\ Switching\\ EER\end{t
 \begin{figure}[h!tb]
 \centering
 
-\includegraphics[width=0.5\textwidth]{figures/m-det5-scoresDist.eps}
+\includegraphics[width=0.5\textwidth]{../figures/m-det5-scoresDist.eps}
 \caption{Score distribution of baseline systems (MFCC and MODGD) and feature switching (FS) system for male database in test condition C5 using i-vector case.}
 \label{fig:scoreDist}
 \end{figure}
 
 
-The distribution of enrolment speakers among the optimal feature spaces
+%%MODGDF is known to capture the higher formants clearly. In i-vector framework, for female trials, MODGDF is chosen as the optimal feature. This may be due to the richness of higher formants in female voice. 
+
+
+The distribution of enrollment speakers among the optimal feature spaces
 is given in Table \ref{tab:optFeat}. The optimal feature of a given speaker is
 not the same for the UBM-GMM feature-switching system and the i-vector
 feature-switching system. This contradictory behaviour may be due to the
 LDA and WCCN performed in i-vector case. When WCCN is performed, the variance becomes 
 uniform in all the directions (Figure \ref{fig:ubmivec}) and LDA chooses the direction that maximises the distance between the centroids.  LDA and WCCN makes i-vector to behave more like a discriminative classifier whereas UBM-GMM behaves like a codebook. 
 
+
 \begin{figure}[h!tb]
 \centering
 
-\includegraphics[width=0.5\textwidth]{figures/UBMvsIVec.eps}
+\includegraphics[width=0.5\textwidth]{../figures/UBMvsIVec.eps}
 \caption{Projection in UBM-GMM and i-vector case}
 \label{fig:ubmivec}
 \end{figure}
-
-%% Why?? 
 
 \section{Conclusion}
 \label{sec:conclude}
