@@ -474,8 +474,13 @@ and the parameters $\alpha$ and $\gamma$ are used to control the dynamic range
 of the MODGD. 
 \STATE Compute the MODGDF features by taking the DCT:
 \begin{equation*}
-c(n) = \sum_{k=0}^{N_f-1}\tau_m(k)\cos(n(2k+1)\pi/N_f) \quad 0 \leq n < N_c
+c(n) = \sum_{k=0}^{N_f-1}\tau_m(k)\cos(n(2k+1)\pi/N_f), 
 \end{equation*}
+\vspace{-5mm}
+\begin{equation*}
+\quad \quad \quad 0 \leq n < N_c
+\end{equation*}
+
 where $N_f$ is the DFT size and $N_c$ are the number of cepstral coefficients. 
 
 \end{algorithmic}
@@ -608,13 +613,15 @@ GMM-UBM and i-vector frameworks. The details of these systems
 are given below.
 
 \begin{figure}[h]
-\includegraphics[scale=0.25]{../figures/FeatureSwithcing.eps}
+\includegraphics[scale=0.28]{../figures/FeatureSwithcing.eps}
 \caption{Testing phase of feature-switching system}
 \label{fig:systemArch2}
 \end{figure}
 
 
-\textbf{GMM-UBM feature-switching system:}
+\textbf{GMM-UBM feature-switching system:} 
+
+\hspace{-8mm}
 The baseline systems (MFCC and MODGDF) described in section
 \ref{subsec:baseline} form the constituent systems for feature-switching. This
 is shown in Figure \ref{fig:systemArch2}. For each enrollment speaker, the
