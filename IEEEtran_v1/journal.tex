@@ -13,7 +13,7 @@
 \usepackage{subcaption}
 \usepackage{algorithmic}
 \usepackage{lipsum}
-\usepackage{amsmath}
+\usepackage{hyphenat}
 \usepackage{array}
 \usepackage[caption=false,font=footnotesize,labelfont=sf,textfont=sf]{subfig}
 \usepackage{url}
@@ -22,7 +22,8 @@
 \DeclareMathSizes{10}{10}{10}{10}
 
 \begin{document}
-
+\sloppy
+\flushend
 
 \begin{frontmatter}
 
@@ -102,7 +103,7 @@ representation. The short-term Fourier transform is a complex quantity, with
 information present in both magnitude and phase spectra. It is known from linear
 system theory, that non minimum-phase signals have different information in
 magnitude and phase spectra \cite{oppenheim}. Several studies \cite{complement2}
-have shown the complementarity of magnitude and phase, and how combining feature
+have shown the complementary nature of magnitude and phase, and how combining feature
 vectors derived from each of them improves performance in various tasks. In this
 paper, we study the effectiveness of feature-switching for speaker verification
 using feature representations from magnitude-based and phase-based features. We
@@ -114,7 +115,7 @@ beforehand. Then, feature-switching is applied for speaker verification by verif
 some speakers using MFCC features, and others using MODGDF features.
 
 We study feature-switching for speaker verification in the context of the
-classical GMM-UBM system \cite{reynoldsAdaptedGMM}, and also the more
+classical GMM-UBM system \cite{reynoldsAdaptedGMM}, and the more
 sophisticated i-vector based representation \cite{dehak_ivector}. In both cases,
 our studies show that feature-switching improves verification accuracy, when
 compared to conventional systems, which use only a single feature
@@ -122,12 +123,18 @@ representation. In addition, feature-switching also shows improvement over
 fusion systems. Experiments are performed on the NIST 2010 speaker recognition
 evaluation (SRE) \cite{nist2010SRE} data.
 
-The rest of the paper is organized as follows: Separation of features in different feature spaces is analyzed in Section~\ref{sec:separability}. The process of selecting the optimal feature and feature switching is explained in Section~\ref{sec:optFeat}. The candidate features used for feature selection is explained in Section~\ref{sec:featExt} followed by the explanation of experimental evaluation in Section~\ref{sec:expts} and conclusion in Section~\ref{sec:conclude}. The acknowledgement for this work is given in Section~\ref{sec:ack}
+The rest of the paper is organized as follows: The effect of separability of features 
+in different feature spaces is analyzed in Section~\ref{sec:separability}. The process 
+of selecting the optimal feature and feature switching is explained in 
+Section~\ref{sec:optFeat}. The candidate features used for 
+feature selection is explained in Section~\ref{sec:featExt} followed by the experimental 
+evaluation in Section~\ref{sec:expts} and conclusion in Section~\ref{sec:conclude}. The 
+acknowledgement for this work is given in Section~\ref{sec:ack}
 
 \section{Separability analysis in different feature spaces}
 \label{sec:separability}
-The underlying hypothesis for feature-switching is that speakers are separated
-differently in different feature spaces. To study this in detail, we
+The underlying hypothesis for feature-switching is that feature vectors of the 
+speakers are separated differently in different feature spaces. To study this in detail, we
 perform separability studies in MFCC space and MODGDF space.
 
 In the classical GMM-UBM framework \cite{reynoldsAdaptedGMM}, a speaker is
@@ -148,13 +155,12 @@ and the UBM implies improved accuracy in verification.
 \begin{minipage}[c]{0.5\textwidth}
 \centering  
 %    \includegraphics[width=0.99\textwidth]{../figures/tdcap_mgd.eps}
-\vspace{3mm}
+\vspace{5mm}
     \includegraphics[scale=0.45]{../figures/tdcap_mgd.eps}
-
 	\caption*{(b)}
 \end{minipage}
 \caption{Sub-figures (a) and (b) show a speaker and background model
-centroids in MFCC and MODGDF spaces. This speaker and the UBM are better
+centroids for a speaker in MFCC and MODGDF spaces. This speaker and the UBM are better
 separable in MODGDF space.}
 \label{fig:ubm_sep1}
 \end{figure}
@@ -171,31 +177,32 @@ separable in MODGDF space.}
 \begin{minipage}[c]{0.5\textwidth}
 \centering  
 %    \includegraphics[width=0.99\textwidth]{../figures/tecer_mgd.eps}
-\vspace{3mm}
+\vspace{5mm}
     \includegraphics[scale=0.45]{../figures/tecer_mgd.eps}
 	\caption*{(b)}
 \end{minipage}
 \caption{Sub-figures (a) and (b) show a speaker and background model
-centroids in MFCC and MODGDF spaces. This speaker and the UBM are better
+centroids for a speaker in MFCC and MODGDF spaces. This speaker and the UBM are better
 separable in MFCC space.}
 \label{fig:ubm_sep2}
 \end{figure}
 
 Figures \ref{fig:ubm_sep1} and \ref{fig:ubm_sep2} illustrate the
 separability obtained in MFCC and MODGDF feature spaces for two 
-speakers. The mean vectors of a 32-mixture GMM and UBM are plotted in
+speakers. The mean vectors of a 32-mixture speaker GMM and UBM are plotted in
 two-dimensional space. In these figures, the 39-dimensional MFCC and MODGDF
 feature vectors are reduced to two dimensions using the Sammon mapping technique
 \cite{sammon}. 
 
 Sammon mapping represents high dimensional vectors in a 
 lower dimensional space such that the geometric relations between the original data points
-are preserved. This mapping technique facilitates the visualization of higher dimensional data
-in the lower dimension. The measure used by Sammon mapping is designed to 
-minimise the differences between corresponding inter-point distances in the two spaces \cite{sammon1}. 
+are preserved. The measure used by Sammon mapping is designed to 
+minimise the differences between corresponding inter-point distances in the two spaces 
+\cite{sammon1}. This mapping technique facilitates the visualization of higher dimensional data
+in the lower dimension. 
 
 It can be seen that in Figure \ref{fig:ubm_sep1}, there is  better separation
-between the GMM and the UBM in the MODGDF space, when compared to the MFCC
+between the speaker GMM and the UBM in the MODGDF space, when compared to the MFCC
 space. Thus, it is likely that this speaker is better discriminated against the
 UBM in the MODGDF space. Similarly, for another speaker, Figure
 \ref{fig:ubm_sep2} shows better separation in the MFCC space. Thus, for this
@@ -252,25 +259,23 @@ Similar analysis is performed in i-vector space by considering i-vectors derived
 from different feature representations.  For a given speaker, target trials are
 those spoken by the speaker himself or herself, and are also called true-speaker
 trials. Non-target trials are spoken by other speakers, and are also called
-imposter trials. In this figure, 38-dimensional dimension i-vectors are reduced
+imposter trials. 38-dimensional dimension i-vectors are reduced
 to two dimensions using Sammon mapping. The better separation of target and
 non-target i-vectors in optimal feature  can be readily seen in Figure
 \ref{fig:ivec_separation1} and \ref{fig:ivec_separation2}.  
 
-
 \section{Optimal feature selection and feature-switching}
 \label{sec:optFeat}
-
 Speaker verification is a two-class problem. A verification trial consists of a
 test utterance from an unknown speaker, and a speaker claim. Feature-switching
 can be naturally applied to the verification scenario by performing
 verification in the well-suited feature space of the claimed speaker. This
 well-suited feature representation is henceforth termed as the \emph{optimal
-feature}. The overall architecture of the feature-switching system is shown in the
-Figure \ref{fig:systemArch}. The optimal feature is determined for every speaker
+feature}. The optimal feature is determined for every speaker
 during enrollment, and stored in a lookup-table. During testing, the optimal
 feature of the claimed speaker is looked-up, and verification is performed in
-the optimal feature space.
+the optimal feature space. The overall architecture of the feature-switching system 
+is shown in the Figure \ref{fig:systemArch}. 
 
 \begin{figure}[th]
 \centering
@@ -323,6 +328,7 @@ that of the UBM), the KL-divergence reduces to
 \textrm{kld}(\lambda_{\textrm{spk}},\lambda_{\textrm{ubm}}) = 
 	\displaystyle \sum_i\ \pi_i\ \textrm{kld}(f_i,g_i),
 \label{eq:gmmAdaptedKLD}
+\vspace{-5mm}
 \end{equation}
 %where $\lambda_{\textrm{spk}} = \Sigma_i \, \pi_i \, \mathcal{N}(\mu_i^{\textrm{spk}},\Sigma)$ 
 where, \\
@@ -387,8 +393,8 @@ i-vector is estimated as the mean of the posterior distribution of $w$, given
 the utterance. Procedures to estimate the hyper-parameters $\mu$ and $T$, and 
 estimate i-vectors from an utterance, can be found in \cite{dehak_ivector}.
 
-The i-vector representing an utterance encodes information about the message,
-the speaker, and the channel. To compensate for unwanted channel effects,
+The i-vector representing an utterance encodes information about 
+the speaker and the channel. To compensate for unwanted channel effects,
 several preprocessing steps like length normalization \cite{garcia_lengthNorm},
 and within-class covariance normalization (WCCN) \cite{wccn} is performed. A
 popular method to measure similarity between two i-vectors is by computing the
@@ -422,8 +428,8 @@ i-vector representation.
 
 The underlying assumption in feature-switching is that information in different
 feature representations can be utilized dynamically. Earlier studies
-\cite{complement1}, \cite{complement2}, \cite{complement2} have demonstrated
-complementary information in magnitude and phase spectra. Mel frequency cepstra
+\cite{complement1}, \cite{complement2}, \cite{complement3} have demonstrated
+complementary nature of the information in magnitude and phase spectra. Mel frequency cepstra
 (MFCC) are derived from the magnitude spectrum. A popular method for utilizing
 information from the phase spectrum is via group delay functions
 \cite{group_delay}. The modified group delay feature (MODGDF) \cite{modgd_feat},
@@ -538,7 +544,7 @@ compared are self-descriptive, and individual systems are built for each gender.
 \textbf{i-vector system:} 
 38-dimensional feature vectors are extracted and first and second order
 super-vector statistics are computed using a 1024-mixture UBM. A total
-variability matrix of size 38912 $\times$ 600 is randomly initialized and
+variability matrix of size 38912 $\times$ 500 is randomly initialized and
 estimated using development data, as detailed in \cite{dehak_ivector,
 kenny_JFA}.  500-dimensional i-vectors are estimated for each enrollment
 utterance and test utterance. Preprocessing steps to reduce channel variability
@@ -553,19 +559,18 @@ gender specific.
 
 In both the GMM-UBM and the i-vector frameworks, similarity
 scores calculated between the test and enrollment utterances 
-are subjected to T-normalization \cite{tnorm}. Mean and variance for T-matrix is
+are subjected to T-normalization \cite{tnorm}. Mean and variance for T-normalization is
 estimated from the target and non-target utterances of each speaker given in the 
 NIST SRE 2010 database. The EERs of these baseline systems are listed in the Table \ref{tab:eer}.
 
 \textbf{Score-level fusion:}  Score-level fusion, also called late fusion (LF)
 is achieved by fusing the scores of individual feature-based baseline systems
 \cite{fusion}. Our preliminary experiments had shown that score fusion outperforms 
-the feature-level fusion (early fusion). So we concentrated further on 
-the late fusion rather than the early fusion. The fusion of scores are a linear 
+the feature-level fusion (early fusion). So the late fusion is concentrated more in this paper 
+rather than the early fusion. The fusion of scores are a linear 
 combination of the MFCC and MODGDF scores. A line search is performed 
 to find the optimal weighing parameter. These systems are denoted as LF-UBM 
 and LF-ivec.  The performance of the fusion systems are given in Table \ref{tab:eer}. 
-
 	
 \subsection{Feature-switching}
 \label{subsec:featSwitch}
@@ -576,31 +581,32 @@ GMM-UBM and i-vector frameworks. The details of these systems
 are given below.
 \begin{figure}[h]
 \centering
-\includegraphics[scale=0.25]{../figures/FeatureSwithcing.eps}
+\includegraphics[scale=0.28]{../figures/FeatureSwithcing.eps}
 \caption{Testing phase of feature-switching system}
+\vspace{3mm}
 \label{fig:systemArch2}
 \end{figure}
 
 \textbf{GMM-UBM feature-switching system:} 
-
 \hspace{-6	mm}The baseline systems (MFCC and MODGDF) 
 described in section~\ref{subsec:baseline} form the constituent systems for 
 feature-switching. This is shown in Figure \ref{fig:systemArch2}. For each enrollment 
 speaker, the optimal feature is determined from the enrollment utterance, as described in
-section \ref{subsec:ubm_optFeat}. Here, the number of candidate features, $P$,
-is two, with $p=1$ meaning MFCC features and $p=2$ meaning MODGDF features.
+section \ref{subsec:ubm_optFeat}. Here, the number of candidate features $P$
+is two, with $p=1$ meaning MFCC features and $p=2$ meaning MODGDF features
+(Equation~\ref{eq:phiFunc}).
 
 The weighting parameter $\alpha$ is used as a trade-off between mutual information and
-KL-divergence for determining the optimal feature of a given speaker (equation
+KL-divergence, for determining the optimal feature of a given speaker (equation
 \ref{eq:phiFunc}). Different speakers can have different $\alpha$ values. Since
-there is no theoretical insight to determining the correct weighting feature,
+there is no theoretical insight to determining the correct weight parameter,
 the following procedure is adopted for each of the $N$ enrollment speakers.
 For a given speaker, the value of $\phi_p$ is determined across various values
 of $\alpha$ as, 
 \begin{equation}
 \phi_p = \max \; (\alpha \theta_p + (1-\alpha) \gamma_p),
 \end{equation}
-where the values of $\alpha$ are varied from $0$ to $1$ in steps of $0.1$ and $\theta$ and 
+where the values of $\alpha$ are varied from $0$ to $1$ in steps of $0.1$. $\theta$ and 
 $\gamma_p$ are defined in Equation \ref{eq:phiFunc} . Once
 $\phi_p$ is determined for $p=1$ and $p=2$, the optimal feature is computed as in equation
 \ref{eq:ubm_optFeat}.
@@ -782,7 +788,7 @@ for male trials in i-vector case.
 \begin{table}[t!hb]
 \centering
 \caption{Distribution of the speakers to MFCC and MODGDF optimal feature spaces.}
-%\resizebox{0.55\textwidth}{!}{
+\resizebox{0.42\textwidth}{!}{
 \begin{tabular}{|l|l|l|l|}
 \hline
 Gender & MFCC & MODGDF & Total \\
@@ -798,7 +804,7 @@ Male & 1376 (98\%)& 26 (2\%)& 1402 \\
 Female & 85 (5\%) & 1673 (95\%) & 1758 \\
 \hline
 \end{tabular}
-%}
+}
 \label{tab:optFeat}
 \end{table}
 
